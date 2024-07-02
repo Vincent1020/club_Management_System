@@ -13,7 +13,18 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+<<<<<<< HEAD
         <RouterLink to="/StudentHome">StudentHome學生首頁</RouterLink>
+=======
+<<<<<<< Updated upstream
+=======
+        <RouterLink to="/StudentHome">StudentHome學生首頁</RouterLink>
+        <RouterLink to="/adminHomepage">adminHomepage</RouterLink>
+        <RouterLink to="/login">login</RouterLink>
+        <RouterLink to="/teacherHomepage">teacherHomepage</RouterLink>
+
+>>>>>>> Stashed changes
+>>>>>>> Xavier
       </nav>
     </div>
   </header>
