@@ -6,10 +6,10 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/StudentHome">StudentHome學生首頁</RouterLink>
-        <RouterLink to="/adminHomepage">adminHomepage</RouterLink>
-        <RouterLink to="/login">login</RouterLink>
+        <RouterLink to="/">Home&nbsp;&nbsp;&nbsp;</RouterLink>
+        <RouterLink to="/StudentHome">StudentHome學生首頁&nbsp;&nbsp;&nbsp;</RouterLink>
+        <RouterLink to="/adminHomepage">adminHomepage&nbsp;&nbsp;&nbsp;</RouterLink>
+        <RouterLink to="/login">login&nbsp;&nbsp;&nbsp;</RouterLink>
         <RouterLink to="/teacherHomepage">teacherHomepage</RouterLink>
 
       </nav>
@@ -22,6 +22,14 @@ import { RouterLink, RouterView } from 'vue-router'
 .wrapper {
 
   position: fixed;
+  top:0;
+  left:0;
   z-index: 2;
+  color: yellowgreen;
+  .RouterLink{
+    padding: 10px;
+    
+  }
+
 }
 </style>

@@ -1,14 +1,14 @@
 <script setup>
+import loginScreen from '@/components/loginScreen.vue'
+
+
 
 </script>
 
 <template>
-    <div class="center">
-
-
-        
-</div>
-
+    <loginScreen/>
+    
+  
 </template>
 
 <style>
