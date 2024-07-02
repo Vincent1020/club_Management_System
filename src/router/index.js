@@ -9,22 +9,10 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Xavier
-    },
+   
     {
       path: '/StudentHome',
       name: 'StudentHome',
-<<<<<<< HEAD
-      component: () => import('../views/StudentHome.vue')
-=======
       component: () => import('../views/Student/StudentHome.vue') 
     },
     {
@@ -41,8 +29,7 @@ const router = createRouter({
       path: '/teacherHomepage',
       name: 'teacherHomepage',
       component: () => import('../views/teacher/teacherHomepage.vue') 
->>>>>>> Stashed changes
->>>>>>> Xavier
+
     }
   ]
 })
