@@ -1,18 +1,23 @@
 <template>
   <div class="student-home">
+    <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
       <h1>首頁</h1>
       <nav class="nav">
+        <!-- 帳號管理連結 -->
         <router-link to="/account-management">帳號管理</router-link>
+        <!-- 當前頁面指示 -->
         <span class="current-interface">學生介面</span>
       </nav>
-      <!--  <nav> 元素代表一個網頁中提供導航欄連結的區域 -->
-      
     </header>
 
+    <!-- 主內容區域 -->
     <main class="main-content">
+      <!-- 社團介紹連結 -->
       <router-link to="/club-introduction" class="option">社團介紹</router-link>
+      <!-- 社團志願連結 -->
       <router-link to="/club-volunteer" class="option">社團志願</router-link>
+      <!-- 抽籤結果連結 -->
       <router-link to="/lottery-results" class="option">抽籤結果</router-link>
     </main>
   </div>
@@ -26,81 +31,82 @@ export default {
 
 <style scoped>
 .student-home {
-  text-align: center;
-  font-family: Arial, sans-serif;
+  text-align: center; /* 文字置中 */
+  font-family: Arial, sans-serif; /* 設置字體 */
 
   .header {
-    background-color: #87CEEB;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
+    background-color: #87CEEB; /* 背景顏色 */
+    padding: 10px; /* 內邊距 */
+    display: flex; /* 使用 flex 布局 */
+    justify-content: space-between; /* 兩端對齊 */
+    align-items: center; /* 垂直置中 */
+    color: white; /* 文字顏色 */
 
     .nav {
-      display: flex;
-      gap: 20px;
+      display: flex; /* 使用 flex 布局 */
+      gap: 20px; /* 元素間距 */
 
       a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
+        color: white; /* 連結文字顏色 */
+        text-decoration: none; /* 去除下劃線 */
+        font-size: 18px; /* 字體大小 */
 
         &:hover {
-          text-decoration: underline;
+          text-decoration: underline; /* 懸停效果 */
         }
       }
 
       .current-interface {
-        position: relative;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
+        position: relative; /* 相對定位 */
+        font-size: 18px; /* 字體大小 */
+        font-weight: bold; /* 字體加粗 */
+        color: white; /* 文字顏色 */
       }
 
       .current-interface::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
+        content: ""; /* 內容為空 */
+        position: absolute; /* 絕對定位 */
+        bottom: -5px; /* 底部距離 */
         left: 0;
         right: 0;
-        height: 2px;
-        background-color: white;
-        animation: blink 1.5s infinite;
+        height: 2px; /* 高度 */
+        background-color: white; /* 背景顏色 */
+        animation: blink 1.5s infinite; /* 應用 blink 動畫 */
       }
     }
   }
 
-  @keyframes blink {
+  /* @keyframes blink 動畫效果 */
+  @keyframes blink { 
     0%, 100% {
-      opacity: 1;
+      opacity: 1; /* 完全不透明 */
     }
     50% {
-      opacity: 0.5;
+      opacity: 0.5; /* 半透明 */
     }
   }
 
   .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* 使用 flex 布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
     height: calc(100vh - 50px); /* 減去 header 的高度 */
-    gap: 20px;
-    background-color: #D3D3D3;
+    gap: 20px; /* 元素間距 */
+    background-color: #D3D3D3; /* 背景顏色 */
 
     .option {
-      background-color: #F5F5F5;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-decoration: none;
-      color: black;
-      font-size: 24px;
-      transition: background-color 0.3s, transform 0.3s;
+      background-color: #F5F5F5; /* 背景顏色 */
+      padding: 20px 30px; /* 內邊距 */
+      border-radius: 10px; /* 圓角 */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 陰影 */
+      text-decoration: none; /* 去除下劃線 */
+      color: black; /* 文字顏色 */
+      font-size: 24px; /* 字體大小 */
+      transition: background-color 0.3s, transform 0.3s; /* 過渡效果 */
 
       &:hover {
-        background-color: #e0e0e0;
-        transform: translateY(-5px);
+        background-color: #e0e0e0; /* 懸停背景顏色 */
+        transform: translateY(-5px); /* 懸停位移 */
       }
     }
   }
