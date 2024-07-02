@@ -13,6 +13,14 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+<<<<<<< Updated upstream
+=======
+        <RouterLink to="/StudentHome">StudentHome學生首頁</RouterLink>
+        <RouterLink to="/adminHomepage">adminHomepage</RouterLink>
+        <RouterLink to="/login">login</RouterLink>
+        <RouterLink to="/teacherHomepage">teacherHomepage</RouterLink>
+
+>>>>>>> Stashed changes
       </nav>
     </div>
   </header>
