@@ -10,116 +10,27 @@
         <span class="current-interface">學生介面</span>
       </nav>
     </header>
+</div>
 
-
-
-    <div class="m-4">
-      <p>default</p>
-      <el-select
-        v-model="value1"
-        multiple
-        placeholder="Select"
-        style="width: 240px"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-    </div>
-    <div class="m-4">
-      <p>use collapse-tags</p>
-      <el-select
-        v-model="value2"
-        multiple
-        collapse-tags
-        placeholder="Select"
-        style="width: 240px"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-    </div>
-    <div class="m-4">
-      <p>use collapse-tags-tooltip</p>
-      <el-select
-        v-model="value3"
-        multiple
-        collapse-tags
-        collapse-tags-tooltip
-        placeholder="Select"
-        style="width: 240px"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-    </div>
-    <div class="m-4">
-      <p>use max-collapse-tags</p>
-      <el-select
-        v-model="value4"
-        multiple
-        collapse-tags
-        collapse-tags-tooltip
-        :max-collapse-tags="3"
-        placeholder="Select"
-        style="width: 240px"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-    </div>
   </template>
   
-  <script lang="ts" setup>
-  import { ref } from 'vue'
-  
-  const value1 = ref([])
-  const value2 = ref([])
-  const value3 = ref([])
-  const value4 = ref([])
-  const options = [
-    {
-      value: 'Option1',
-      label: 'Option1',
-    },
-    {
-      value: 'Option2',
-      label: 'Option2',
-    },
-    {
-      value: 'Option3',
-      label: 'Option3',
-    },
-    {
-      value: 'Option4',
-      label: 'Option4',
-    },
-    {
-      value: 'Option5',
-      label: 'Option5',
-    },
-  ]
+
+
+  <script setup>
+
   </script>
 
-  <style scoped>
-  .student-home {
+
+
+<style scoped lang= scss>
+ .student-home {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /* 設置字體 */
+  height: 100vh; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
 
   .header {
     background-color: #87CEEB; /* 背景顏色 */
@@ -132,8 +43,37 @@
     .nav {
       display: flex; /* 使用 flex 布局 */
       gap: 20px; /* 元素間距 */
+
+      a {
+        color: white; /* 連結文字顏色 */
+        text-decoration: none; /* 去除下劃線 */
+        font-size: 18px; /* 字體大小 */
+
+        &:hover {
+          text-decoration: underline; /* 懸停效果 */
+        }
+      }
+
+      .current-interface {
+        position: relative; /* 相對定位 */
+        font-size: 18px; /* 字體大小 */
+        font-weight: bold; /* 字體加粗 */
+        color: white; /* 文字顏色 */
+      }
+
+      .current-interface::after {
+        content: ""; /* 內容為空 */
+        position: absolute; /* 絕對定位 */
+        bottom: -5px; /* 底部距離 */
+        left: 0;
+        right: 0;
+        height: 2px; /* 高度 */
+        background-color: white; /* 背景顏色 */
+        animation: blink 1.5s infinite; /* 應用 blink 動畫 */
+      }
     }
-}
-}
+  }
+ }
+
   </style>
   

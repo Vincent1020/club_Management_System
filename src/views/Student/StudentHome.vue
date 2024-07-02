@@ -29,10 +29,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .student-home {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /* 設置字體 */
+  height: 100vh; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
 
   .header {
     background-color: #87CEEB; /* 背景顏色 */
@@ -86,13 +91,14 @@ export default {
     }
   }
 
-  .main-content {
+  .main-content { /* 就是灰灰的地方，主內容區 */
+    flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; /* 使用 flex 布局 */
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
-    height: calc(100vh - 50px); /* 減去 header 的高度 */
     gap: 20px; /* 元素間距 */
     background-color: #D3D3D3; /* 背景顏色 */
+    width: 100%;
 
     .option {
       background-color: #F5F5F5; /* 背景顏色 */
@@ -105,8 +111,8 @@ export default {
       transition: background-color 0.3s, transform 0.3s; /* 過渡效果 */
 
       &:hover {
-        background-color: #e0e0e0; /* 懸停背景顏色 */
-        transform: translateY(-5px); /* 懸停位移 */
+        background-color: #f40a0a; /* 懸停背景顏色 */
+        transform: translateY(-5px); /* 懸停位移 ，就是往上位移*/
       }
     }
   }
