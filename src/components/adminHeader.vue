@@ -3,12 +3,6 @@
 </script>
 
 <template>
-<<<<<<< HEAD
-
-</template>
-
-<style>
-=======
     <div class="above">
 <a href="../views/admin/aHomepage.vue">管理者介面</a>
 
@@ -25,6 +19,5 @@
 <style>
 .side{
 }
->>>>>>> Xavier
 
 </style>
