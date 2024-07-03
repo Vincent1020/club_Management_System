@@ -36,9 +36,9 @@ const router = createRouter({
       component: () => import('../views/Login/Verify.vue')
     },
     {
-      path: '/TeacherHomepage',
-      name: 'TeacherHomepage',
-      component: () => import('../views/Teacher/TeacherHomepage.vue')
+      path: '/TeacherHome',
+      name: 'TeacherHome',
+      component: () => import('../views/Teacher/TeacherHome.vue')
     },
     {
       path: '/ClubIntroduction',
@@ -54,6 +54,21 @@ const router = createRouter({
       path: '/LotteryResults',
       name: 'LotteryResults',
       component: () => import('../views/Student/LotteryResults.vue')
+    },
+    {
+      path: '/CreateClub',
+      name: 'CreateClub',
+      component: () => import('../views/Teacher/CreateClub.vue') 
+    },
+    {
+      path:'/StudentManage',
+      name:'StudentManage',
+      component: () => import('../views/Teacher/StudentManage.vue') 
+    },
+    {
+      path:'/ApplicationItem',
+      name:'ApplicationItem',
+      component: () => import('../views/Teacher/ApplicationItem.vue') 
     }
   ]
 })

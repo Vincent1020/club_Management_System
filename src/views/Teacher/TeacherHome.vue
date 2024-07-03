@@ -18,12 +18,10 @@
 
     <!-- 主內容區域 -->
     <main class="main-content">
-      <!-- 社團介紹連結 -->
-      <router-link class="option" to="/CreateClub">創建社團</router-link>
+      
       <!-- 社團志願連結 -->
       <router-link class="option" to="/StudentManage">管理學生</router-link>
-      <!-- 抽籤結果連結 -->
-      <router-link class="option" to="/ApplicationItem">申請項目</router-link>
+      
     </main>
   </div>
 </template>
