@@ -38,38 +38,22 @@ const router = createRouter({
     {
       path: '/TeacherHomepage',
       name: 'TeacherHomepage',
-<<<<<<< HEAD
-      component: () => import('../views/Teacher/TeacherHomepage.vue') 
-=======
       component: () => import('../views/Teacher/TeacherHomepage.vue')
->>>>>>> Xavier
     },
     {
       path: '/ClubIntroduction',
       name: 'ClubIntroduction',
-<<<<<<< HEAD
-      component: () => import('../views/Student/ClubIntroduction.vue') 
-=======
       component: () => import('../views/Student/ClubIntroduction.vue')
->>>>>>> Xavier
     },
     {
       path: '/ClubSelection',
       name: 'ClubSelection',
-<<<<<<< HEAD
-      component: () => import('../views/Student/ClubSelection.vue') 
-=======
       component: () => import('../views/Student/ClubSelection.vue')
->>>>>>> Xavier
     },
     {
       path: '/LotteryResults',
       name: 'LotteryResults',
-<<<<<<< HEAD
-      component: () => import('../views/Student/LotteryResults.vue') 
-=======
       component: () => import('../views/Student/LotteryResults.vue')
->>>>>>> Xavier
     }
   ]
 })
