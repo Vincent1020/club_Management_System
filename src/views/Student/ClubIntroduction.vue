@@ -2,8 +2,7 @@
     <div>
       <h1>社團介紹</h1>
       <p>這是社團介紹頁面。</p>
-      <a href="./StudentHome.vue">首頁</a>
-     
+      
     </div>
 
 
@@ -13,10 +12,10 @@
     <el-card :body-style="{ padding: '0px' }">
       <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
       <div style="padding: 14px;">
-        <span>好吃的汉堡</span>
+        <span>美食社</span>
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
+          <el-button type="text" class="button">瞭解更多</el-button>
         </div>
       </div>
     </el-card>
@@ -41,7 +40,7 @@
 
 
 .one{
-  width: 50%;
+  width: 100%;
 }
   .time {
     font-size: 13px;

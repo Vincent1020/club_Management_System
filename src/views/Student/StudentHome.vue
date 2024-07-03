@@ -14,11 +14,11 @@
     <!-- 主內容區域 -->
     <main class="main-content">
       <!-- 社團介紹連結 -->
-      <router-link to="/club-introduction" class="option">社團介紹</router-link>
+      <router-link class="option" to="/ClubIntroduction">社團介紹</router-link>
       <!-- 社團志願連結 -->
-      <router-link to="/club-volunteer" class="option">社團志願</router-link>
+      <router-link class="option" to="/ClubSelection">社團志願</router-link>
       <!-- 抽籤結果連結 -->
-      <router-link to="/lottery-results" class="option">抽籤結果</router-link>
+      <router-link class="option" to="/LotteryResults">抽籤結果</router-link>
     </main>
   </div>
 </template>
