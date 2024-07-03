@@ -8,7 +8,8 @@
         <h1>請輸入Email</h1>
         <input type="text">
     </div>
-    <input type="button" @click="" value="ForgotPassword">
+    <input type="button" @click="" value="verify">
+    <input type="button" @click="" value="verify">
 
 </div>
 </template>

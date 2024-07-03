@@ -7,7 +7,7 @@ let loginResponse = ref({})
 let errmsg = ref(null)
 const loginRequest = () => {
 
-    if(account.value||password.value){
+    if (!account.value || !password.value) {
         errmsg.value = "帳號、密碼不得為空"
         return
     }
@@ -22,7 +22,7 @@ const loginRequest = () => {
         .then(res => res.json())
         .then(data => {
             loginResponse.value = data
-            console.log(data)   
+            console.log(data)
         })
         .catch(err => { console.log(err) })
 }
@@ -53,12 +53,14 @@ const loginRequest = () => {
                 <input type="text" v-model="password">
             </div>
             <p>{{ errmsg }}</p>
-
+            
         </div>
 
         <!-- 功能選項 -->
         <div class="function">
-            <input type="button" onclick='location.href=("verify")' value="ForgotPassword">
+          
+                <input type="button" onclick="location.href='/login/verify'"value="ForgotPassword">
+           
             <input type="button" @click="loginRequest" value="Login">
         </div>
 
@@ -91,6 +93,7 @@ const loginRequest = () => {
             }
         }
     }
+
     // 帳密輸入框
     .userLogintInput {
         margin-top: 6vh;
@@ -112,7 +115,7 @@ const loginRequest = () => {
             justify-content: center;
         }
     }
-
+    // 功能選項
     .function {
         margin: 2vw;
         display: flex;
@@ -120,7 +123,7 @@ const loginRequest = () => {
 
         input {
             margin-right: 3%;
-            font-size: 20px;
+            font-size: 20px;    
 
             &:hover {
                 cursor: pointer;
