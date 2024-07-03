@@ -5,8 +5,20 @@
       
     </div>
 
+<div class="one">
+    <el-carousel height="150px">
+      <el-carousel-item v-for="item in 4" :key="item">
+        <img :src="item" alt="">
+      </el-carousel-item>
+    </el-carousel>
+</div>
 
-    <div class="one">
+
+
+
+
+
+    <div class="two">
     <el-row>
   <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '0px' }">
@@ -27,10 +39,18 @@
   </template>
   
   <script>
+
   export default {
+
   data() {
     return {
-      currentDate: new Date()
+      currentDate: new Date(),
+      carousel:[
+      require('@/assets/imgs/club1.jpg'),
+      require('@/assets/imgs/club2.jpg')
+        
+      ]
+
     };
   }
   }
@@ -39,7 +59,7 @@
   <style scoped>
 
 
-.one{
+.two{
   width: 50%;
 }
   .time {
