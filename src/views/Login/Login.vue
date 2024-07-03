@@ -1,7 +1,31 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+let account = ref("")
+let password = ref("")
+let loginResponse = ref({})
+let errmsg = ref(null)
+const loginRequest = () => {
 
+    if (!account.value || !password.value) {
+        errmsg.value = "帳號、密碼不得為空"
+        return
+    }
+
+    fetch("http://localhost:8080/quiz/create_update", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(account.value)
+    })
+        .then(res => res.json())
+        .then(data => {
+            loginResponse.value = data
+            console.log(data)
+        })
+        .catch(err => { console.log(err) })
+}
 
 
 
@@ -21,21 +45,23 @@ import { ref, onMounted } from 'vue'
 
             <div class="account user">
                 <h1>帳號</h1>
-                <input type="text" placeholder="A123">
+                <input type="text" v-model="account" placeholder="A123">
             </div>
 
             <div class="password user">
                 <h1>密碼</h1>
-                <input type="text">
+                <input type="text" v-model="password">
             </div>
-
-
+            <p>{{ errmsg }}</p>
+            
         </div>
 
         <!-- 功能選項 -->
         <div class="function">
-            <input type="button" value="ForgotPassword">
-            <input type="button" value="Login">
+          
+                <input type="button" onclick="location.href='/login/verify'"value="ForgotPassword">
+           
+            <input type="button" @click="loginRequest" value="Login">
         </div>
 
     </div>
@@ -57,6 +83,7 @@ import { ref, onMounted } from 'vue'
         display: flex;
         justify-content: space-around;
 
+        // 學生or老師登入按鈕
         button {
             width: 50%;
 
@@ -67,11 +94,12 @@ import { ref, onMounted } from 'vue'
         }
     }
 
+    // 帳密輸入框
     .userLogintInput {
-        margin-top: 7vh;
+        margin-top: 6vh;
 
         .user {
-            margin-top: 6vh;
+            margin-top: 5vh;
 
             h1 {
                 margin-right: 5vw;
@@ -87,14 +115,17 @@ import { ref, onMounted } from 'vue'
             justify-content: center;
         }
     }
-    .function{
+    // 功能選項
+    .function {
         margin: 2vw;
         display: flex;
         justify-content: flex-end;
-        input{
-            margin-right:3% ;
-            font-size: 20px;
-            &:hover{
+
+        input {
+            margin-right: 3%;
+            font-size: 20px;    
+
+            &:hover {
                 cursor: pointer;
             }
         }

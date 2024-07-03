@@ -25,7 +25,11 @@
 
 <script>
 export default {
-  name: 'StudentHome'
+  name: 'StudentHome',
+  mounted(){
+    let a = '';
+    console.log(!a);
+  }
 };
 </script>
 
