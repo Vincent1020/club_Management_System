@@ -26,9 +26,34 @@ const router = createRouter({
       component: () => import('../views/Login/Login.vue') 
     },
     {
+      path: '/ForgotPassword',
+      name: 'ForgotPassword',
+      component: () => import('../views/Login/ForgotPassword.vue') 
+    },
+    {
+      path: '/verify',
+      name: 'verify',
+      component: () => import('../views/Login/verify.vue') 
+    },
+    {
       path: '/TeacherHomepage',
       name: 'TeacherHomepage',
       component: () => import('../views/Teacher/TeacherHomepage.vue') 
+    },
+    {
+      path: '/ClubIntroduction',
+      name: 'ClubIntroduction',
+      component: () => import('../views/Student/ClubIntroduction.vue') 
+    },
+    {
+      path: '/ClubSelection',
+      name: 'ClubSelection',
+      component: () => import('../views/Student/ClubSelection.vue') 
+    },
+    {
+      path: '/LotteryResults',
+      name: 'LotteryResults',
+      component: () => import('../views/Student/LotteryResults.vue') 
     }
   ]
 })
