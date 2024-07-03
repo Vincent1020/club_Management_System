@@ -20,12 +20,12 @@ import { ref, onMounted } from 'vue'
         <div class="userLogintInput">
 
             <div class="account user">
-                <h2>帳號</h2>
+                <h1>帳號</h1>
                 <input type="text" placeholder="A123">
             </div>
 
             <div class="password user">
-                <h2>密碼</h2>
+                <h1>密碼</h1>
                 <input type="text">
             </div>
 
@@ -34,8 +34,8 @@ import { ref, onMounted } from 'vue'
 
         <!-- 功能選項 -->
         <div class="function">
-            <input type="button" value="forgotPassword">
-            <input type="button" value="login">
+            <input type="button" value="ForgotPassword">
+            <input type="button" value="Login">
         </div>
 
     </div>
@@ -73,7 +73,7 @@ import { ref, onMounted } from 'vue'
         .user {
             margin-top: 6vh;
 
-            h2 {
+            h1 {
                 margin-right: 5vw;
             }
 
@@ -92,8 +92,8 @@ import { ref, onMounted } from 'vue'
         display: flex;
         justify-content: flex-end;
         input{
-            margin: 1vw;
-            font-size: 16px;
+            margin-right:3% ;
+            font-size: 20px;
             &:hover{
                 cursor: pointer;
             }
