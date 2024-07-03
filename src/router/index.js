@@ -29,6 +29,21 @@ const router = createRouter({
       path: '/TeacherHomepage',
       name: 'TeacherHomepage',
       component: () => import('../views/Teacher/TeacherHomepage.vue') 
+    },
+    {
+      path: '/ClubIntroduction',
+      name: 'ClubIntroduction',
+      component: () => import('../views/Student/ClubIntroduction.vue') 
+    },
+    {
+      path: '/ClubSelection',
+      name: 'ClubSelection',
+      component: () => import('../views/Student/ClubSelection.vue') 
+    },
+    {
+      path: '/LotteryResults',
+      name: 'LotteryResults',
+      component: () => import('../views/Student/LotteryResults.vue') 
     }
   ]
 })
