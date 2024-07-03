@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     submitForm() {
-      // 在此處添加表單提交邏輯
+      // 在此處添加表單提交邏輯，但應該不用了
       alert(`提交成功！您的選擇是：第一志願：${this.firstChoice}，第二志願：${this.secondChoice}，第三志願：${this.thirdChoice}`);
     }
   }
@@ -113,7 +113,8 @@ export default {
     }
   }
 
-  /* @keyframes blink 動畫效果 */
+  
+  /* @keyframes blink 動畫效果，就是顯示現在位於學生介面的動畫效果 */
   @keyframes blink {
     0%, 100% {
       opacity: 1; /* 完全不透明 */
@@ -124,7 +125,7 @@ export default {
   }
 
   .main-content {
-    flex: 1; /* 使主內容區域填滿剩餘空間 */
+    flex: 1; /* flex: 1，意思是使主內容區域填滿剩餘空間 */
     display: flex; /* 使用 flex 布局 */
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */

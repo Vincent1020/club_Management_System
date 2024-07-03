@@ -1,3 +1,8 @@
+<script setup>
+
+</script>
+
+
 <template>
   <div class="student-home">
     <!-- 頁面頭部，包括標題和導航欄 -->
@@ -7,27 +12,23 @@
         <!-- 帳號管理連結 -->
         <router-link to="/account-management">帳號管理</router-link>
         <!-- 當前頁面指示 -->
-        <span class="current-interface">學生介面</span>
+        <span class="current-interface">老師介面</span>
       </nav>
     </header>
 
     <!-- 主內容區域 -->
     <main class="main-content">
       <!-- 社團介紹連結 -->
-      <router-link class="option" to="/ClubIntroduction">社團介紹</router-link>
+      <router-link class="option" to="/CreateClub">創建社團</router-link>
       <!-- 社團志願連結 -->
-      <router-link class="option" to="/ClubSelection">社團志願</router-link>
+      <router-link class="option" to="/StudentManage">管理學生</router-link>
       <!-- 抽籤結果連結 -->
-      <router-link class="option" to="/LotteryResults">抽籤結果</router-link>
+      <router-link class="option" to="/ApplicationItem">申請項目</router-link>
     </main>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'StudentHome'
-};
-</script>
+
 
 <style scoped lang="scss">
 .student-home {
@@ -119,3 +120,5 @@ export default {
   }
 }
 </style>
+
+
