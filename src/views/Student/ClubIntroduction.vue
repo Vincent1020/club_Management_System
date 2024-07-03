@@ -40,7 +40,7 @@
 
 
 .one{
-  width: 100%;
+  width: 50%;
 }
   .time {
     font-size: 13px;
