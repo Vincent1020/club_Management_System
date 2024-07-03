@@ -16,19 +16,19 @@ const router = createRouter({
       component: () => import('../views/Student/StudentHome.vue') 
     },
     {
-      path: '/adminHomepage',
-      name: 'adminHomepage',
-      component: () => import('../views/admin/AdminHomepage.vue') 
+      path: '/AdminHomepage',
+      name: 'AdminHomepage',
+      component: () => import('../views/Admin/AdminHomepage.vue') 
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/login/login.vue') 
+      path: '/Login',
+      name: 'Login',
+      component: () => import('../views/Login/Login.vue') 
     },
     {
-      path: '/teacherHomepage',
-      name: 'teacherHomepage',
-      component: () => import('../views/teacher/teacherHomepage.vue') 
+      path: '/TeacherHomepage',
+      name: 'TeacherHomepage',
+      component: () => import('../views/Teacher/TeacherHomepage.vue') 
     }
   ]
 })
