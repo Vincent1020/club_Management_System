@@ -1,10 +1,10 @@
-<script setup>
+<script>
 
 </script>
 
 
 <template>
-  <div class="student-home">
+  <div class="teacher-home">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
       <h1>首頁</h1>
@@ -21,6 +21,7 @@
       
       <!-- 社團志願連結 -->
       <router-link class="option" to="/StudentManage">管理學生</router-link>
+      <router-link class="option" to="/CreateClub">創立社團</router-link>
       
     </main>
   </div>
@@ -29,7 +30,7 @@
 
 
 <style scoped lang="scss">
-.student-home {
+.teacher-home {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /* 設置字體 */
   height: 100vh; 
@@ -53,7 +54,7 @@
       a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-        font-size: 18px; /* 字體大小 */
+        font-size: 18px; 
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */

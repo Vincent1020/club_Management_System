@@ -32,6 +32,7 @@ const loginRequest = () => {
 </script>
 
 <template>
+   
     <div class="center">
 
         <!-- 學生or老師登入選項 -->
@@ -66,9 +67,11 @@ const loginRequest = () => {
 
     </div>
 
+
 </template>
 
 <style scoped lang="scss">
+ 
 .center {
     width: 40vw;
     height: 50vh;
@@ -131,4 +134,5 @@ const loginRequest = () => {
         }
     }
 }
+
 </style>
