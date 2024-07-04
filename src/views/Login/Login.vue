@@ -5,6 +5,7 @@ let account = ref("")
 let password = ref("")
 let loginResponse = ref({})
 let errmsg = ref(null)
+// sessionStorage.setItem('account', JSON.stringify(this.questionList));
 const loginRequest = () => {
 
     if (!account.value || !password.value) {
@@ -45,23 +46,26 @@ const loginRequest = () => {
 
             <div class="account user">
                 <h1>帳號</h1>
-                <input type="text" v-model="account" placeholder="A123">
+                <input type="text" v-model="account" placeholder="A123"required>
             </div>
 
             <div class="password user">
                 <h1>密碼</h1>
-                <input type="text" v-model="password">
+                <input type="text" v-model="password" required>
             </div>
             <p>{{ errmsg }}</p>
-            
+
         </div>
 
         <!-- 功能選項 -->
         <div class="function">
-          
-                <input type="button" onclick="location.href='/login/verify'"value="ForgotPassword">
-           
+
+            <input type="button" onclick="location.href='/login/verify'" value="ForgotPassword">
+
             <input type="button" @click="loginRequest" value="Login">
+
+            <!-- 暫放 完成後移除 -->
+             <a href="/login/forgotpassword">Forgotpassword</a>
         </div>
 
     </div>
@@ -96,25 +100,34 @@ const loginRequest = () => {
 
     // 帳密輸入框
     .userLogintInput {
+        height: 40%;
         margin-top: 6vh;
+        color: black;
 
         .user {
-            margin-top: 5vh;
+            display: flex;
+            justify-content: center;
+            margin-top: 4vh;
 
             h1 {
                 margin-right: 5vw;
             }
 
             input {
-                font-size: 16px;
+                font-size: 20px;
                 width: 20vw;
             }
+           
+        }
 
-            color: black;
-            display: flex;
-            justify-content: center;
+        p {
+            color: red;
+            font-size: 20px;
+           margin-left: 20vw;
+           
         }
     }
+
     // 功能選項
     .function {
         margin: 2vw;
@@ -123,7 +136,7 @@ const loginRequest = () => {
 
         input {
             margin-right: 3%;
-            font-size: 20px;    
+            font-size: 20px;
 
             &:hover {
                 cursor: pointer;
