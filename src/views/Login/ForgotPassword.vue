@@ -18,7 +18,8 @@ function reset (){
 </script>
 
 <template>
-
+ <body>
+    
     <div class="center">
         <!-- 輸入密碼 -->
         <div class="pwd1 pw">
@@ -42,9 +43,11 @@ function reset (){
 
 
     </div>
+    </body>
 </template>
 
 <style scoped lang="scss">
+body{width: 100%;height: 100%;position: relative;background-color: #cce3f5}
 .center {
     width: 40vw;
     height: 50vh;
@@ -62,7 +65,7 @@ function reset (){
     .pw{
 
         width: 60%;
-        height: 40%;
+        height: 35%;
         input{
             font-size: 20px;
             margin-top: 1vh;
@@ -82,11 +85,14 @@ function reset (){
   }
     
     .function{
+     
         margin-top: 2vh;
-        margin-left: 28vw;
+        margin-left: 22vw;
         input{
+            width: 12vw;
+            height: 6vh; 
             font-size: 20px;    
-            height: 4vh;    
+               
         }
     }
    

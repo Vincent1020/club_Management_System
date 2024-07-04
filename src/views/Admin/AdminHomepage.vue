@@ -1,11 +1,15 @@
 <script setup>
+import adminHeader from '@/components/adminHeader.vue'
+
 
 </script>
 
 <template>
+<adminHeader/>
+
 
 </template>
 
-<style>
+<style scoped lang="scss">
 
 </style>

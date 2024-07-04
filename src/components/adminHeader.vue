@@ -17,7 +17,21 @@
 </template>
 
 <style>
+.above{
+    background-color:rgb(118, 181, 230) ;
+    width: 100vw;
+    height: 15vh;
+    display: flex;
+    justify-content: flex-end;
+    a{
+        margin: 2vw;
+        font-size: 25px;
+    }
+}
 .side{
+    background-color: aliceblue;
+    width: 15vw;
+    height: 85vh;
 }
 
 </style>

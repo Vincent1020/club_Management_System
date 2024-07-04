@@ -33,10 +33,14 @@ const loginRequest = () => {
 </script>
 
 <template>
+    <body>
+        
+    
     <div class="center">
 
         <!-- 學生or老師登入選項 -->
         <div class="userLoginChoose">
+        
             <button>學生登入</button>
             <button>老師登入</button>
         </div>
@@ -51,7 +55,7 @@ const loginRequest = () => {
 
             <div class="password user">
                 <h1>密碼</h1>
-                <input type="text" v-model="password" required>
+                <input type="password" v-model="password" required>
             </div>
             <p>{{ errmsg }}</p>
 
@@ -69,10 +73,11 @@ const loginRequest = () => {
         </div>
 
     </div>
-
+</body>
 </template>
 
 <style scoped lang="scss">
+body{width: 100%;height: 100%;position: relative;background-color: #cce3f5}
 .center {
     width: 40vw;
     height: 50vh;
@@ -90,9 +95,9 @@ const loginRequest = () => {
         // 學生or老師登入按鈕
         button {
             width: 50%;
-
+            font-size: 26px;
             &:hover {
-                background-color: rgb(132, 219, 190);
+                background-color: rgb(170, 226, 208);
                 cursor: pointer;
             }
         }
@@ -130,11 +135,13 @@ const loginRequest = () => {
 
     // 功能選項
     .function {
-        margin: 2vw;
+        margin: 1vw;
         display: flex;
         justify-content: flex-end;
 
         input {
+            height: 6vh;
+            width: 12vw;
             margin-right: 3%;
             font-size: 20px;
 
