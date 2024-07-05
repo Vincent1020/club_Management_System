@@ -1,34 +1,58 @@
-<template>
-  <div class="LotteryResults">
+
+  <template>
+  <div class="create-club">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>抽籤結果</h1>
+      <h1>創建社團</h1>
       <nav class="nav">
         <!-- 帳號管理連結 -->
         <router-link to="/account-management">帳號管理</router-link>
         <!-- 當前頁面指示 -->
-        <span class="current-interface">學生介面</span>
+        <span class="current-interface">老師介面</span>
       </nav>
     </header>
-  
-  <main class="main-content">
+
+    <!-- 主內容區域 -->
+    <main class="main-content">
+
+      <form action="" method="" > <!-- 這裡你method=""若沒寫，預設會是GET，所以還是寫一嚇post比較好 -->
+        <fieldset> <!--    外圍框架 -->
+            <legend>創建社團頁面: 請輸入問卷內容</legend> <!--    表單標題 -->
+            <h1>創建社團</h1>
+        <label for="name">名稱: </label>
+        <input id="name" type="text" name="InputName" placeholder="請輸入社團名車" size="50" required><!-- required 必填 -->
+        <br><!--  用來強制換行元素 -->
+        <br>
+        <label>介紹: </label>
+        <input type="text" name="clubintroduction" placeholder="請輸入介紹" size="50" required>
+        <br>
+        <br>
+        <label>費用: </label>
+        <input type="text" name="clubfees" placeholder="請輸入費用" size="50" required>
+        <br>
+        <br>
+        <label>上課資訊: </label>
+        <input type="text" name="clubinformation" placeholder="請輸入上課資訊" size="50" required>
+       
+        </fieldset>
+
+        <button type="subit">提交社團申請表單</button>
+</form>
 
     </main>
-
-</div>
-
-
+  </div>
 </template>
+
+
 
 <script>
 export default {
-
-}
+    
+  }
 </script>
 
 <style scoped lang="scss">
-
-.LotteryResults {
+.create-club {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /* GPT給我的字體，我也不知這是什麼字體 */
   height: 100vh; 
@@ -89,10 +113,9 @@ export default {
     50% {
       opacity: 0.5; /* 半透明 */
     }
-  }
+  }  
 
-
-  .main-content { /* 就是我灰灰的地方，主內容區 */
+    .main-content { /* 就是我灰灰的地方，主內容區 */
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; 
     justify-content: center; /* 設水平居中 */
@@ -101,4 +124,5 @@ export default {
     background-color: #D3D3D3; 
     width: 100%;
   }
+
 </style>

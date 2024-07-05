@@ -99,7 +99,7 @@ export default {
     justify-content: center; /* 設水平居中 */
     align-items: center; /* 社垂直居中 */
     gap: 8%; /* 調整元素間距用的，如果你內容沒東西，應該是用不到，就把這個刪了 */
-    background-color: #D3D3D3; 
+    background-color: #e3e1e1; 
     width: 100%;
   
 

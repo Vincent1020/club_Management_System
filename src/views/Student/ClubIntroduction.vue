@@ -55,7 +55,7 @@ export default {
         { image: 'https://ch-image-resizer.cwg.tw/resize/uri/https%3A%2F%2Fas.chdev.tw%2Fclub%2Factivity_slider%2F202405%2Factivity_slider-663e1a2695238.jpg/?w=621', text: '古典社!' },
         { image: 'https://fbgroup.com.tw/wp-content/uploads/2020/09/%E4%BA%92%E5%8B%95%E6%96%87%E7%AB%A0_%E5%B7%A5%E4%BD%9C%E5%8D%80%E5%9F%9F-1-%E8%A4%87%E6%9C%AC.jpg', text: '增加社團經驗!' },
         { image: 'https://i0.wp.com/blog.luckertw.com/wp-content/uploads/2023/08/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2%E8%A3%BD%E5%9C%96-3.jpg?fit=1920%2C1080&ssl=1', text: '增加社團經驗!' },
-        { image: 'https://miro.medium.com/v2/resize:fit:1400/1*3Ciz2D1Aih1BnPrcC3tIaQ.png', text: '增加社團經驗!' },
+        { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/09/1167%E6%9C%9F%E6%A1%83%E5%9C%92%E7%A4%BE%E5%8D%9A%E9%9B%BB%E5%AD%90%E5%A0%B1%E9%85%8D%E5%9C%96.jpg', text: '社團博覽會' },
       ],
       // Element UI 的卡片項目
       cards: [
