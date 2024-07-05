@@ -92,7 +92,7 @@ body{width: 100%;height: 100%;position: relative;background-color: #cce3f5}
             width: 12vw;
             height: 6vh; 
             font-size: 20px;    
-               
+            border-radius: 10px;
         }
     }
    

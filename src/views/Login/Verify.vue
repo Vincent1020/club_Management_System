@@ -13,13 +13,26 @@ let email = ref("")
 
 let emailres = ref({})
 
+let mode = ref(true)
+// true = 學生 false = 教師
+
+function changeMode(bool) {
+    mode.value = bool
+}
+
 function verify() {
+    let fetchWeb = "http://localhost:8080/quiz/create_update/{}";
+    if(mode.value == false){
+        fetchWeb = "http://localhost:8080/quiz/update/{}"
+    }
     if (!email.value || !account.value) {
         msg.value = "請輸入Account或Email"
         return
     }
     else {
-        fetch("http://localhost:8080/quiz/create_update/{}", {
+        console.log(fetchWeb);
+       
+        fetch(fetchWeb, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -56,11 +69,16 @@ function verify() {
 
     <body>
         <div class="identity">
-            <h2>我是</h2>
+           
 
         </div>
         <div class="center">
-
+            <div class="choice">
+                <h1>我是</h1>
+                <button type="button" @click="changeMode(true)" :class="{now: mode}">學生</button>
+                <button type="button" @click="changeMode(false)" :class="{now: !mode}">老師</button>
+                <!-- <label for=""></label> -->
+            </div>
             <div class="account">
                 <h2>請輸入帳號</h2>
                 <input type="text" v-model="account" placeholder="A123">
@@ -81,6 +99,7 @@ function verify() {
 
 <style scoped lang="scss">
 .center {
+    
     width: 40vw;
     height: 50vh;
     background-color: white;
@@ -90,11 +109,36 @@ function verify() {
     display: flex;
     flex-direction: column;
     align-items: center;
+    // 選擇身分
+    .choice {
+        height: 5vh;
+        margin: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h1{
+           margin-right: 1vw;
+            color: black;
+            font-size: 25px;
+        }
+        // 沒有查看時的預設樣式
+        button{
+            padding: 1vh;
+            font-size: 25px;
+            background-color: #fff;
+            border: 1px solid rgb(208, 208, 208);   
+        }
+        // 正在查看的頁面樣式
+        .now{
+            color: rgb(255, 255, 255);
+            background-color: rgb(140, 236, 186);
+        }
+    }
 
     // 帳號輸入框
     .account {
         width: 65%;
-        margin-top: 5vh;
+       
         color: black;
 
         input {
@@ -105,8 +149,8 @@ function verify() {
     // Email輸入框
     .verify {
         width: 65%;
-        height: 40%;
-        margin-top: 3vh;
+        height: 37%;
+        margin-top: 2vh;
         // margin-bottom: 1vh;
         color: black;
 
@@ -136,11 +180,13 @@ function verify() {
         display: flex;
         justify-content: flex-end;
         
+        
         input {
             width: 10vw;
             height: 6vh;
             font-size: 22px;
             margin-right: 2vw;
+            border-radius: 10px;
         }
     }
 }
