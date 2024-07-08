@@ -18,7 +18,7 @@
       <!-- 社團志願連結 -->
       <router-link class="option" to="/ClubSelection">社團志願</router-link>
       <!-- 抽籤結果連結 -->
-      <router-link class="option" to="/LotteryResults">抽籤結果</router-link>
+      <router-link class="option" to="/MyClub">抽籤結果</router-link>
     </main>
   </div>
 </template>

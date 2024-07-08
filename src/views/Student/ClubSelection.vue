@@ -2,7 +2,7 @@
   <div class="club-volunteer">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>社團志願</h1>
+      <h1>社團志願選擇</h1>
       <nav class="nav">
         <router-link to="/account-management">帳號管理</router-link>
         <span class="current-interface">學生介面</span>

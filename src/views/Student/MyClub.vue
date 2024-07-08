@@ -1,5 +1,5 @@
 <template>
-  <div class="LotteryResults">
+  <div class="MyClub">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
       <h1>抽籤結果</h1>
