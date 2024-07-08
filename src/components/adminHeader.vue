@@ -37,18 +37,18 @@ function arrowRotate2() {
 
 <template>
 
-    <body>
+    
 
         <!-- 上面導覽列 -->
         <div class="above">
-            <a href="/adminHomepage">管理者介面</a>
+            <a href="/adminhomepage">管理者介面</a>
 
 
         </div>
 
         <!-- 側邊導覽列 -->
         <div class="side">
-            <a href="/adminHomepage"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt=""></a>
+            <a href="/adminhomepage"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt=""></a>
 
             <hr>
 
@@ -61,10 +61,10 @@ function arrowRotate2() {
 
                 </button>
                 <ul class="content menu">
-                    <li style="--delay:1"><a href="">查詢老師帳號</a></li>
-                    <li style="--delay:2"><a href="">新增老師帳號</a></li>
-                    <li style="--delay:3"><a href="">查詢學生帳號</a></li>
-                    <li style="--delay:4"><a href="">新增學生帳號</a></li>
+                    <li style="--delay:1"><a href="/adminhomepage/searchteacheraccount">查詢老師帳號</a></li>
+                    <li style="--delay:2"><a href="/adminhomepage/createteacheraccount">新增老師帳號</a></li>
+                    <li style="--delay:3"><a href="/adminhomepage/searchstudentaccount">查詢學生帳號</a></li>
+                    <li style="--delay:4"><a href="/adminhomepage/createstudentaccount">新增學生帳號</a></li>
 
                 </ul>
             </div>
@@ -87,18 +87,15 @@ function arrowRotate2() {
 
         </div>
 
-    </body>
+    
 </template>
 
 <style scoped lang="scss">
-body {
-    background-color: #ffffff;
-}
+
 
 // 上方導覽列
 .above {
     position: fixed;
-    z-index: 0;
     background-color: #AFD4F6;
     width: 100vw;
     height: 10vh;
@@ -128,9 +125,7 @@ body {
 
 // 側邊導覽列
 .side {
-
     position: fixed;
-    z-index: 1;
     background-color: rgb(148, 157, 167);
     width: 12vw;
     height: 100vh;
