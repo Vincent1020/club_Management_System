@@ -11,7 +11,7 @@ const router = createRouter({
     },
 
     {
-      path: '/StudentHome',
+      path: '/StudentHome',//學生首頁
       name: 'StudentHome',
       component: () => import('../views/Student/StudentHome.vue')
     },
@@ -36,25 +36,36 @@ const router = createRouter({
       component: () => import('../views/Login/Verify.vue')
     },
     {
-      path: '/TeacherHomepage',
-      name: 'TeacherHomepage',
-      component: () => import('../views/Teacher/TeacherHomepage.vue')
+      path: '/TeacherHome',//老師首頁
+      name: 'TeacherHome',
+      component: () => import('../views/Teacher/TeacherHome.vue')
     },
     {
-      path: '/ClubIntroduction',
+      path: '/ClubIntroduction',//社團介紹
       name: 'ClubIntroduction',
       component: () => import('../views/Student/ClubIntroduction.vue')
     },
     {
-      path: '/ClubSelection',
+      path: '/ClubSelection',//社團志願選擇
       name: 'ClubSelection',
       component: () => import('../views/Student/ClubSelection.vue')
     },
     {
-      path: '/LotteryResults',
-      name: 'LotteryResults',
-      component: () => import('../views/Student/LotteryResults.vue')
+      path: '/MyClub',//我的社團
+      name: 'MyClub',
+      component: () => import('../views/Student/MyClub.vue')
+    },
+    {
+      path: '/CreateClub',//創立社團
+      name: 'CreateClub',
+      component: () => import('../views/CreateClub.vue')
+    },
+    {
+      path:'/StudentManage',//學生管理
+      name:'StudentManage',
+      component: () => import('../views/Teacher/StudentManage.vue') 
     }
+  
   ]
 })
 

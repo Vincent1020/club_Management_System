@@ -34,6 +34,11 @@ const loginRequest = () => {
 </script>
 
 <template>
+<<<<<<< HEAD
+=======
+   
+    <div class="center">
+>>>>>>> ef37e51711ea4bdd7931ac127f59fbbcda0eee85
 
     <body>
 
@@ -82,6 +87,7 @@ const loginRequest = () => {
             </div>
 
         </div>
+<<<<<<< HEAD
     </body>
 </template>
 
@@ -93,6 +99,27 @@ body {
     background-color: #cce3f5
 }
 
+=======
+
+        <!-- 功能選項 -->
+        <div class="function">
+
+            <input type="button" onclick="location.href='/login/verify'" value="ForgotPassword">
+
+            <input type="button" @click="loginRequest" value="Login">
+
+            <!-- 暫放 完成後移除 -->
+             <a href="/login/forgotpassword">Forgotpassword</a>
+        </div>
+
+    </div>
+
+
+</template>
+
+<style scoped lang="scss">
+ 
+>>>>>>> ef37e51711ea4bdd7931ac127f59fbbcda0eee85
 .center {
     width: 40vw;
     height: 50vh;
@@ -197,4 +224,5 @@ body {
         }
     }
 }
+
 </style>
