@@ -1,4 +1,37 @@
 <script setup>
+import { ref } from 'vue'
+let open = ref(false)
+function arrowRotate() {
+    let arrow = document.querySelector(".arrow1")
+    arrow.classList.toggle("arrow-rotate")
+
+    let menu = document.querySelector(".menu")
+    menu.classList.toggle("menu-open")
+
+    let dropdown = document.querySelector(".dropdown")
+    dropdown.setAttribute("aria-expanded", 
+        dropdown.getAttribute("aria-expanded") == "true" ? "false" : "true"
+    )
+
+    console.log(arrow);
+    console.log(menu);
+}   
+function arrowRotate2() {
+    let arrow = document.querySelector(".arrow2")
+    arrow.classList.toggle("arrow-rotate")
+
+    let menu = document.querySelector(".menu2")
+    menu.classList.toggle("menu-open")
+
+    let dropdown = document.querySelector(".dropdown2")
+    dropdown.setAttribute("aria-expanded", 
+        dropdown.getAttribute("aria-expanded") == "true" ? "false" : "true"
+    )
+    console.dir(arrow);
+}
+
+
+
 
 </script>
 
@@ -22,12 +55,12 @@
             <!-- 帳號管理選單 -->
             <div class="account management">
 
-                <button class="account dropdown">
+                <button class="account dropdown" aria-expanded= "false" @click="arrowRotate">
                     <span>帳號管理</span>
-                    <span class="arrow"></span>
+                    <span class="arrow arrow1"></span>
 
                 </button>
-                <ul class="content">
+                <ul class="content menu">
                     <li style="--delay:1"><a href="">查詢老師帳號</a></li>
                     <li style="--delay:2"><a href="">新增老師帳號</a></li>
                     <li style="--delay:3"><a href="">查詢學生帳號</a></li>
@@ -38,12 +71,12 @@
 
             <!-- 社團管理選單 -->
             <div class="club management">
-                <button class="club dropdown">
-                    <span>帳號管理</span>
-                    <span class="arrow"></span>
+                <button class="club dropdown2" @click="arrowRotate2">
+                    <span>社團管理</span>
+                    <span class="arrow arrow2"></span>
 
                 </button>
-                <ul class="content">
+                <ul class="content menu2">
                     <li style="--delay:1"><a href="">社團查詢</a></li>
                     <li style="--delay:2"><a href="">創建社團</a></li>
                     <li style="--delay:3"><a href="">期程排定</a></li>
@@ -135,15 +168,23 @@ body {
 
             }
 
+            .arrow-rotate {
+                transform: rotate(180deg);
+            }
+
         }
 
         .content {
             list-style: none;
             width: 100%;
+            position: relative;
 
             // 控制元素可見性
-            // visibility: hidden;
-            // overflow: hidden;
+            visibility: hidden;
+            overflow: hidden;
+          
+           
+
             li {
                 margin: 0.2em 0;
                 background-color: #2f3238;
@@ -160,7 +201,7 @@ body {
 
                 a {
                     font-size: 18px;
-                    padding: 0.7em 2em;
+                    padding: 0.7em 1em;
                     color: #ffffff;
                     text-decoration: none;
                 }
@@ -168,7 +209,14 @@ body {
             }
 
         }
-
+        .menu-open {
+              
+              visibility: visible;
+            
+              li{
+                  left: 0;
+              }
+          }
 
     }
 }
