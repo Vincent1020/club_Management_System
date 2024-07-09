@@ -1,6 +1,149 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+
+let status = ref("")
+let identity = ref("")
+let pwd = ref("")
+let name = ref("")
+let email = ref("")
+
+let teacherAccount = ref([{
+    status: status,
+    identity: identity,
+    pwd: pwd,
+    name: name,
+    email: email,
+}])
+// 測試用
+let test = ref([
+    {
+        status: "在職",
+        identity: "A001",
+        pwd: "123",
+        name: "王大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A002",
+        pwd: "123",
+        name: "王小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A003",
+        pwd: "123",
+        name: "李大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A004",
+        pwd: "123",
+        name: "李小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A005",
+        pwd: "123",
+        name: "陳大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A006",
+        pwd: "123",
+        name: "陳小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A007",
+        pwd: "123",
+        name: "張大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A008",
+        pwd: "123",
+        name: "張小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A009",
+        pwd: "123",
+        name: "林大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A010",
+        pwd: "123",
+        name: "林小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A011",
+        pwd: "123",
+        name: "黃大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A012",
+        pwd: "123",
+        name: "黃小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A013",
+        pwd: "123",
+        name: "蔡大明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A014",
+        pwd: "123",
+        name: "蔡小明",
+        email: "D9S9s@example.com",
+    },
+    {
+        status: "在職",
+        identity: "A015",
+        pwd: "123",
+        name: "謝大明",
+        email: "D9S9s@example.com",
+    }
+
+])
+
+let currentPage = ref(1)
+let row = 10
+
+let pageCount = computed(() =>
+    console.log(test.value.length),
+    Math.ceil(test.value.length / row)
+)
+
+let pagenumber = computed(() => {
+
+    let start = (currentPage.value - 1) * row
+    let end = start + row
+    return test.value.slice(start, end)
+})
+function setpage(page) {
+    currentPage.value = page
+}
+
+
 onMounted(() => {
     function search() {
 
@@ -56,11 +199,12 @@ onMounted(() => {
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                    <tr v-for="item in test">
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.identity }}</td>
+                        <td>{{ item.pwd }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.email }}</td>
                     </tr>
 
                 </tbody>
@@ -69,7 +213,12 @@ onMounted(() => {
 
         </div>
 
-
+        <div class="pagenumber" v-for="item in pagenumber">
+            {{ item }}
+        </div>
+        <ul>
+            <li v-for="page in pageCount" @click="setpage(page)"></li>
+        </ul>
 
     </body>
 </template>
@@ -82,7 +231,7 @@ body {
 .area {
     width: 84vw;
     height: 100vh;
-    padding-top: 15vh;
+    padding-top: 13vh;
     margin-left: 16vw;
     color: black;
 
@@ -118,7 +267,7 @@ body {
 
 
         thead {
-            font-size: 20px;
+            font-size: 22px;
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -126,8 +275,21 @@ body {
 
         tbody {
             border-bottom: 1px solid #e8eef4;
-            font-size: 18px;
+            font-size: 20px;
             background-color: #fcfcfc;
+
+            tr {
+
+                &:hover {
+                    background-color: #f3f7fb;
+                }
+            }
+
+            td {
+                padding: 0.8vh;
+                border-bottom: 1px solid #e8eef4;
+
+            }
         }
     }
 
