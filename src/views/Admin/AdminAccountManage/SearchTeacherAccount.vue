@@ -1,25 +1,27 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
+import { ref, onMounted } from 'vue'
+onMounted(() => {
+    function search() {
 
-function search() {
-
-fetch("http://localhost:8080/quiz/search", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(searchObj)
+        fetch("http://localhost:8080/quiz/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(searchObj)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.resArr = data.quizList
+                console.log(this.resArr);
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    this.resArr = data.quizList
-                    console.log(this.resArr);
-                })
-                .catch(err => { console.log(err) })
+            .catch(err => { console.log(err) })
 
-        
-            }
+
+    }
+})
 </script>
 
 <template>
@@ -31,7 +33,8 @@ fetch("http://localhost:8080/quiz/search", {
 
             <div class="function">
                 <!-- 新增按鈕 -->
-               <a href="/adminhomepage/createteacheraccount"><img class="add" src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
+                <a href="/adminhomepage/createteacheraccount"><img class="add"
+                        src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
                 <input type="text">
@@ -112,17 +115,17 @@ body {
         text-align: center;
         border-collapse: collapse;
         table-layout: auto;
-        
+
 
         thead {
             font-size: 20px;
             background-color: #e6eef6;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         tbody {
-            border-bottom:1px solid #e8eef4;
+            border-bottom: 1px solid #e8eef4;
             font-size: 18px;
             background-color: #fcfcfc;
         }
