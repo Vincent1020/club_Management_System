@@ -20,6 +20,10 @@
             <label for="email">e-mail</label>
             <input id="email" v-model="email" type="email" required>
           </div>
+          <div class="form-group">
+            <label for="password">密碼</label>
+            <input id="password" v-model="password" type="text" required>
+          </div>
           <button type="submit" class="submit-button">提交修改</button>
         </form>
       </main>

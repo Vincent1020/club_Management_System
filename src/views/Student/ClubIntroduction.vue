@@ -13,7 +13,6 @@
 
     <!-- 主內容區 -->
     <main class="main-content">
-    <div class ="top">
       <!-- 用 Element UI 的輪播圖組件 -->
       <el-carousel :interval="4000" type="card" height="200px" class="carousel">
         <!-- 用 v-for 迭代 carouselItems 陣列生成輪播圖項目 -->
@@ -22,7 +21,6 @@
           <h3 class="medium">{{ item.text }}</h3>
         </el-carousel-item>
       </el-carousel>
-      </div>
 
       <!-- 使用 Element UI 的卡片組件 -->
       <el-row :gutter="20">
@@ -78,10 +76,7 @@ export default {
         { title: '美食社 3', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
         { title: '美食社 4', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
         { title: '美食社 5', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 6', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 7', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 8', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 9', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png', introduction: '美食社 社團介紹 美食社是一個集結了愛好烹飪與美食的學生組成的社團。我們每週會舉辦各種烹飪活動，從傳統菜肴到現代料理，我們一起探索美食的世界。歡迎所有對烹飪感興趣的學生加入我們，一起享受烹飪的樂趣！' }
+        { title: '美食社 6', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' }
       ],
       // 社團介紹
       clubs: [
@@ -89,7 +84,7 @@ export default {
         { name: '熱門音樂社', image: 'https://via.placeholder.com/100', description: '大家好!我是熱門音樂社，我們歡迎喜愛音樂接觸音樂的孩子來我們社團，社團裡面有東西非常豐富。' },
         { name: '熱門舞蹈社', image: 'https://via.placeholder.com/100', description: '大家好! 我是熱門舞蹈社 Lucky Struggle 我們愛跳HipHop、Jazz、Locking、Popping，每週一到四皆有不同舞風的課程，都會從最開始教起！歡迎基礎的新生同夥加入這個大家庭。每學期也會有成果發表會！還有很多校外比賽喔！' },
         { name: '鋼琴社', image: 'https://via.placeholder.com/100', description: '鋼琴社成立於2009年，推廣音樂素養及琴藝，目前有豐富的社團課外授課，位於本校的琴房設備完善，亦有校內外多位專業教師進行教學。' },
-        { name: '嘻哈研習社', image: 'https://via.placeholder.com/100', description: '大家好!我是嘻哈研習社 我們從Kool Herc時代到Migos 我們從Boom Bap到New wave 我們教你所有你應該知道的事。' }
+        { name: '嘻哈研習社', image: 'https://static.fotor.com.cn/assets/projects/pages/5ddb1650-bff6-11e9-9200-292b806010c6_e922c8f4-cf80-40da-9d9d-c39be298f616_thumb.jpg/100', description: '大家好!我是嘻哈研習社 我們從Kool Herc時代到Migos 我們從Boom Bap到New wave 我們教你所有你應該知道的事。' }
       ]
     };
   }
