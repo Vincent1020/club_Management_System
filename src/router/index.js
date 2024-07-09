@@ -16,7 +16,7 @@ const router = createRouter({
       component: () => import('../views/Student/StudentHome.vue')
     },
     {
-      path: '/adminHomepage',
+      path: '/adminhomepage',
       name: 'AdminHomepage',
       component: () => import('../views/Admin/AdminHomepage.vue')
     },
@@ -60,11 +60,39 @@ const router = createRouter({
       name: 'CreateClub',
       component: () => import('../views/CreateClub.vue')
     },
+
+    //學生管理
     {
-      path:'/StudentManage',//學生管理
+      path:'/StudentManage',
       name:'StudentManage',
       component: () => import('../views/Teacher/StudentManage.vue') 
-    }
+    },
+
+    // 搜尋老師帳號
+    {
+      path:'/adminhomepage/searchteacheraccount',
+      name:'SearchTeacherAccount',
+      component: () => import('../views/Admin/AdminAccountManage/SearchTeacherAccount.vue') 
+    },
+    // 創建老師帳號
+    {
+      path:'/adminhomepage/createteacheraccount',
+      name:'CreateTeacherAccount',
+      component: () => import('../views/Admin/AdminAccountManage/CreateTeacherAccount.vue') 
+    },
+    // 搜尋學生帳號
+    {
+      path:'/adminhomepage/searchstudentaccount',
+      name:'SearchStudentAccount',
+      component: () => import('../views/Admin/AdminAccountManage/SearchStudentAccount.vue') 
+    },
+    // 創建學生帳號
+    {
+      path:'/adminhomepage/createstudentaccount',
+      name:'CreateStudentAccount',
+      component: () => import('../views/Admin/AdminAccountManage/CreateStudentAccount.vue') 
+    },
+    
   
   ]
 })

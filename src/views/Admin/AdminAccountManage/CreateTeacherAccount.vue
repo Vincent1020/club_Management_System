@@ -6,9 +6,9 @@ import adminHeader from '@/components/adminHeader.vue'
 
 <template>
     <body>
-        
+        <adminHeader/>
+       
    
-<adminHeader/>
 
 </body>
 </template>
