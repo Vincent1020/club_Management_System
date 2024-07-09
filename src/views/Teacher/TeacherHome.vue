@@ -10,7 +10,7 @@
       <h1>首頁</h1>
       <nav class="nav">
         <!-- 帳號管理連結 -->
-        <router-link to="/account-management">帳號管理</router-link>
+        <router-link to="TeacherAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面</span>
       </nav>

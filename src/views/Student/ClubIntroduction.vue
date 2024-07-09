@@ -39,6 +39,18 @@
         </el-col>
       </el-row>
     </main>
+
+    <!-- 新增的社團介紹區域 -->
+    <section class="club-introduction-section">
+      <h2>各社團簡介</h2>
+      <div class="club-introduction" v-for="(club, index) in clubs" :key="index">
+        <img :src="club.image" alt="Club Image" class="club-image">
+        <div class="club-details">
+          <h3>{{ club.name }}</h3>
+          <p>{{ club.description }}</p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -64,13 +76,15 @@ export default {
         { title: '美食社 3', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
         { title: '美食社 4', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
         { title: '美食社 5', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 6', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 7', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 8', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 9', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 10', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 11', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 12', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' }
+        { title: '美食社 6', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' }
+      ],
+      // 社團介紹
+      clubs: [
+        { name: '民謠吉他社', image: 'https://via.placeholder.com/100', description: '想要彈吉他嗎？想要學歌嗎？想要彈唱超不科學形狀的合音嗎？來加入我們吧！民謠吉他社歡迎你的加入！' },
+        { name: '熱門音樂社', image: 'https://via.placeholder.com/100', description: '大家好!我是熱門音樂社，我們歡迎喜愛音樂接觸音樂的孩子來我們社團，社團裡面有東西非常豐富。' },
+        { name: '熱門舞蹈社', image: 'https://via.placeholder.com/100', description: '大家好! 我是熱門舞蹈社 Lucky Struggle 我們愛跳HipHop、Jazz、Locking、Popping，每週一到四皆有不同舞風的課程，都會從最開始教起！歡迎基礎的新生同夥加入這個大家庭。每學期也會有成果發表會！還有很多校外比賽喔！' },
+        { name: '鋼琴社', image: 'https://via.placeholder.com/100', description: '鋼琴社成立於2009年，推廣音樂素養及琴藝，目前有豐富的社團課外授課，位於本校的琴房設備完善，亦有校內外多位專業教師進行教學。' },
+        { name: '嘻哈研習社', image: 'https://static.fotor.com.cn/assets/projects/pages/5ddb1650-bff6-11e9-9200-292b806010c6_e922c8f4-cf80-40da-9d9d-c39be298f616_thumb.jpg/100', description: '大家好!我是嘻哈研習社 我們從Kool Herc時代到Migos 我們從Boom Bap到New wave 我們教你所有你應該知道的事。' }
       ]
     };
   }
@@ -85,11 +99,10 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  
 
   .header {
     background-color: #87CEEB;
-    padding: 3%; /* 內邊距 ，如果你想加寬導覽列的畫，直接在這裡加數字就好了*/
+    padding: 3%; /* 內邊距 ，如果你想加寬導覽列的話，直接在這裡加數字就好了*/
     display: flex; 
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
@@ -102,7 +115,7 @@ export default {
       a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-       font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
+        font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */
@@ -129,7 +142,6 @@ export default {
     }
   }
 
-  
   /* @keyframes blink 動畫效果，就是顯示現在位於學生介面的動畫效果 */
   @keyframes blink { 
     0%, 100% {
@@ -139,6 +151,7 @@ export default {
       opacity: 0.5; /* 半透明 */
     }
   }
+  
   .main-content { /* 就是灰灰的地方，主內容區 */
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; /* 使用 flex 布局 */
@@ -200,6 +213,48 @@ export default {
 
   .clearfix:after {
     clear: both;
+  }
+}
+
+.club-introduction-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  width: 80%;
+
+  h2 {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .club-introduction {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+
+    .club-image {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+      object-fit: cover;
+    }
+
+    .club-details {
+      text-align: left;
+
+      h3 {
+        font-size: 20px;
+        margin: 0;
+      }
+
+      p {
+        margin: 5px 0 0;
+        font-size: 16px;
+      }
+    }
   }
 }
 </style>
