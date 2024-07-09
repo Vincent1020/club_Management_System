@@ -3,6 +3,7 @@
 </script>
 
 <template>
+<h1>校園公告</h1>
 
 </template>
 

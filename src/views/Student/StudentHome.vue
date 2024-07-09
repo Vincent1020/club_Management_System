@@ -2,10 +2,10 @@
   <div class="student-home">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>首頁</h1>
+      <h1><router-link to="/HomeView">首頁</router-link></h1>
       <nav class="nav">
         <!-- 帳號管理連結 -->
-        <router-link to="/account-management">帳號管理</router-link>
+        <router-link to="/StudentAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
         <span class="current-interface">學生介面</span>
       </nav>
@@ -47,7 +47,6 @@ export default {
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
-
     .nav {
       display: flex;
       gap: 20px; /* 元素間距 */
@@ -115,7 +114,7 @@ export default {
       transition: background-color 0.3s, transform 0.3s; /* 過渡效果 */
 
       &:hover {
-        background-color: #f40a0a; /* 懸停背景顏色 */
+        background-color: #5cb85c; /* 懸停背景顏色 */
         transform: translateY(-20px); /* 懸停位移 ，就是往上位移動，如果你負越多，會飄越高*/
       }
     }
