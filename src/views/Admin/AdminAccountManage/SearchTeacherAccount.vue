@@ -129,7 +129,7 @@ let currentPage = ref(1)
 let row = 10
 
 let pageCount = computed(() =>
-    console.log(test.value.length),
+
     Math.ceil(test.value.length / row)
 )
 
@@ -176,8 +176,11 @@ onMounted(() => {
 
             <div class="function">
                 <!-- 新增按鈕 -->
-                <a href="/adminhomepage/createteacheraccount"><img class="add"
+                <a class="add" href="/adminhomepage/createteacheraccount"><img
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
+
+                <!-- 刪除人員 -->
+                <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
                 <input type="text">
@@ -188,37 +191,47 @@ onMounted(() => {
             <table>
                 <thead>
                     <tr>
+                        <th><input type="button" value="全選"></th>
                         <th class="status">狀態</th>
                         <th class="identity">教職員編號</th>
                         <th class="pwd">密碼</th>
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
-                        <th class="email">操作</th>
+                        <th class="revise">修改</th>
+                        <th class="remove">刪除</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr v-for="item in test">
+                    <tr v-for="item in pagenumber">
+                        <td><input type="checkbox"></td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.identity }}</td>
                         <td>{{ item.pwd }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
+                        <td>
+                            <img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt="">
+
+                        </td>
+                        <td><img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></td>
                     </tr>
 
                 </tbody>
 
             </table>
 
-        </div>
+            <div class="pagenumber">
+                <ul>
+                    <li v-for="page in pageCount" :class="{ active: currentPage == page }" @click="setpage(page)">
+                        {{ page }}
+                    </li>
 
-        <div class="pagenumber" v-for="item in pagenumber">
-            {{ item }}
+
+                </ul>
+            </div>
         </div>
-        <ul>
-            <li v-for="page in pageCount" @click="setpage(page)"></li>
-        </ul>
 
     </body>
 </template>
@@ -249,8 +262,17 @@ body {
         }
 
         .add {
+            width: 2vw;
+            height: 4vh;
             margin-left: 4vw;
-            margin-right: 55vw;
+
+        }
+
+        .remove {
+            width: 2vw;
+            height: 4vh;
+            margin-left: 2vw;
+            margin-right: 50vw;
         }
 
         .search {
@@ -271,6 +293,17 @@ body {
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            input{
+                    height: 4vh;
+                    width: 3vw;
+                    margin-bottom: 1vh; 
+                    background-color: rgb(216, 221, 230);
+                    border: none;
+                    border-radius: 0.5em;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
         }
 
         tbody {
@@ -279,7 +312,7 @@ body {
             background-color: #fcfcfc;
 
             tr {
-
+              
                 &:hover {
                     background-color: #f3f7fb;
                 }
@@ -289,10 +322,54 @@ body {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
 
+                input{
+                    height: 2.5vh;
+                    width: 1.5vw;
+
+                }
+                img {
+
+                    height: 3.3vh;
+                    width: 1.7vw;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
 
+    .pagenumber {
+        position: absolute;
+        bottom: 5vh;
+        left: 50vw;
+
+        ul {
+            width: 5vw;
+            font-size: 16px;
+
+            display: flex;
+            list-style: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            li {
+                padding: 0.5vh 0.5vw;
+                border-radius: 1em;
+            }
+        }
+
+        .active {
+            background-color: rgb(171, 201, 243);
+            font-size: 18px;
+            color: #fff;
+        }
+
+        color: black;
+    }
 
 }
 </style>
