@@ -61,13 +61,6 @@ const router = createRouter({
       component: () => import('../views/CreateClub.vue')
     },
 
-    //學生管理
-    {
-      path:'/StudentManage',
-      name:'StudentManage',
-      component: () => import('../views/Teacher/StudentManage.vue') 
-    },
-
     // 搜尋老師帳號
     {
       path:'/adminhomepage/searchteacheraccount',
@@ -92,7 +85,16 @@ const router = createRouter({
       name:'CreateStudentAccount',
       component: () => import('../views/Admin/AdminAccountManage/CreateStudentAccount.vue') 
     },
-    
+    {
+      path:'/StudentAccountManagement',//學生帳號管理
+      name:'StudentAccountManagement',
+      component: () => import('../views/Student/StudentAccountManagement.vue') 
+    },
+    {
+      path:'/TeacherAccountManagement',//老師帳號管理
+      name:'TeacherAccountManagement',
+      component: () => import('../views/Teacher/TeacherAccountManagement.vue') 
+    }
   
   ]
 })

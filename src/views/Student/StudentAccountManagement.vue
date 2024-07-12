@@ -2,10 +2,11 @@
     <div class="student-interface">
       <!-- 頁面頭部，包括標題和導航欄 -->
       <header class="header">
-        <h1>首頁</h1>
+        <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
+        
         <nav class="nav">
           <!-- 當前頁面指示 -->
-          <span class="current-interface">學生介面</span>
+          <span class="current-interface">學生介面-帳號管理</span>
         </nav>
       </header>
   
@@ -73,8 +74,16 @@
       align-items: center; /* 垂直置中 */
       color: white; /* 文字顏色 */
   
+     
+      img {
+        width: 4vw;
+        height: 8vh;
+        margin-top: 1vh;
+        margin-left: 4vw;
+    }
+
       .nav {
-        display: flex; /* 使用 flex 布局 */
+        display: flex; 
         gap: 20px;
   
         .current-interface {

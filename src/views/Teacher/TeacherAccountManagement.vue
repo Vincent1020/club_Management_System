@@ -1,11 +1,13 @@
 <template>
-    <div class="student-interface">
+    <div class="TeacherAccountManagement">
       <!-- 頁面頭部，包括標題和導航欄 -->
       <header class="header">
-        <h1>首頁</h1>
+        <h1><router-link to="TeacherHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
+
+
         <nav class="nav">
           <!-- 當前頁面指示 -->
-          <span class="current-interface">老師介面</span>
+          <span class="current-interface">老師介面-帳號管理</span>
         </nav>
       </header>
   
@@ -57,9 +59,9 @@
   </script>
   
   <style scoped lang="scss">
-  .student-interface {
+  .TeacherAccountManagement {
     text-align: center; /* 文字置中 */
-    font-family: Arial, sans-serif; /* 設置字體 */
+    font-family: Arial, sans-serif; 
     height: 100vh; 
     width: 100%;
     display: flex;
@@ -67,11 +69,18 @@
   
     .header {
       background-color: #87CEEB; /* 背景顏色 */
-      padding: 3%; /* 內邊距 */
+      padding: 3%; 
       display: flex; 
       justify-content: space-between; /* 兩端對齊 */
       align-items: center; /* 垂直置中 */
       color: white; /* 文字顏色 */
+
+      img {
+        width: 4vw;
+        height: 8vh;
+        margin-top: 1vh;
+        margin-left: 4vw;
+    }
   
       .nav {
         display: flex; /* 使用 flex 布局 */

@@ -1,53 +1,70 @@
-<template>
-  <div class="student-home">
+<template> 
+  <div class="ClubIntroduction"> 
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>社團介紹</h1>
+      <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
+      
       <nav class="nav">
-        <!-- 帳號管理連結 -->
-        <router-link to="/account-management">帳號管理</router-link>
+
         <!-- 當前頁面指示 -->
-        <span class="current-interface">學生介面</span>
+        <span class="current-interface">學生介面-社團介紹</span>
       </nav>
     </header>
 
     <!-- 主內容區 -->
     <main class="main-content">
-      <!-- 用 Element UI 的輪播圖組件 -->
-      <el-carousel :interval="4000" type="card" height="200px" class="carousel">
-        <!-- 用 v-for 迭代 carouselItems 陣列生成輪播圖項目 -->
-        <el-carousel-item v-for="(item, index) in carouselItems" :key="index">
-          <img :src="item.image" class="carousel-image">
-          <h3 class="medium">{{ item.text }}</h3>
-        </el-carousel-item>
-      </el-carousel>
+  
 
       <!-- 使用 Element UI 的卡片組件 -->
-      <el-row :gutter="20">
-        <!-- 用 v-for 迭代 cards 陣列生成卡片項目 -->
-        <el-col :span="8" v-for="(card, index) in cards" :key="index">
-          <el-card :body-style="{ padding: '0px' }" class="card">
-            <img :src="card.image" class="image">
-            <div style="padding: 10px;">
-              <span>{{ card.title }}</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">瞭解更多</el-button>
+      <section class="cards-section">
+        <el-row :gutter="20">
+          <!-- 用 v-for 迭代 cards 陣列生成卡片項目 -->
+          <el-col :span="8" v-for="(card, index) in cards" :key="index">
+            <el-card :body-style="{ padding: '0px' }" class="card">
+              <img :src="card.image" class="image">
+              <div style="padding: 10px;"><!-- 這是卡片自己預設的padding -->
+                <span>{{ card.name }}</span>
+                <div class="bottom clearfix">
+                  <span>{{ card.attendees  }}</span>
+                  <el-button type="text" class="button" @click="scrollToClub(card.name)">瞭解更多</el-button>
+                </div>
+                <!-- 社團介紹 -->
+                <div class="club-intro ">
+                  <p>{{ card.intro  }}</p>
+                </div>
               </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
+      </section>
+
+      <h2>社團活動集錦</h2>
+      <!-- 用 Element UI 的輪播圖組件 -->
+      <section class="carousel-section">
+        <el-carousel :interval="4000" type="card" height="200px" class="carousel">
+          <!-- 用 v-for 迭代 carouselItems 陣列生成輪播圖項目 -->
+          <el-carousel-item v-for="(item, index) in carouselItems" :key="index">
+            <img :src="item.image" class="carousel-image">
+            <h4 class="medium">{{ item.text }}</h4>
+          </el-carousel-item>
+        </el-carousel>
+      </section>
+
     </main>
 
     <!-- 新增的社團介紹區域 -->
     <section class="club-introduction-section">
-      <h2>各社團簡介</h2>
-      <div class="club-introduction" v-for="(club, index) in clubs" :key="index">
+      <h3>社團詳細資訊</h3>
+      <div class="club-introduction" v-for="(club, index) in clubs" :key="index" :ref="'club-' + club.name">
         <img :src="club.image" alt="Club Image" class="club-image">
         <div class="club-details">
-          <h3>{{ club.name }}</h3>
-          <p>{{ club.description }}</p>
+          <h4>{{ club.name }}</h4>
+          <p>{{ club.intro }}</p>
+          <p>{{ club.pay  }}</p>
+          <p>{{ club.classroom  }}</p>
+          <p>{{ club.max}}</p>
+          <p>{{ club.attendees }}</p>
+
         </div>
       </div>
     </section>
@@ -59,42 +76,53 @@ export default {
   data() {
     return {
       // 當前日期
-      currentDate: new Date().toLocaleDateString(),
-      // Element UI 的輪播圖項目
+    
+      // 輪播圖項目數據
       carouselItems: [
-        { image: 'https://fsv.cmoney.tw/cmstatic/notes/content/1065239/20220822165437743_L.jpg', text: '增加社團經驗!' },
-        { image: 'https://i0.wp.com/blog.luckertw.com/wp-content/uploads/2023/09/schoolclub-1.jpg?resize=800%2C450&ssl=1', text: '增加社團經驗!' },
-        { image: 'https://ch-image-resizer.cwg.tw/resize/uri/https%3A%2F%2Fas.chdev.tw%2Fclub%2Factivity_slider%2F202405%2Factivity_slider-663e1a2695238.jpg/?w=621', text: '古典社!' },
-        { image: 'https://fbgroup.com.tw/wp-content/uploads/2020/09/%E4%BA%92%E5%8B%95%E6%96%87%E7%AB%A0_%E5%B7%A5%E4%BD%9C%E5%8D%80%E5%9F%9F-1-%E8%A4%87%E6%9C%AC.jpg', text: '增加社團經驗!' },
-        { image: 'https://i0.wp.com/blog.luckertw.com/wp-content/uploads/2023/08/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2%E8%A3%BD%E5%9C%96-3.jpg?fit=1920%2C1080&ssl=1', text: '增加社團經驗!' },
+        { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2022/09/1137%E6%9C%9Fshuttlecock%E9%85%8D%E5%9C%96-800x445.jpg', text: '羽球新生錦標賽!' },
+        { image: 'https://www.tnfsh.tn.edu.tw/df_ufiles/028/s_e-01.jpg', text: '羽球社' },
+        { image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', text: '籃球社' },
+        { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/03/2.jpg', text: '羽球社系羽比賽' },
+        { image: 'https://www.nssh.ntpc.edu.tw/var/file/0/1000/pictures/314/m/mczh-tw700x700_large750_895163558067.jpg', text: '社團活動' },
         { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/09/1167%E6%9C%9F%E6%A1%83%E5%9C%92%E7%A4%BE%E5%8D%9A%E9%9B%BB%E5%AD%90%E5%A0%B1%E9%85%8D%E5%9C%96.jpg', text: '社團博覽會' },
       ],
-      // Element UI 的卡片項目
+      // 卡片項目數據(社團簡介)
       cards: [
-        { title: '美食社 1', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 2', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 3', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 4', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 5', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' },
-        { title: '美食社 6', image: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png' }
+        { name: '管樂社', image: 'https://event.culture.tw/userFiles/CKSMH/JpgFile/01/04229/04229_276_175.jpg?20240630', intro : '簡介: 有著優良的師資、悠久的歷史，社課除了管樂合奏，學長學姊還會額外教你功課，讓您不用為學業煩惱 。', attendees : '20人'},
+        { name: '田徑社', image: 'https://d9xe416pf8kwg.cloudfront.net/media/gimages/2018/07/253%283%29.jpg', intro : '簡介: 社團宗旨為培養田徑運動人才，提升運動技術能力!' },
+        { name: '美術社', image: 'https://shoplineimg.com/655b0f3c9b81d900188b35f1/66404886c18419001f67b38f/800x.jpg?', intro : '簡介: 美術社主要是以動漫繪畫作為教學基礎，所以不會畫圖也無所謂。', attendees : '20人' },
+        { name: '籃球社', image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', intro : '簡介: 《籃球社》是專業的籃球資訊分享社區，每天為廣大的籃球愛好者分享最新的NBA新聞、比賽熱點、比賽影片、籃球技巧教學等精彩資訊。', attendees : '20人' },
+        { name: '羽毛球社', image: 'https://static.accupass.com/userupload/810423a7a5e743f98762a9d335305d32.jpg', intro : '簡介: 歡迎所有愛打羽球的朋友一起加入這個社團。我們可以在這裡分享台南地區球隊招募資訊、糾咖打球、球場訊息、相關商品訊息、好康相報！但是拒絕廣告發文哦！' , attendees : '20人'},
+        { name: '美食社', image: 'https://www.brain.com.tw/Upload/News/20200226151647.jpg', intro : '簡介: 集合一群對美食有興趣及探索精神的學生，昨天正式成立，成立初衷: "除了知道好吃，還要知道為什麼好吃。"' , attendees : '20人'}
       ],
-      // 社團介紹
+      // 社團詳細介紹 的數據
       clubs: [
-        { name: '民謠吉他社', image: 'https://via.placeholder.com/100', description: '想要彈吉他嗎？想要學歌嗎？想要彈唱超不科學形狀的合音嗎？來加入我們吧！民謠吉他社歡迎你的加入！' },
-        { name: '熱門音樂社', image: 'https://via.placeholder.com/100', description: '大家好!我是熱門音樂社，我們歡迎喜愛音樂接觸音樂的孩子來我們社團，社團裡面有東西非常豐富。' },
-        { name: '熱門舞蹈社', image: 'https://via.placeholder.com/100', description: '大家好! 我是熱門舞蹈社 Lucky Struggle 我們愛跳HipHop、Jazz、Locking、Popping，每週一到四皆有不同舞風的課程，都會從最開始教起！歡迎基礎的新生同夥加入這個大家庭。每學期也會有成果發表會！還有很多校外比賽喔！' },
-        { name: '鋼琴社', image: 'https://via.placeholder.com/100', description: '鋼琴社成立於2009年，推廣音樂素養及琴藝，目前有豐富的社團課外授課，位於本校的琴房設備完善，亦有校內外多位專業教師進行教學。' },
-        { name: '嘻哈研習社', image: 'https://static.fotor.com.cn/assets/projects/pages/5ddb1650-bff6-11e9-9200-292b806010c6_e922c8f4-cf80-40da-9d9d-c39be298f616_thumb.jpg/100', description: '大家好!我是嘻哈研習社 我們從Kool Herc時代到Migos 我們從Boom Bap到New wave 我們教你所有你應該知道的事。' }
+        { name: '管樂社', image: 'https://event.culture.tw/userFiles/CKSMH/JpgFile/01/04229/04229_276_175.jpg?20240630', intro : '簡介: 有著優良的師資、悠久的歷史，社課除了管樂合奏，學長學姊還會額外教你功課，讓您不用為學業煩惱 。',pay :'社團費用: 3000', classroom :'上課地點: 四樓音樂教室',max :'20人',attendees: '10' },
+        { name: '田徑社', image: 'https://d9xe416pf8kwg.cloudfront.net/media/gimages/2018/07/253%283%29.jpg', intro : '社團宗旨: 培養田徑運動人才，提升運動技術能力!',pay :'社團費用: 1000', classroom :'上課地點: 學校操場' },
+        { name: '美術社', image: 'https://cdn.shopify.com/s/files/1/0613/7030/2681/products/product_202204131604551_592x839.jpg', intro : '美術社主要是以動漫繪畫作為教學基礎，所以不會畫圖也無所謂。',pay :'社團費用: 1000', classroom :'上課地點: 某間教室' },
+        { name: '籃球社', image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', intro : '《籃球社》是專業的籃球資訊分享社區，每天為廣大的籃球愛好者分享最新的NBA新聞、比賽熱點、比賽影片、籃球技巧教學等精彩資訊。',pay :'社團費用: 1000', classroom :'上課地點: 某間教室'  },
+        { name: '羽毛球社', image: 'https://static.accupass.com/userupload/810423a7a5e743f98762a9d335305d32.jpg', intro : '歡迎所有愛打羽球的朋友一起加入這個社團。我們可以在這裡分享台南地區球隊招募資訊、糾咖打球、球場訊息、相關商品訊息、好康相報！但是拒絕廣告發文哦！',pay :'社團費用: 1000', classroom :'上課地點: 某間教室'  },
+        { name: '美食社', image: 'https://www.brain.com.tw/Upload/News/20200226151647.jpg', intro : '介紹 :集合一群對美食有興趣及探索精神的學生，昨天正式成立，成立初衷: 除了知道好吃，還要知道為什麼好吃。',pay :'社團費用: 300000', classroom :'上課地點: 各地餐廳'
+         }
       ]
     };
+  },
+  methods: {
+    scrollToClub(clubName) {
+      // 使用ref找到對應的社團介紹元素(就是點Element UI 的卡片組件的"瞭解更多"的按鈕，並滾動到該社團的詳細介紹)
+      const clubElement = this.$refs[`club-${clubName}`][0];
+      if (clubElement) {
+        clubElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.student-home {
+.ClubIntroduction {
   text-align: center; /* 文字置中 */
-  font-family: Arial, sans-serif; /* GPT給我的字體，我也不知這是什麼字體 */
+  font-family: Arial, sans-serif; /*字體 */
   height: 100vh; 
   width: 100%;
   display: flex;
@@ -102,11 +130,18 @@ export default {
 
   .header {
     background-color: #87CEEB;
-    padding: 3%; /* 內邊距 ，如果你想加寬導覽列的話，直接在這裡加數字就好了*/
+    padding: 3%; /* 內邊距 */
     display: flex; 
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
+
+    img {
+        width: 4vw;
+        height: 8vh;
+        margin-top: 1vh;
+        margin-left: 4vw;
+    }
 
     .nav {
       display: flex;
@@ -115,57 +150,69 @@ export default {
       a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-        font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
+        font-size: 30px; /* 設置字體大小 */
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */
         }
       }
 
-      .current-interface {/*介面的字，只是要拿來顯示現在在哪個頁面而已，實際沒有功用 */
+      .current-interface {
         position: relative; 
         font-size: 30px; 
-        font-weight: bold; /* 字體加粗 */
+        font-weight: bold;
         color: white; 
       }
 
-      .current-interface::after {/*介面的字，只是要拿來顯示現在在哪個頁面而已，實際沒有功用 */
-        content: ""; /* 內容為空 */
+      .current-interface::after {
+        content: "";
         position: absolute; 
-        bottom: -5px; /* 底部距離 */
+        bottom: -5px;
         left: 0;
         right: 0;
         height: 2px; 
         background-color: white; 
-        animation: blink 1.5s infinite; /* 應用 blink 動畫 */
+        animation: blink 1.5s infinite;
       }
     }
   }
 
-  /* @keyframes blink 動畫效果，就是顯示現在位於學生介面的動畫效果 */
   @keyframes blink { 
     0%, 100% {
-      opacity: 1; /* 完全不透明 */
+      opacity: 1;
     }
     50% {
-      opacity: 0.5; /* 半透明 */
+      opacity: 0.5;
     }
   }
   
-  .main-content { /* 就是灰灰的地方，主內容區 */
-    flex: 1; /* 使主內容區域填滿剩餘空間 */
-    display: flex; /* 使用 flex 布局 */
-    flex-wrap: wrap; /* 換行 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    gap: 20px; /* 元素間距 */
-    background-color: #D3D3D3; /* 背景顏色 */
-    width: 100%;
+ /* ---------------------以上是上方藍色導覽列部分-------------------------- */
+
+  .main-content {
+    flex: 1;
+    display: flex; 
+    flex-direction: column; 
     padding: 20px;
   }
 
+  .carousel-section {
+    width: 100%; 
+    height: 300%;
+    background-color: #0077ff; 
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .cards-section {
+    width: 100%; 
+    background-color: #e8e7e7; /* 設置背景顏色為灰色，雖然看不太出來是灰色*/
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
   .carousel {
-    margin-bottom: 20px;
     width: 80%; /* 調整輪播圖的寬度 */
   }
 
@@ -181,13 +228,16 @@ export default {
   }
 
   .card {
-    width: 75%; /* 讓你調卡片寬度，不過75%差不多了 */
+    width: 75%; /* 調整卡片寬度 */
     margin-bottom: 50px; /* 卡片之間的上下間距 */
   }
 
-  .time {
-    font-size: 13px;
-    color: #999;
+  .club-intro  {
+    text-align: left; /* 左對齊 */
+    padding: 10px; /* 內邊距 */
+    background-color: #fff; /* 背景顏色 */
+    border-top: 1px solid #eee; /* 上邊框 */
+    margin-top: 10px; /* 上外邊距 */
   }
 
   .bottom {
@@ -196,12 +246,14 @@ export default {
   }
 
   .button {
-    padding: 0;
+    padding: 1%;
     float: right;
+    background-color: #91f4ff;
   }
 
   .image {
     width: 100%;
+    height: 300px;
     display: block;
   }
 
@@ -216,6 +268,22 @@ export default {
   }
 }
 
+h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-top:20px;
+    margin-bottom: 20px;
+  }
+
+h3{
+  text-align: left;
+    font-size: 30px;
+    margin-bottom: 20px;
+
+}
+
+
+
 .club-introduction-section {
   background-color: white;
   padding: 20px;
@@ -224,28 +292,23 @@ export default {
   margin-top: 20px;
   width: 80%;
 
-  h2 {
-    text-align: left;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
+  
   .club-introduction {
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
 
     .club-image {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height:200px;
       margin-right: 20px;
-      object-fit: cover;
+      object-fit: fill;
     }
 
     .club-details {
       text-align: left;
 
-      h3 {
+      h4 {
         font-size: 20px;
         margin: 0;
       }

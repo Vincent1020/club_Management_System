@@ -2,19 +2,19 @@
   <div class="MyClub">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>抽籤結果</h1>
+      <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
       <nav class="nav">
-        <!-- 帳號管理連結 -->
-        <router-link to="/Student/StudentAccountManagement.vue">帳號管理</router-link>
+
         <!-- 當前頁面指示 -->
         <span class="current-interface">學生介面</span>
       </nav>
     </header>
 
-    <!-- 主內容區 -->
+    <!-- 主內容區，同樣使用element 的表格組件 -->
     <main class="main-content">
       <el-table :data="lotteryResults" style="width: 80%">
-        <el-table-column prop="name" label="學生姓名"></el-table-column>
+        <el-table-column prop="name" label="學生姓名"></el-table-column> 
+         <!-- prop	表單域 model 字段，在使用 validate、resetFields 方法的情况下，該屬性是必填的，label	標籤文本-->
         <el-table-column prop="club" label="學生所屬社團"></el-table-column>
       </el-table>
     </main>
@@ -82,6 +82,13 @@ export default {
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
+
+    img {
+        width: 4vw;
+        height: 8vh;
+        margin-top: 1vh;
+        margin-left: 4vw;
+    }
 
     .nav {
       display: flex;

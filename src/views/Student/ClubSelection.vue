@@ -1,13 +1,13 @@
 <template>
-  <div class="club-volunteer">
+  <div class="club-selection">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1>社團志願</h1>
+
+      <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
       <nav class="nav">
-        <!-- 帳號管理連結 -->
-        <router-link to="/account-management">帳號管理</router-link>
+
         <!-- 當前頁面指示 -->
-        <span class="current-interface">學生介面</span>
+        <span class="current-interface">學生介面-社團志願</span>
       </nav>
     </header>
 
@@ -76,7 +76,7 @@ function filteredOptions(choice) {
   const selectedOptions = [firstChoice.value, secondChoice.value, thirdChoice.value];
   // 返回過濾後的選項，排除已選擇的志願
   return allOptions.filter(option => !selectedOptions.includes(option) || option === eval(choice).value);
-}//eval()是啥啊...查了一下是說，eval() 函數會將傳入的字串當作 JavaScript 程式碼執行。
+}//eval()是?...查了一下是說，eval() 函數會將傳入的字串當作 JavaScript 程式碼執行，但好像不建議用，因為eval()是一個修改危險的函數。
 
 // 提交表單的函數
 function submitForm() {
@@ -86,7 +86,7 @@ function submitForm() {
 </script>
 
 <style scoped lang="scss">
-.club-volunteer {
+.club-selection {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /* 設置字體 */
   height: 100vh; 
@@ -101,6 +101,14 @@ function submitForm() {
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
+
+      
+  img {
+        width: 4vw;
+        height: 8vh;
+        margin-top: 1vh;
+        margin-left: 4vw;
+    }
 
     .nav {
       display: flex; /* 使用 flex 布局 */
