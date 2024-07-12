@@ -191,6 +191,7 @@ onMounted(() => {
             <table>
                 <thead>
                     <tr>
+                        <th><input type="button" value="全選"></th>
                         <th class="status">狀態</th>
                         <th class="identity">學號</th>
                         <th class="pwd">密碼</th>
@@ -204,16 +205,19 @@ onMounted(() => {
 
                 <tbody>
                     <tr v-for="item in pagenumber">
+                        <td><input type="checkbox"></td>    
                         <td>{{ item.status }}</td>
                         <td>{{ item.identity }}</td>
                         <td>{{ item.pwd }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                            <img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt="">
+                           <a href="/adminhomepage/revisestudentaccount"> <img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
 
                         </td>
-                        <td><img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></td>
+                        <td>
+                           <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -318,7 +322,11 @@ body {
             td {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
+                input{
+                    height: 2.5vh;
+                    width: 1.5vw;
 
+                }
                 img {
 
                     height: 3.3vh;
