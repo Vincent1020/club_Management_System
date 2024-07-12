@@ -83,7 +83,7 @@ function arrowRotate2() {
                     <li style="--delay:1"><a href="/adminhomepage/searchclub">社團查詢</a></li>
                     <li style="--delay:2"><a href="/adminhomepage/createclub">創建社團</a></li>
                     <li style="--delay:3"><a href="/adminhomepage/schedule">期程排定</a></li>
-                    <li style="--delay:4"><a href="/adminhomepage/drawlots">社團志願抽籤</a></li>
+            
 
                 </ul>
             </div>

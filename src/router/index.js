@@ -121,14 +121,8 @@ const router = createRouter({
     path:'/adminhomepage/schedule',
     name:'Schedule',
     component: () => import('../views/Admin/ClubManage/Schedule.vue') 
-  },
-    // 抽籤&統計
-    {
-      path:'/adminhomepage/drawlots',
-      name:'DrawLots',
-      component: () => import('../views/Admin/ClubManage/DrawLots.vue') 
-    },
-  
+  }
+ 
     
   
   ]
