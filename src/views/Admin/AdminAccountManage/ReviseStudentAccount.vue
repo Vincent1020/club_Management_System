@@ -15,11 +15,11 @@ import adminHeader from '@/components/adminHeader.vue'
                     <div class="name">
                         <h2>姓名</h2>
 
-                        <input type="text" placeholder="請輸入老師姓名">
+                        <input type="text" placeholder="請輸入學生姓名">
                     </div>
                     <div class="identity">
-                        <h2>教職員編號</h2>
-                        <input type="text" placeholder="請輸入教職員編號">
+                        <h2>學號</h2>
+                        <input type="text" placeholder="請輸入學號">
                     </div>
 
                     <div class="pwd">
@@ -42,9 +42,15 @@ import adminHeader from '@/components/adminHeader.vue'
                             <option value="">請選擇</option>
                             <option value="入學中">入學中</option>
                             <option value="在學">在學</option>
+                            <option value="畢業">畢業</option>
+                            <option value="">肄業</option>
+                            <option value="">轉學</option>
+                            <option value="">休學</option>
+                            <option value="">退學</option>
                         </select>
+                        <span>帳號不得為空</span>
                     </div>
-                    <button>提交</button>
+                    <a href="/adminhomepage/searchstudentaccount"><button>提交</button></a>
                 </div>
             </div>
 
@@ -103,6 +109,11 @@ body {
         option {
             font-size: 17px;
         }
+        span{
+        font-size: 18px;
+        color: red;
+        margin-left: 20vw;
+    }
         button{
             width: 7vw;
             height: 4vh; 

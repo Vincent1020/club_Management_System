@@ -74,6 +74,12 @@ const router = createRouter({
       name:'SearchTeacherAccount',
       component: () => import('../views/Admin/AdminAccountManage/SearchTeacherAccount.vue') 
     },
+    // 修改老師帳號
+    {
+      path:'/adminhomepage/reviseteacheraccount',
+      name:'ReviseTeacherAccount',
+      component: () => import('../views/Admin/AdminAccountManage/ReviseTeacherAccount.vue') 
+    },
     // 創建老師帳號
     {
       path:'/adminhomepage/createteacheraccount',
@@ -85,6 +91,12 @@ const router = createRouter({
       path:'/adminhomepage/searchstudentaccount',
       name:'SearchStudentAccount',
       component: () => import('../views/Admin/AdminAccountManage/SearchStudentAccount.vue') 
+    },
+    // 修改學生帳號
+    {
+      path:'/adminhomepage/revisestudentaccount',
+      name:'ReviseStudentAccount',
+      component: () => import('../views/Admin/AdminAccountManage/ReviseStudentAccount.vue') 
     },
     // 創建學生帳號
     {

@@ -50,8 +50,7 @@ const loginRequest = () => {
                 <label>
                     <input type="radio" class="choice" name="login" input:checked><span class="button">老師登入</span>
                 </label>
-                <!-- <label for="stu"> <input type="radio" value="學生登入" id="stu" >學生登入</label>
-                <label for="tea"> <input type="radio" value="老師登入" id="tea">老師登入</label> -->
+               
             </div>
 
             <!-- 帳號密碼輸入框 -->
