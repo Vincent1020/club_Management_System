@@ -36,15 +36,22 @@ import adminHeader from '@/components/adminHeader.vue'
                         <h2>E-mail</h2>
                         <input type="text" placeholder="請輸入信箱">
                     </div>
+
+                    <!-- 狀態選擇&錯誤訊息顯示 -->
+
                     <div class="state">
                         <h2>狀態</h2>
                         <select name="" id="">
                             <option value="">請選擇</option>
-                            <option value="入學中">入學中</option>
-                            <option value="在學">在學</option>
+                            <option value="未到職">未到職</option>
+                            <option value="在職">在職</option>
+                            <option value="離職">離職</option>
                         </select>
+                        <span>帳號不得為空</span>
+                        <div class="attction"></div>
                     </div>
-                    <button>提交</button>
+
+                    <a href="/adminhomepage/searchteacheraccount"><button>修改</button></a>
                 </div>
             </div>
 
@@ -66,53 +73,62 @@ body {
     margin-left: 16vw;
     color: black;
 
-    
-        .information {
-            width: 50vw;
-            height: 85vh;
-            margin-left: 15vw;
-            border-radius: 1em;
-            background-color: rgba(240, 247, 250, 0.863);
-            h2{
-                margin-top: 1.5vh;
-                margin-bottom: 1vh;
-            }
-            .area2{
-               padding-top: 1vh;
-               padding-left: 5vw;
-               h1{
+
+    .information {
+        width: 50vw;
+        height: 85vh;
+        margin-left: 15vw;
+        border-radius: 1em;
+        background-color: rgba(240, 247, 250, 0.863);
+
+        h2 {
+            margin-top: 1.5vh;
+            margin-bottom: 1vh;
+        }
+
+        .area2 {
+            padding-top: 1vh;
+            padding-left: 5vw;
+
+            h1 {
                 margin-left: 13vw;
-               }
-              
             }
-        }
-
-        input {
-            font-size: 20px;
-            height: 5vh;
-            width: 30vw;
-            border: 1px solid #585858;
-            border-radius: 0.2em;
 
         }
+    }
 
-        select {
-            font-size: 18px;
-        }
+    input {
+        font-size: 20px;
+        height: 5vh;
+        width: 30vw;
+        border: 1px solid #585858;
+        border-radius: 0.2em;
 
-        option {
-            font-size: 17px;
-        }
-        button{
-            width: 7vw;
-            height: 4vh; 
-            margin-left: 33vw;
-            font-size: 18px;
+    }
 
-            &:hover{
-                cursor: pointer;
-            }
+    select {
+        font-size: 18px;
+    }
+
+    option {
+        font-size: 17px;
+    }
+
+    span{
+        font-size: 18px;
+        color: red;
+        margin-left: 20vw;
+    }
+    button {
+        width: 7vw;
+        height: 4vh;
+        margin-left: 33vw;
+        font-size: 18px;
+
+        &:hover {
+            cursor: pointer;
         }
-    
+    }
+
 }
 </style>
