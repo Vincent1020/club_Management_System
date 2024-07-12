@@ -104,6 +104,31 @@ const router = createRouter({
       name:'CreateStudentAccount',
       component: () => import('../views/Admin/AdminAccountManage/CreateStudentAccount.vue') 
     },
+    // 搜尋社團
+    {
+      path:'/adminhomepage/searchclub',
+      name:'SearchClub',
+      component: () => import('../views/Admin/ClubManage/SearchClub.vue') 
+    },
+    // 創建社團
+    {
+      path:'/adminhomepage/createclub',
+      name:'CreateClub',
+      component: () => import('../views/Admin/ClubManage/CreateClub.vue') 
+    },
+      // 期程排定
+   {
+    path:'/adminhomepage/schedule',
+    name:'Schedule',
+    component: () => import('../views/Admin/ClubManage/Schedule.vue') 
+  },
+    // 抽籤&統計
+    {
+      path:'/adminhomepage/drawlots',
+      name:'DrawLots',
+      component: () => import('../views/Admin/ClubManage/DrawLots.vue') 
+    },
+  
     
   
   ]

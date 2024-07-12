@@ -180,10 +180,10 @@ onMounted(() => {
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 刪除人員 -->
-                <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt=""></a>
+                <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
-                <input type="text">
+                <input type="text" placeholder="搜尋社團名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             </div>
 
@@ -191,12 +191,12 @@ onMounted(() => {
             <table>
                 <thead>
                     <tr>
-                        <th><input type="button" value="全選"></th>
-                        <th class="status">狀態</th>
-                        <th class="identity">教職員編號</th>
-                        <th class="pwd">密碼</th>
-                        <th class="name">姓名</th>
-                        <th class="email">Email</th>
+                        <th><input type="button" value="全選"></th>        
+                        <th class="SchoolYear">學年</th>
+                        <th class="identity">社團ID</th>
+                        <th class="name">社團名稱</th>
+                        <th class="email">指導老師</th>
+                        <th class="revise">社團人數</th>
                         <th class="revise">修改</th>
                         <th class="remove">刪除</th>
 
@@ -279,6 +279,10 @@ body {
 
         .search {
             margin-left: 1vw;
+        }
+        input{
+            
+            font-size: 18px;
         }
     }
 
