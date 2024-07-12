@@ -13,28 +13,32 @@ import adminHeader from '@/components/adminHeader.vue'
                 <div class="area2">
                   
                     <div class="name">
-                        <h2>姓名</h2>
+                        <h2>社團名稱</h2>
 
-                        <input type="text" placeholder="請輸入老師姓名">
+                        <input type="text" placeholder="請輸入社團名稱">
                     </div>
                     <div class="identity">
-                        <h2>教職員編號</h2>
+                        <h2>社團ID</h2>
+                        <input type="text" placeholder="請輸入社團ID">
+                    </div>
+
+                    <div class="intro">
+                        <h2>介紹</h2>
+                        <input type="text" placeholder="請介紹此社團">
+                    </div>
+
+                    <div class="teacherId">
+                        <h2>負責教師教職員編號</h2>
                         <input type="text" placeholder="請輸入教職員編號">
                     </div>
 
-                    <div class="pwd">
-                        <h2>密碼</h2>
-                        <input type="password" placeholder="請輸入密碼">
+                    <div class="classroom">
+                        <h2>上課地點</h2>
+                        <input type="text" placeholder="請輸入上課地點">
                     </div>
-
-                    <div class="pwd2">
-                        <h2>再次輸入密碼</h2>
-                        <input type="password" placeholder="請再次輸入密碼">
-                    </div>
-
-                    <div class="email">
-                        <h2>E-mail</h2>
-                        <input type="text" placeholder="請輸入信箱">
+                    <div class="max">
+                        <h2>名額上限</h2>
+                        <input type="text" placeholder="請輸入上線人數">
                     </div>
                     <div class="state">
                         <h2>狀態</h2>
