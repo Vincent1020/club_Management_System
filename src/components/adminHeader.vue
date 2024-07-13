@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 let open = ref(false)
+// 帳號導覽列
 function arrowRotate() {
     let arrow = document.querySelector(".arrow1")
     arrow.classList.toggle("arrow-rotate")
@@ -16,6 +17,8 @@ function arrowRotate() {
     console.log(arrow);
     console.log(menu);
 }   
+
+// 社團導覽列
 function arrowRotate2() {
     let arrow = document.querySelector(".arrow2")
     arrow.classList.toggle("arrow-rotate")
@@ -77,10 +80,10 @@ function arrowRotate2() {
 
                 </button>
                 <ul class="content menu2">
-                    <li style="--delay:1"><a href="">社團查詢</a></li>
-                    <li style="--delay:2"><a href="">創建社團</a></li>
-                    <li style="--delay:3"><a href="">期程排定</a></li>
-                    <li style="--delay:4"><a href="">社團志願抽籤</a></li>
+                    <li style="--delay:1"><a href="/adminhomepage/searchclub">社團查詢</a></li>
+                    <li style="--delay:2"><a href="/adminhomepage/createclub">創建社團</a></li>
+                    <li style="--delay:3"><a href="/adminhomepage/schedule">期程排定</a></li>
+            
 
                 </ul>
             </div>

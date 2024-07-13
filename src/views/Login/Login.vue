@@ -1,32 +1,42 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-let account = ref("")
+let account = ref()
 let password = ref("")
 let loginResponse = ref({})
 let errmsg = ref(null)
 
-// sessionStorage.setItem('account', JSON.stringify(this.questionList));
 const loginRequest = () => {
+
+    let login = {
+        student_id: account.value,
+        password: password.value
+    }
 
     if (!account.value || !password.value) {
         errmsg.value = "帳號、密碼不得為空"
         return
     }
-
-    fetch("http://localhost:8080/quiz/create_update", {
+    
+    console.log(login);
+ 
+    fetch("http://localhost:8080/student/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(account.value)
+        body: JSON.stringify(login)
     })
         .then(res => res.json())
         .then(data => {
             loginResponse.value = data
             console.log(data)
+            sessionStorage.setItem('account', JSON.stringify(account.value))
         })
-        .catch(err => { console.log(err) })
+        .catch(err => {
+            console.log(err)
+            errmsg.value = "登入失敗，請稍後再試"
+        })
 }
 
 
@@ -50,7 +60,7 @@ const loginRequest = () => {
                 <label>
                     <input type="radio" class="choice" name="login" input:checked><span class="button">老師登入</span>
                 </label>
-               
+
             </div>
 
             <!-- 帳號密碼輸入框 -->
@@ -112,7 +122,7 @@ body {
             width: 50%;
             height: 12vh;
             border: 1px solid rgb(105, 105, 105);
-            
+
             .choice {
                 display: none;
 
@@ -137,7 +147,7 @@ body {
             }
 
             input:checked+.button {
-                background-color:  rgb(170, 226, 208);
+                background-color: rgb(170, 226, 208);
                 color: #fff;
                 cursor: default;
             }
@@ -196,5 +206,4 @@ body {
         }
     }
 }
-
 </style>

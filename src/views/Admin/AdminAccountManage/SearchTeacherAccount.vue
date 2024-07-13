@@ -183,7 +183,7 @@ onMounted(() => {
                 <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
-                <input type="text">
+                <input type="text" placeholder="搜尋老師名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             </div>
 
@@ -279,6 +279,10 @@ body {
 
         .search {
             margin-left: 1vw;
+        } 
+         input{
+            
+            font-size: 18px;
         }
     }
 
