@@ -8,18 +8,26 @@ import adminHeader from '@/components/adminHeader.vue'
 
     <body>
         <adminHeader />
+
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li><a href="/adminhomepage/searchstudentaccount">搜尋學生帳號</a> ></li>
+                <li>&nbsp;新增學生帳號</li>
+            </ul>
+        </div>
+
         <div class="area">
             <div class="information">
                 <div class="area2">
-                    <!-- <h1>新增教師資料</h1> -->
+                    <!-- <h1>新增學生資料</h1> -->
                     <div class="name">
                         <h2>姓名</h2>
-
-                        <input type="text" placeholder="請輸入老師姓名">
+                        <input type="text" placeholder="請輸入學生姓名">
                     </div>
                     <div class="identity">
-                        <h2>教職員編號</h2>
-                        <input type="text" placeholder="請輸入教職員編號">
+                        <h2>學號</h2>
+                        <input type="text" placeholder="請輸入學號">
                     </div>
 
                     <div class="pwd">
@@ -42,6 +50,10 @@ import adminHeader from '@/components/adminHeader.vue'
                             <option value="">請選擇</option>
                             <option value="入學中">入學中</option>
                             <option value="在學">在學</option>
+                            <option value="在學">畢業</option>
+                            <option value="在學">轉學</option>
+                            <option value="在學">退學</option>
+                            <option value="在學">休學</option>
                         </select>
                     </div>
                     <button>提交</button>
@@ -58,7 +70,25 @@ import adminHeader from '@/components/adminHeader.vue'
 body {
     background-color: #fff;
 }
+.breadcrumb {
+    width: 30vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
 
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
+   
+
+}
 .area {
     width: 84vw;
     height: 100vh;

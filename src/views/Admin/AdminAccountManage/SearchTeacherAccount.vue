@@ -171,6 +171,12 @@ onMounted(() => {
 
     <body>
         <adminHeader />
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li>&nbsp;搜尋老師帳號</li>
+            </ul>
+        </div>
 
         <div class="area">
 
@@ -198,7 +204,7 @@ onMounted(() => {
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
-                        <th class="remove">刪除</th>
+                        <th class="remove">離職</th>
 
                     </tr>
                 </thead>
@@ -212,11 +218,12 @@ onMounted(() => {
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount"><img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <a href="/adminhomepage/reviseteacheraccount"><img
+                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
 
                         </td>
                         <td>
-                           <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                            <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
                         </td>
                     </tr>
 
@@ -243,6 +250,24 @@ body {
     background-color: #fff;
 }
 
+.breadcrumb {
+    width: 20vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
+
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
+}
+
 .area {
     width: 84vw;
     height: 100vh;
@@ -253,6 +278,7 @@ body {
     .function {
         display: flex;
         align-items: center;
+
 
         img {
             width: 2vw;
@@ -279,9 +305,10 @@ body {
 
         .search {
             margin-left: 1vw;
-        } 
-         input{
-            
+        }
+
+        input {
+
             font-size: 18px;
         }
     }
@@ -299,17 +326,19 @@ body {
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            input{
-                    height: 4vh;
-                    width: 3vw;
-                    margin-bottom: 1vh; 
-                    background-color: rgb(216, 221, 230);
-                    border: none;
-                    border-radius: 0.5em;
-                    &:hover{
-                        cursor: pointer;
-                    }
+
+            input {
+                height: 4vh;
+                width: 3vw;
+                margin-bottom: 1vh;
+                background-color: rgb(216, 221, 230);
+                border: none;
+                border-radius: 0.5em;
+
+                &:hover {
+                    cursor: pointer;
                 }
+            }
         }
 
         tbody {
@@ -318,7 +347,7 @@ body {
             background-color: #fcfcfc;
 
             tr {
-              
+
                 &:hover {
                     background-color: #f3f7fb;
                 }
@@ -328,11 +357,12 @@ body {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
 
-                input{
+                input {
                     height: 2.5vh;
                     width: 1.5vw;
 
                 }
+
                 img {
 
                     height: 3.3vh;

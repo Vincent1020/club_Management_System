@@ -172,6 +172,14 @@ onMounted(() => {
     <body>
         <adminHeader />
 
+        <!-- 麵包屑 -->
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li>&nbsp;搜尋學生帳號</li>
+            </ul>
+        </div>
+
         <div class="area">
 
             <div class="function">
@@ -179,11 +187,11 @@ onMounted(() => {
                 <a class="add" href="/adminhomepage/createteacheraccount"><img
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
-                <!-- 刪除人員 -->
-                <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt=""></a>
+                <!-- 畢業學生 -->
+                <a class="graduate" href=""><img src="https://cdn-icons-png.flaticon.com/512/4645/4645232.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
-                <input type="text"  placeholder="搜尋學生名稱">
+                <input type="text" placeholder="搜尋學生名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             </div>
 
@@ -198,26 +206,29 @@ onMounted(() => {
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
-                        <th class="remove">刪除</th>
+                        <th class="remove">畢業</th>
+                 
 
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr v-for="item in pagenumber">
-                        <td><input type="checkbox"></td>    
+                        <td><input type="checkbox"></td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.identity }}</td>
                         <td>{{ item.pwd }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                           <a href="/adminhomepage/revisestudentaccount"> <img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <a href="/adminhomepage/revisestudentaccount"> <img
+                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
 
                         </td>
                         <td>
-                           <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                            <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
                         </td>
+                        
                     </tr>
 
                 </tbody>
@@ -241,6 +252,26 @@ onMounted(() => {
 <style scoped lang="scss">
 body {
     background-color: #fff;
+}
+
+.breadcrumb {
+    width: 20vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
+
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
+   
+
 }
 
 .area {
@@ -267,20 +298,26 @@ body {
             width: 2vw;
             height: 4vh;
             margin-left: 4vw;
-          
+
         }
-        .remove{
+
+        .graduate {
             width: 2vw;
-            height: 4vh; 
+            height: 4vh;
             margin-left: 2vw;
             margin-right: 50vw;
+            img {
+            width: 2.6vw;
+            height: 5vh;
+            }
         }
 
         .search {
             margin-left: 1vw;
         }
-        input{
-            
+
+        input {
+
             font-size: 18px;
         }
     }
@@ -298,17 +335,19 @@ body {
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            input{
-                    height: 4vh;
-                    width: 3vw;
-                    margin-bottom: 1vh; 
-                    background-color: rgb(216, 221, 230);
-                    border: none;
-                    border-radius: 0.5em;
-                    &:hover{
-                        cursor: pointer;
-                    }
+
+            input {
+                height: 4vh;
+                width: 3vw;
+                margin-bottom: 1vh;
+                background-color: rgb(216, 221, 230);
+                border: none;
+                border-radius: 0.5em;
+
+                &:hover {
+                    cursor: pointer;
                 }
+            }
         }
 
         tbody {
@@ -326,11 +365,13 @@ body {
             td {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
-                input{
+
+                input {
                     height: 2.5vh;
                     width: 1.5vw;
 
                 }
+
                 img {
 
                     height: 3.3vh;
