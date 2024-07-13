@@ -18,8 +18,8 @@
       <router-link class="option" to="/ClubIntroduction">社團介紹</router-link>
       <!-- 社團志願連結 -->
       <router-link class="option" to="/ClubSelection">社團志願</router-link>
-      <!-- 抽籤結果連結 -->
-      <router-link class="option" to="/MyClub">抽籤結果</router-link>
+      <!-- 我的社團連結 -->
+      <router-link class="option" to="/MyClub">我的社團</router-link>
     </main>
   </div>
 </template>
@@ -98,6 +98,8 @@ export default {
       opacity: 0.5; /* 半透明 */
     }
   }
+
+  //------------------------以上是導覽列--------------------------------------
 
   .main-content { /* 就是我灰灰的地方，主內容區 */
     flex: 1; /* 使主內容區域填滿剩餘空間 */

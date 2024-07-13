@@ -98,11 +98,11 @@ export default {
       // 社團詳細介紹 的數據
       clubs: [
         { name: '管樂社', image: 'https://event.culture.tw/userFiles/CKSMH/JpgFile/01/04229/04229_276_175.jpg?20240630', intro : '簡介: 有著優良的師資、悠久的歷史，社課除了管樂合奏，學長學姊還會額外教你功課，讓您不用為學業煩惱 。',pay :'社團費用: 3000', classroom :'上課地點: 四樓音樂教室',max :'20人',attendees: '10' },
-        { name: '田徑社', image: 'https://d9xe416pf8kwg.cloudfront.net/media/gimages/2018/07/253%283%29.jpg', intro : '社團宗旨: 培養田徑運動人才，提升運動技術能力!',pay :'社團費用: 1000', classroom :'上課地點: 學校操場' },
+        { name: '田徑社', image: 'https://d9xe416pf8kwg.cloudfront.net/media/gimages/2018/07/253%283%29.jpg', intro : '社團宗旨: 培養田徑運動人才，提升運動技術能力!',pay :'社團費用: 1000', classroom :'上課地點: 學校操場',attendees: '10' },
         { name: '美術社', image: 'https://cdn.shopify.com/s/files/1/0613/7030/2681/products/product_202204131604551_592x839.jpg', intro : '美術社主要是以動漫繪畫作為教學基礎，所以不會畫圖也無所謂。',pay :'社團費用: 1000', classroom :'上課地點: 某間教室' },
-        { name: '籃球社', image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', intro : '《籃球社》是專業的籃球資訊分享社區，每天為廣大的籃球愛好者分享最新的NBA新聞、比賽熱點、比賽影片、籃球技巧教學等精彩資訊。',pay :'社團費用: 1000', classroom :'上課地點: 某間教室'  },
-        { name: '羽毛球社', image: 'https://static.accupass.com/userupload/810423a7a5e743f98762a9d335305d32.jpg', intro : '歡迎所有愛打羽球的朋友一起加入這個社團。我們可以在這裡分享台南地區球隊招募資訊、糾咖打球、球場訊息、相關商品訊息、好康相報！但是拒絕廣告發文哦！',pay :'社團費用: 1000', classroom :'上課地點: 某間教室'  },
-        { name: '美食社', image: 'https://www.brain.com.tw/Upload/News/20200226151647.jpg', intro : '介紹 :集合一群對美食有興趣及探索精神的學生，昨天正式成立，成立初衷: 除了知道好吃，還要知道為什麼好吃。',pay :'社團費用: 300000', classroom :'上課地點: 各地餐廳'
+        { name: '籃球社', image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', intro : '《籃球社》是專業的籃球資訊分享社區，每天為廣大的籃球愛好者分享最新的NBA新聞、比賽熱點、比賽影片、籃球技巧教學等精彩資訊。',pay :'社團費用: 1000', classroom :'上課地點: 某間教室',attendees: '10'  },
+        { name: '羽毛球社', image: 'https://static.accupass.com/userupload/810423a7a5e743f98762a9d335305d32.jpg', intro : '歡迎所有愛打羽球的朋友一起加入這個社團。我們可以在這裡分享台南地區球隊招募資訊、糾咖打球、球場訊息、相關商品訊息、好康相報！但是拒絕廣告發文哦！',pay :'社團費用: 1000', classroom :'上課地點: 某間教室',attendees: '10'  },
+        { name: '美食社', image: 'https://www.brain.com.tw/Upload/News/20200226151647.jpg', intro : '介紹 :集合一群對美食有興趣及探索精神的學生，昨天正式成立，成立初衷: 除了知道好吃，還要知道為什麼好吃。',pay :'社團費用: 300000', classroom :'上課地點: 各地餐廳',attendees: '10'
          }
       ]
     };

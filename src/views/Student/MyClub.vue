@@ -12,10 +12,12 @@
 
     <!-- 主內容區，同樣使用element 的表格組件 -->
     <main class="main-content">
-      <el-table :data="lotteryResults" style="width: 80%">
+      <el-table :data="myClub" style="width: 80%">
         <el-table-column prop="name" label="學生姓名"></el-table-column> 
          <!-- prop	表單域 model 字段，在使用 validate、resetFields 方法的情况下，該屬性是必填的，label	標籤文本-->
         <el-table-column prop="club" label="學生所屬社團"></el-table-column>
+        <el-table-column prop="pay" label="社團費用 "></el-table-column>
+        <el-table-column prop="classroom" label="社團教室 "></el-table-column>
       </el-table>
     </main>
   </div>
@@ -25,19 +27,19 @@
 export default {
   data() {
     return {
-      lotteryResults: [] // 初始化抽籤結果數據為空
+      myClub: [] // 初始化抽籤結果數據為空
     };
   },
   methods: {
     // 獲取抽籤結果數據的方法
-    async fetchLotteryResults() {
-      const url = 'http://localhost:8080/quiz/search'; // 定義請求的URL
+    async fetchmyClub() {
+      const url = 'http://localhost:8080/student/search'; // 定義請求的URL
       const options = {
         method: 'POST', // 設置請求方法為POST
         headers: {
           'Content-Type': 'application/json' // 設置請求頭的Content-Type為application/json
         },
-        body: JSON.stringify({ id: '', start_date: '', end_date: '' }) // 設置請求的body為空值
+        body: JSON.stringify({ clubId: '0' }) // 設置請求的body為空值
       };
 
       try {
@@ -53,7 +55,7 @@ export default {
         const data = await response.json();
         
         // 設置抽籤結果數據
-        this.lotteryResults = data.quizList || [];
+        this.myClub = data.quizList || [];
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
@@ -61,7 +63,7 @@ export default {
   },
   created() {
     // 組件創建時調用獲取數據的方法
-    this.fetchLotteryResults();
+    this.fetchmyClub();
   }
 };
 </script>
@@ -133,6 +135,7 @@ export default {
     }
   }
 
+  //-------------------------------------------------------------
   .main-content {
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; 

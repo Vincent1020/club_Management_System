@@ -76,8 +76,7 @@ function filteredOptions(choice) {
   const selectedOptions = [firstChoice.value, secondChoice.value, thirdChoice.value];
   // 返回過濾後的選項，排除已選擇的志願
   return allOptions.filter(option => !selectedOptions.includes(option) || option === eval(choice).value);
-}//eval()是?...查了一下是說，eval() 函數會將傳入的字串當作 JavaScript 程式碼執行，但好像不建議用，因為eval()是一個修改危險的函數。
-
+}
 // 提交表單的函數
 function submitForm() {
   // 用alert來顯示提交結果

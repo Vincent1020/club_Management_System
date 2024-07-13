@@ -1,6 +1,6 @@
-<template>
-  <div class="teacher-home">
-    <!-- 頁面頭部，包括標題和導航欄 -->
+<template> 
+  <div class="teacher-home"> 
+    <!-- 頁面頭部，包括標題和導航欄 --> 
     <header class="header">
       <h1>
         <router-link to="TeacherHome">
@@ -18,41 +18,33 @@
     <!-- 主內容區域 -->
     <main class="main-content">
 
-    <div class="area">
+      <div class="area">
+        <div class="function">
+          <!-- 新增按鈕 -->
+          <img class="add" src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt="">
 
-    <div class="function">
-    <!-- 新增按鈕 -->
-    <img class="add" src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt="">
-
-    <!-- 搜尋按鈕 -->
-    <input type="text">
-    <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
-    </div>
-  </div>
-
+          <!-- 搜尋按鈕 -->
+          <input type="text">
+          <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
+        </div>
+      </div>
 
       <!-- 使用 HTML 表格 -->
       <table>
         <thead>
           <tr>
-            <th>學號</th>
-            <th>班級</th>
-            <th>姓名</th>
-            <th>Email</th>
-            <th>在學狀態</th>
+            <th>學號</th> <!--"studentId"-->
+            <th>班級</th><!--"grade"-->
+            <th>姓名</th><!--"name"-->       
+            <th>在學狀態</th><!--"status"-->
           </tr>
         </thead>
         <tbody>
           <tr v-for="(row, index) in tableData" :key="index">
-            <td>{{ row.student_id }}</td>
+            <td>{{ row.studentId }}</td>
             <td>{{ row.grade }}</td>
             <td>{{ row.name }}</td>
-            <td>{{ row.email }}</td>
-            <td>
-              <!-- 根據在學狀態顯示不同的標籤 -->
-              <span v-if="row.status">✔️</span>
-              <span v-else>❌</span>
-            </td>
+            <td>{{ row.status === '在學中' ? '✔️' : '❌' }}</td>
           </tr>
         </tbody>
       </table>
@@ -72,13 +64,13 @@ export default {
     async fetchTableData() {
       try {
         // 使用 fetch API 發送 POST 請求到后端
-        const response = await fetch('http://localhost:8080/club/search', {
+        const response = await fetch('http://localhost:8080/student/search', {
           method: 'POST', // 使用 POST 方法
           headers: {
             'Content-Type': 'application/json' // 設置請求頭
           },
           // 發送的請求體，這裡是一個空值的 JSON 對象
-          body: JSON.stringify({ id: '', start_date: '', end_date: '' }) 
+          body: JSON.stringify({ name: '', status: '' }) 
         });
 
         // 檢查響應是否成功
@@ -89,8 +81,9 @@ export default {
 
         // 將響應轉換為 JSON 格式
         const data = await response.json();
+        console.log('API 返回的資料：', data); // 調試輸出
         // 設置 tableData 為返回的數據
-        this.tableData = data.quizList || [];
+        this.tableData = data.studentList || [];
       } catch (error) {
         // 捕捉錯誤並在控制台輸出
         console.error(`無法獲取數據：${error.message}`);
@@ -145,7 +138,7 @@ export default {
       .current-interface {
         position: relative; 
         font-size: 30px; 
-        font-weight: bold; /* 字體加粗 */
+        font-weight: bold;
         color: white; 
       }
 
@@ -157,7 +150,7 @@ export default {
         right: 0;
         height: 2px; 
         background-color: white; 
-        animation: blink 1.5s infinite; /* 應用 blink 動畫 */
+        animation: blink 1.5s infinite;
       }
     }
   }
@@ -178,31 +171,29 @@ export default {
     background-color: #F5F5F5; /* 背景顏色 */
   }
 
-  // 
   .function {
-        display: flex;
-        align-items: center;
+    display: flex;
+    align-items: center;
 
-        img {
-            width: 2vw;
-            height: 4vh;
+    img {
+        width: 2vw;
+        height: 4vh;
 
-            &:hover {
-                cursor: pointer;
-            }
-        }
-
-        .add {
-            margin-left: 4vw;
-            margin-right: 55vw;
-        }
-
-        .search {
-            margin-left: 1vw;
+        &:hover {
+            cursor: pointer;
         }
     }
 
-    // 
+    .add {
+        margin-left: 4vw;
+        margin-right: 55vw;
+    }
+
+    .search {
+        margin-left: 1vw;
+    }
+  }
+
   table {
     width: 100%;
     border-collapse: collapse; /* 合併邊框 */
@@ -211,7 +202,7 @@ export default {
 
   th, td {
     padding: 12px; /* 單元格內邊距 */
-    border: 1px solid #dddddd00; /* 單元格邊框，我設透明好了? */
+    border: 1px solid #dddddd00; /* 單元格邊框 */
     text-align: center; /* 文字置中 */
   }
 
