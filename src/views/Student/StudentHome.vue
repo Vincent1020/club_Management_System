@@ -26,8 +26,10 @@
 
 <script>
 export default {
-  
- 
+  created() {
+    const account = JSON.parse(sessionStorage.getItem('account'));
+    console.log('Logged in account:', account);
+  }
 };
 </script>
 
@@ -41,11 +43,11 @@ export default {
   flex-direction: column;
   
   img {
-        width: 4vw;
-        height: 8vh;
-        margin-top: 1vh;
-        margin-left: 4vw;
-    }
+    width: 4vw;
+    height: 8vh;
+    margin-top: 1vh;
+    margin-left: 4vw;
+  }
 
   .header {
     background-color: #87CEEB;
@@ -61,7 +63,7 @@ export default {
       .a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-       font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
+        font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */
@@ -109,8 +111,6 @@ export default {
     gap: 8%; /* 調整元素間距用的，如果你內容沒東西，應該是用不到，就把這個刪了 */
     background-color: #e3e1e1; 
     width: 100%;
-  
-
 
     .option {
       background-color: #F5F5F5; 
