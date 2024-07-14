@@ -172,6 +172,13 @@ onMounted(() => {
     <body>
         <adminHeader />
 
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li>&nbsp;社團查詢</li>
+            </ul>
+        </div>
+
         <div class="area">
 
             <div class="function">
@@ -241,6 +248,23 @@ onMounted(() => {
 <style scoped lang="scss">
 body {
     background-color: #fff;
+}
+.breadcrumb {
+    width: 30vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
+
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
 }
 
 .area {
