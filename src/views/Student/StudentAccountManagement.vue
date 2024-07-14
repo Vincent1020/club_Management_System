@@ -40,7 +40,7 @@
   
   // 提交表單的方法
   function submitForm() {
-    fetch('http://localhost:8080/update', {
+    fetch('http://localhost:8080/teacherDatabase/createOrUpdate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
