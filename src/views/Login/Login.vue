@@ -1,26 +1,47 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-let account = ref()
+let router = useRouter()
+let account = ref("")
 let password = ref("")
-let loginResponse = ref({})
-let errmsg = ref(null)
 
+let errmsg = ref(null)
+let loginfetch = ref("")
+let loginType = ref("")
+let login = ref({})
 const loginRequest = () => {
 
-    let login = {
-        student_id: account.value,
-        password: password.value
-    }
-
+    // 基本驗證
     if (!account.value || !password.value) {
-        errmsg.value = "帳號、密碼不得為空"
+        errmsg.value = ("帳號、密碼不得為空")
         return
     }
-    
+    else if (loginType.value == "") {
+        errmsg.value =("請選擇登入身份")
+        return
+    }
+
+    // 判斷身分別
+    if (loginType.value == "student") {
+        login= {
+            student_id: account.value,
+            password: password.value
+        }
+        loginfetch = ("http://localhost:8080/student/login")
+    }
+
+    else if (loginType.value == "teacher") {
+        login = {
+            teacher_id: account.value,
+            password: password.value
+        }
+        loginfetch = ("http://localhost:8080/teacherDatabase/login")
+    }
+
     console.log(login);
- 
-    fetch("http://localhost:8080/student/login", {
+
+    fetch(loginfetch, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -29,16 +50,26 @@ const loginRequest = () => {
     })
         .then(res => res.json())
         .then(data => {
-            loginResponse.value = data
-            console.log(data)
+            console.log(data) 
+            if(data.statusCode==404){
+                errmsg.value = ("帳號或密碼錯誤")
+            }
+            else if(data.statusCode==200 && loginType.value=="student"){
+                router.push({path:'/StudentHome'})
+                
+            }
+            else if(data.statusCode==200 && loginType.value=="teacher"){
+                router.push({path:'/TeacherHome'})
+            }
             sessionStorage.setItem('account', JSON.stringify(account.value))
+
         })
         .catch(err => {
             console.log(err)
-            errmsg.value = "登入失敗，請稍後再試"
+            errmsg.value =("登入失敗，請稍後再試")
+
         })
 }
-
 
 
 </script>
@@ -54,11 +85,13 @@ const loginRequest = () => {
             <div class="userLoginChoose">
 
                 <label>
-                    <input type="radio" class="choice" name="login" input:checked><span class="button">學生登入</span>
+                    <input type="radio" class="choice" name="login" v-model="loginType" value="student"><span
+                        class="button">學生登入</span>
                 </label>
 
                 <label>
-                    <input type="radio" class="choice" name="login" input:checked><span class="button">老師登入</span>
+                    <input type="radio" class="choice" name="login" v-model="loginType" value="teacher"><span
+                        class="button">老師登入</span>
                 </label>
 
             </div>
@@ -68,14 +101,15 @@ const loginRequest = () => {
 
                 <div class="account user">
                     <h1>帳號</h1>
-                    <input type="text" v-model="account" placeholder="A123" required>
+                    <input type="text" v-model.number="account" placeholder="A123" required>
                 </div>
 
                 <div class="password user">
                     <h1>密碼</h1>
                     <input type="password" v-model="password" required>
                 </div>
-                <p>{{ errmsg }}</p>
+                <p >{{ errmsg }}</p>
+        
 
             </div>
 
@@ -106,6 +140,7 @@ body {
     width: 40vw;
     height: 50vh;
     background-color: white;
+
     position: fixed;
     top: 25%;
     left: 30%;
@@ -114,6 +149,7 @@ body {
     .userLoginChoose {
         width: 100%;
         height: 5vw;
+       
         color: black;
         display: flex;
         justify-content: space-around;
@@ -122,6 +158,7 @@ body {
             width: 50%;
             height: 12vh;
             border: 1px solid rgb(105, 105, 105);
+       
 
             .choice {
                 display: none;

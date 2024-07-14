@@ -26,10 +26,6 @@ import adminHeader from '@/components/adminHeader.vue'
 
                         <input type="text" placeholder="請輸入老師姓名">
                     </div>
-                    <div class="identity">
-                        <h2>教職員編號</h2>
-                        <input type="text" placeholder="請輸入教職員編號">
-                    </div>
 
                     <div class="pwd">
                         <h2>密碼</h2>
@@ -96,7 +92,8 @@ body {
     
         .information {
             width: 50vw;
-            height: 85vh;
+            height: 70vh;
+            margin-top: 7vh;
             margin-left: 15vw;
             border-radius: 1em;
             background-color: rgba(240, 247, 250, 0.863);
