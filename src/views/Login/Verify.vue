@@ -15,7 +15,10 @@ let emailres = ref({})
 
 let mode = ref(true)
 // true = 學生 false = 教師
+// 模式選擇
 
+let type = ref("")
+// 選擇老師或學生
 function changeMode(bool) {
     mode.value = bool
 }
@@ -23,7 +26,7 @@ function changeMode(bool) {
 function verify() {
     let fetchWeb = "http://localhost:8080/quiz/create_update/{}";
     if(mode.value == false){
-        fetchWeb = "http://localhost:8080/quiz/update/{}"
+        fetchWeb =( "http://localhost:8080/quiz/update/{}")
     }
     if (!email.value || !account.value) {
         msg.value = "請輸入Account或Email"
@@ -77,7 +80,7 @@ function verify() {
                 <h1>我是</h1>
                 <button type="button" @click="changeMode(true)" :class="{now: mode}">學生</button>
                 <button type="button" @click="changeMode(false)" :class="{now: !mode}">老師</button>
-                <!-- <label for=""></label> -->
+          
             </div>
             <div class="account">
                 <h2>請輸入帳號</h2>

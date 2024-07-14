@@ -1,6 +1,19 @@
 <script setup>
-import adminHeader from '@/components/adminHeader.vue'
-import { ref } from 'vue'
+import { ref ,defineProps,defineEmits} from 'vue'
+
+const props = defineProps({
+    accountType:{
+        type:String,
+        required:true,
+        validator:(value)=>["student","teacher"].includes(value)
+            
+        
+
+    }
+})
+
+const emit = defineEmits(["submit"])
+
 
 let name = ref("")
 let identity = ref()
@@ -24,7 +37,7 @@ const submit = () => {
 <template>
 
     <body>
-        <adminHeader />
+ 
         <!-- 麵包屑 -->
         <div class="breadcrumb">
             <ul>
@@ -86,95 +99,3 @@ const submit = () => {
 
     </body>
 </template>
-
-<style scoped lang="scss">
-body {
-    background-color: #fff;
-}
-
-.breadcrumb {
-    width: 30vw;
-    position: absolute;
-    color: rgb(82, 87, 99);
-    left: 15vw;
-    top: 5vh;
-
-    ul {
-        display: flex;
-        list-style: none;
-        font-size: 1.1em;
-
-        a {
-            text-decoration: none;
-            color: rgb(51, 68, 161);
-        }
-    }
-}
-
-.area {
-    width: 84vw;
-    height: 100vh;
-    padding-top: 13vh;
-    margin-left: 16vw;
-    color: black;
-
-
-    .information {
-        width: 50vw;
-        height: 85vh;
-        margin-left: 15vw;
-        border-radius: 1em;
-        background-color: rgba(240, 247, 250, 0.863);
-
-        h2 {
-            margin-top: 1.5vh;
-            margin-bottom: 1vh;
-        }
-
-        .area2 {
-            padding-top: 1vh;
-            padding-left: 5vw;
-
-            h1 {
-                margin-left: 13vw;
-            }
-
-        }
-    }
-
-    input {
-        font-size: 20px;
-        height: 5vh;
-        width: 30vw;
-        border: 1px solid #585858;
-        border-radius: 0.2em;
-
-    }
-
-    select {
-        font-size: 18px;
-    }
-
-    option {
-        font-size: 17px;
-    }
-
-    span {
-        font-size: 18px;
-        color: red;
-        margin-left: 20vw;
-    }
-
-    button {
-        width: 7vw;
-        height: 4vh;
-        margin-left: 33vw;
-        font-size: 18px;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-}
-</style>

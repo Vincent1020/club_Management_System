@@ -8,136 +8,31 @@ let pwd = ref("")
 let name = ref("")
 let email = ref("")
 
+let accountarr = ref([])
+
 let teacherAccount = ref([{
     status: status,
-    identity: identity,
+    teacher_id: identity,
     pwd: pwd,
     name: name,
     email: email,
 }])
-// 測試用
-let test = ref([
-    {
-        status: "在職",
-        identity: "A001",
-        pwd: "123",
-        name: "王大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A002",
-        pwd: "123",
-        name: "王小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A003",
-        pwd: "123",
-        name: "李大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A004",
-        pwd: "123",
-        name: "李小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A005",
-        pwd: "123",
-        name: "陳大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A006",
-        pwd: "123",
-        name: "陳小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A007",
-        pwd: "123",
-        name: "張大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A008",
-        pwd: "123",
-        name: "張小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A009",
-        pwd: "123",
-        name: "林大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A010",
-        pwd: "123",
-        name: "林小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A011",
-        pwd: "123",
-        name: "黃大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A012",
-        pwd: "123",
-        name: "黃小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A013",
-        pwd: "123",
-        name: "蔡大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A014",
-        pwd: "123",
-        name: "蔡小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A015",
-        pwd: "123",
-        name: "謝大明",
-        email: "D9S9s@example.com",
-    }
 
-])
 
+// 頁碼
 let currentPage = ref(1)
 let row = 10
 
 let pageCount = computed(() =>
 
-    Math.ceil(test.value.length / row)
+    Math.ceil(teacherAccount.value.length / row)
 )
 
 let pagenumber = computed(() => {
 
     let start = (currentPage.value - 1) * row
     let end = start + row
-    return test.value.slice(start, end)
+    return teacherAccount.value.slice(start, end)
 })
 function setpage(page) {
     currentPage.value = page
@@ -145,32 +40,51 @@ function setpage(page) {
 
 
 onMounted(() => {
-    function search() {
-
-        fetch("http://localhost:8080/quiz/search", {
+        fetch("http://localhost:8080/teacherDatabase/search", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(searchObj)
+            body: JSON.stringify(teacherAccount)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                this.resArr = data.quizList
-                console.log(this.resArr);
+                accountarr = data.quizList
+                console.log(accountarr);
             })
             .catch(err => { console.log(err) })
-
-
-    }
+    
 })
+
+// function search(){
+//     fetch("http://localhost:8080/teacherDatabase/search", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(teacherAccount)
+//         })
+//             .then(res => res.json())
+//             .then(data => {
+//                 console.log(data)
+//                 accountarr = data.quizList
+//                 console.log(accountarr);
+//             })
+//             .catch(err => { console.log(err) })
+// }
 </script>
 
 <template>
 
     <body>
         <adminHeader />
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li>&nbsp;搜尋老師帳號</li>
+            </ul>
+        </div>
 
         <div class="area">
 
@@ -198,25 +112,26 @@ onMounted(() => {
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
-                        <th class="remove">刪除</th>
+                        <th class="remove">離職</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr v-for="item in pagenumber">
+                    <tr v-for="item in accountarr">
                         <td><input type="checkbox"></td>
                         <td>{{ item.status }}</td>
-                        <td>{{ item.identity }}</td>
+                        <td>{{ item.teacherId}}</td>
                         <td>{{ item.pwd }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount"><img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <a href="/adminhomepage/reviseteacheraccount"><img
+                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
 
                         </td>
                         <td>
-                           <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                            <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
                         </td>
                     </tr>
 
@@ -243,6 +158,24 @@ body {
     background-color: #fff;
 }
 
+.breadcrumb {
+    width: 20vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
+
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
+}
+
 .area {
     width: 84vw;
     height: 100vh;
@@ -253,6 +186,7 @@ body {
     .function {
         display: flex;
         align-items: center;
+
 
         img {
             width: 2vw;
@@ -279,9 +213,10 @@ body {
 
         .search {
             margin-left: 1vw;
-        } 
-         input{
-            
+        }
+
+        input {
+
             font-size: 18px;
         }
     }
@@ -299,17 +234,19 @@ body {
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            input{
-                    height: 4vh;
-                    width: 3vw;
-                    margin-bottom: 1vh; 
-                    background-color: rgb(216, 221, 230);
-                    border: none;
-                    border-radius: 0.5em;
-                    &:hover{
-                        cursor: pointer;
-                    }
+
+            input {
+                height: 4vh;
+                width: 3vw;
+                margin-bottom: 1vh;
+                background-color: rgb(216, 221, 230);
+                border: none;
+                border-radius: 0.5em;
+
+                &:hover {
+                    cursor: pointer;
                 }
+            }
         }
 
         tbody {
@@ -318,7 +255,7 @@ body {
             background-color: #fcfcfc;
 
             tr {
-              
+
                 &:hover {
                     background-color: #f3f7fb;
                 }
@@ -328,11 +265,12 @@ body {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
 
-                input{
+                input {
                     height: 2.5vh;
                     width: 1.5vw;
 
                 }
+
                 img {
 
                     height: 3.3vh;

@@ -82,7 +82,7 @@ function arrowRotate2() {
                 <ul class="content menu2">
                     <li style="--delay:1"><a href="/adminhomepage/searchclub">社團查詢</a></li>
                     <li style="--delay:2"><a href="/adminhomepage/createclub">創建社團</a></li>
-                    <li style="--delay:3"><a href="/adminhomepage/schedule">期程排定</a></li>
+                    <li style="--delay:3"><a href="/adminhomepage/schedule">期程&抽籤</a></li>
             
 
                 </ul>
@@ -98,13 +98,14 @@ function arrowRotate2() {
 
 // 上方導覽列
 .above {
+    display: flex;
+    justify-content: flex-end;
     position: fixed;
     background-color: #AFD4F6;
     width: 100vw;
     height: 10vh;
     margin-left: 12w;
-    display: flex;
-    justify-content: flex-end;
+ 
 
     a {
         color: #ffffff;

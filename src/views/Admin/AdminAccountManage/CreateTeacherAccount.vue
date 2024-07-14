@@ -8,6 +8,15 @@ import adminHeader from '@/components/adminHeader.vue'
 
     <body>
         <adminHeader />
+
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li><a href="/adminhomepage/searchteacheraccount">搜尋老師帳號</a> ></li>
+                <li>&nbsp;新增老師帳號</li>
+            </ul>
+        </div>
+
         <div class="area">
             <div class="information">
                 <div class="area2">
@@ -16,10 +25,6 @@ import adminHeader from '@/components/adminHeader.vue'
                         <h2>姓名</h2>
 
                         <input type="text" placeholder="請輸入老師姓名">
-                    </div>
-                    <div class="identity">
-                        <h2>教職員編號</h2>
-                        <input type="text" placeholder="請輸入教職員編號">
                     </div>
 
                     <div class="pwd">
@@ -58,7 +63,25 @@ import adminHeader from '@/components/adminHeader.vue'
 body {
     background-color: #fff;
 }
+.breadcrumb {
+    width: 30vw;
+    position: absolute;
+    color: rgb(82, 87, 99);
+    left: 15vw;
+    top: 5vh;
 
+    ul{
+        display: flex;
+        list-style: none;
+        font-size: 1.1em;
+        a{
+            text-decoration: none;
+            color: rgb(51, 68, 161);
+        }
+    }
+   
+
+}
 .area {
     width: 84vw;
     height: 100vh;
@@ -69,7 +92,8 @@ body {
     
         .information {
             width: 50vw;
-            height: 85vh;
+            height: 70vh;
+            margin-top: 7vh;
             margin-left: 15vw;
             border-radius: 1em;
             background-color: rgba(240, 247, 250, 0.863);
