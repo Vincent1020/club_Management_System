@@ -141,6 +141,7 @@ export default {
         height: 8vh;
         margin-top: 1vh;
         margin-left: 4vw;
+       
     }
 
     .nav {
@@ -254,7 +255,8 @@ export default {
   .image {
     width: 100%;
     height: 300px;
-    display: block;
+    
+    object-fit: cover;
   }
 
   .clearfix:before,
