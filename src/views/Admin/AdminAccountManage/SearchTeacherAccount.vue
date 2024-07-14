@@ -1,5 +1,6 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
+import { onBeforeUpdate } from 'vue';
 import { ref, onMounted, computed } from 'vue'
 
 let status = ref("")
@@ -9,11 +10,27 @@ let name = ref("")
 let email = ref("")
 
 let accountarr = ref([])
+function accountFetch(){
+    fetch("http://localhost:8080/teacherDatabase/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(teacherAccount)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                accountarr.value = data.quizList
+                console.log(accountarr.value);
+            })
+            .catch(err => { console.log(err) })
+}
+
 
 let teacherAccount = ref([{
     status: status,
-    teacher_id: identity,
-    pwd: pwd,
+    teacher_id: identity,  
     name: name,
     email: email,
 }])
@@ -25,14 +42,14 @@ let row = 10
 
 let pageCount = computed(() =>
 
-    Math.ceil(teacherAccount.value.length / row)
+    Math.ceil(accountarr.value.length / row)
 )
 
 let pagenumber = computed(() => {
 
     let start = (currentPage.value - 1) * row
     let end = start + row
-    return teacherAccount.value.slice(start, end)
+    return accountarr.value.slice(start, end)
 })
 function setpage(page) {
     currentPage.value = page
@@ -40,39 +57,14 @@ function setpage(page) {
 
 
 onMounted(() => {
-        fetch("http://localhost:8080/teacherDatabase/search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(teacherAccount)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                accountarr = data.quizList
-                console.log(accountarr);
-            })
-            .catch(err => { console.log(err) })
+    accountFetch()
     
 })
 
-// function search(){
-//     fetch("http://localhost:8080/teacherDatabase/search", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(teacherAccount)
-//         })
-//             .then(res => res.json())
-//             .then(data => {
-//                 console.log(data)
-//                 accountarr = data.quizList
-//                 console.log(accountarr);
-//             })
-//             .catch(err => { console.log(err) })
-// }
+
+ function search(){
+    accountFetch()
+}
 </script>
 
 <template>
@@ -107,8 +99,7 @@ onMounted(() => {
                     <tr>
                         <th><input type="button" value="全選"></th>
                         <th class="status">狀態</th>
-                        <th class="identity">教職員編號</th>
-                        <th class="pwd">密碼</th>
+                        <th class="identity">教職員編號</th>                     
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
@@ -118,11 +109,10 @@ onMounted(() => {
                 </thead>
 
                 <tbody>
-                    <tr v-for="item in accountarr">
+                    <tr v-for="item in pagenumber">
                         <td><input type="checkbox"></td>
                         <td>{{ item.status }}</td>
-                        <td>{{ item.teacherId}}</td>
-                        <td>{{ item.pwd }}</td>
+                        <td>{{ item.teacherId}}</td>                        
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
