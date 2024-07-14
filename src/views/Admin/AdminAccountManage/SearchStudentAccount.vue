@@ -7,163 +7,58 @@ let identity = ref("")
 let pwd = ref("")
 let name = ref("")
 let email = ref("")
+let accountarr = ref([])
+function accountFetch() {
+    fetch("http://localhost:8080/student/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(studentAccount)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            accountarr.value = data.studentList
+            console.log(accountarr.value);
+        })
+        .catch(err => { console.log(err) })
 
-let teacherAccount = ref([{
+}
+
+
+let studentAccount = ref([{
     status: status,
-    identity: identity,
-    pwd: pwd,
+    student_id: identity,
     name: name,
     email: email,
 }])
-// 測試用
-let test = ref([
-    {
-        status: "在學",
-        identity: "104001",
-        pwd: "123",
-        name: "王大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104002",
-        pwd: "123",
-        name: "王小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104003",
-        pwd: "123",
-        name: "李大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104004",
-        pwd: "123",
-        name: "李小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104005",
-        pwd: "123",
-        name: "陳大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104006",
-        pwd: "123",
-        name: "陳小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104007",
-        pwd: "123",
-        name: "張大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104008",
-        pwd: "123",
-        name: "張小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104009",
-        pwd: "123",
-        name: "林大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104010",
-        pwd: "123",
-        name: "林小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104011",
-        pwd: "123",
-        name: "黃大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104012",
-        pwd: "123",
-        name: "黃小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104013",
-        pwd: "123",
-        name: "蔡大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104014",
-        pwd: "123",
-        name: "蔡小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在學",
-        identity: "104015",
-        pwd: "123",
-        name: "謝大明",
-        email: "D9S9s@example.com",
-    }
 
-])
+onMounted(() => {
+    accountFetch()
+})
 
+
+// 頁碼
 let currentPage = ref(1)
 let row = 10
 
 let pageCount = computed(() =>
 
-    Math.ceil(test.value.length / row)
+    Math.ceil(accountarr.value.length / row)
 )
 
 let pagenumber = computed(() => {
 
     let start = (currentPage.value - 1) * row
     let end = start + row
-    return test.value.slice(start, end)
+    return accountarr.value.slice(start,end)
 })
 function setpage(page) {
     currentPage.value = page
 }
 
 
-onMounted(() => {
-    function search() {
-
-        fetch("http://localhost:8080/quiz/search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(searchObj)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                this.resArr = data.quizList
-                console.log(this.resArr);
-            })
-            .catch(err => { console.log(err) })
-
-    }
-})
 </script>
 
 <template>
@@ -187,7 +82,8 @@ onMounted(() => {
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 畢業學生 -->
-                <a class="graduate" href=""><img src="https://cdn-icons-png.flaticon.com/512/4645/4645232.png" alt=""></a>
+                <a class="graduate" href=""><img src="https://cdn-icons-png.flaticon.com/512/4645/4645232.png"
+                        alt=""></a>
 
                 <!-- 搜尋按鈕 -->
                 <input type="text" placeholder="搜尋學生名稱">
@@ -200,13 +96,12 @@ onMounted(() => {
                     <tr>
                         <th><input type="button" value="全選"></th>
                         <th class="status">狀態</th>
-                        <th class="identity">學號</th>
-                        <th class="pwd">密碼</th>
+                        <th class="identity">學號</th>                        
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
                         <th class="remove">畢業</th>
-                 
+
 
                     </tr>
                 </thead>
@@ -215,8 +110,7 @@ onMounted(() => {
                     <tr v-for="item in pagenumber">
                         <td><input type="checkbox"></td>
                         <td>{{ item.status }}</td>
-                        <td>{{ item.identity }}</td>
-                        <td>{{ item.pwd }}</td>
+                        <td>{{ item.studentId }}</td>                
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
@@ -227,7 +121,7 @@ onMounted(() => {
                         <td>
                             <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
                         </td>
-                        
+
                     </tr>
 
                 </tbody>
@@ -260,16 +154,17 @@ body {
     left: 15vw;
     top: 5vh;
 
-    ul{
+    ul {
         display: flex;
         list-style: none;
         font-size: 1.1em;
-        a{
+
+        a {
             text-decoration: none;
             color: rgb(51, 68, 161);
         }
     }
-   
+
 
 }
 
@@ -305,9 +200,10 @@ body {
             height: 4vh;
             margin-left: 2vw;
             margin-right: 50vw;
+
             img {
-            width: 2.6vw;
-            height: 5vh;
+                width: 2.6vw;
+                height: 5vh;
             }
         }
 
