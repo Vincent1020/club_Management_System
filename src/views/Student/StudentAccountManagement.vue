@@ -3,6 +3,7 @@
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
       <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
+      
       <nav class="nav">
         <!-- 當前頁面指示 -->
         <span class="current-interface">學生介面-帳號管理</span>
@@ -30,69 +31,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      studentId: null,
-      name: '',
-      email: '',
-      password: ''
-    };
-  },
-  created() {
-    // 從sessionStorage中獲取student_id
-    const account = JSON.parse(sessionStorage.getItem('account'));
-    if (account && account.loginType === 'student') {
-      this.studentId = account.account;
-      this.fetchStudentData();
-    } else {
-      console.error("無法獲取學生ID");
-    }
-  },
-  methods: {
-    fetchStudentData() {
-      fetch('http://localhost:8080/student/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ student_id: this.studentId }),
-      })
-        .then(response => response.json())
-        .then(data => {
-          const studentData = data.studentList[0];
-          this.name = studentData.name;
-          this.email = studentData.email;
-          this.password = studentData.pwd;
-        })
-        .catch(error => {
-          console.error('錯誤:', error);
-        });
+<script setup>
+import { ref } from 'vue';
+
+// 定義姓名和電子郵件的變量
+const name = ref('');
+const email = ref('');
+
+// 提交表單的方法
+function submitForm() {
+  fetch('http://localhost:8080/teacherDatabase/createOrUpdate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-    submitForm() {
-      fetch('http://localhost:8080/student/createOrUpdate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          student_id: this.studentId,
-          name: this.name,
-          email: this.email,
-          pwd: this.password
-        }),
-      })
-        .then(response => response.json())
-        .then(data => {
-          alert('修改成功');
-        })
-        .catch(error => {
-          console.error('錯誤:', error);
-        });
-    }
-  }
-};
+    body: JSON.stringify({ name: name.value, email: email.value }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      alert('修改成功');
+    })
+    .catch(error => {
+      console.error('錯誤:', error);
+    });
+}
 </script>
 
 <style scoped lang="scss">
@@ -111,13 +73,14 @@ export default {
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
-  
+
+   
     img {
       width: 4vw;
       height: 8vh;
       margin-top: 1vh;
       margin-left: 4vw;
-    }
+  }
 
     .nav {
       display: flex; 

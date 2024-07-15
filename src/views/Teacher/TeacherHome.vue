@@ -21,7 +21,7 @@
       <div class="area">
         <div class="function">
           <!-- 新增按鈕 -->
-          <img class="add" src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt="">
+          <img class="delete" src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt="">
           <!-- 搜尋按鈕 -->
           <input type="text">
           <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
@@ -40,7 +40,7 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in tableData" :key="index">
-            <td>{{ row.student_id }}</td>
+            <td>{{ row.studentId }}</td>
             <td>{{ row.grade }}</td>
             <td>{{ row.name }}</td>
             <td>{{ row.status === '在學中' ? '✔️' : '❌' }}</td>
@@ -52,78 +52,78 @@
 </template>
 
 <script>
-// export default {
-//   data() {
-//     return {
-//       tableData: [], // 初始化表格數據為空
-//     };
-//   },
-//   methods: {
-//     // 定義一個方法來獲取表格數據
-//     async fetchTableData() {
-//       try {
-//         // 使用 fetch API 發送 POST 請求到后端
-//         const response = await fetch('http://localhost:8080/student/search', {
-//           method: 'POST', // 使用 POST 方法
-//           headers: {
-//             'Content-Type': 'application/json' // 設置請求頭
-//           },
-//           // 發送的請求體
-//           body: JSON.stringify({ club_id: 1 }) 
-//         });
-
-//         // 檢查響應是否成功
-//         if (!response.ok) {
-//           // 如果響應不成功，丟一個錯誤
-//           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
-//         }
-
-//         // 將響應轉換為 JSON 格式
-//         const data = await response.json();
-//         console.log('API 返回的資料：', data); // 調試輸出
-//         // 設置 tableData 為返回的數據
-//         this.tableData = data.studentList || [];
-//       } catch (error) {
-//         // 捕捉錯誤並在控制台輸出
-//         console.error(`無法獲取數據：${error.message}`);
-//       }
-//     }
-//   },
-//   // 組件創建時，調用 fetchTableData 方法獲取數據
-//   created() {
-//     this.fetchTableData();
-//   },
-// };
-
-import location from '@/stores/location';
-import { mapState, mapActions } from 'pinia'; // 這邊要import pinia的方法
 export default {
-    data() {   // 這邊的 data 就像前端使用者輸入完需要送資料去後端的值
-        return {
-          student_id:null,     
-                grade:"", 
-                name:"",
-                status:""
+  data() {
+    return {
+      tableData: [], // 初始化表格數據為空
+    };
+  },
+  methods: {
+    // 定義一個方法來獲取表格數據
+    async fetchTableData() {
+      try {
+        // 使用 fetch API 發送 POST 請求到后端
+        const response = await fetch('http://localhost:8080/teacherDatabase/clubStudentData', {
+          method: 'POST', // 使用 POST 方法
+          headers: {
+            'Content-Type': 'application/json' // 設置請求頭
+          },
+          // 發送的請求體
+          body: JSON.stringify({ teacher_id: 1 }) 
+        });
 
-        };
-    },
-    created() {
+        // 檢查響應是否成功
+        if (!response.ok) {
+          // 如果響應不成功，丟一個錯誤
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
 
-    },
-    mounted() {
-
-    },
-    computed: {
-        ...mapState(location, ['errmsg',]), // 要把值顯現出來就要在這邊貼上要顯現的方法
-    },
-    components: {
-
-    },
-
-    methods: {
-        ...mapActions(location, ['lteacherIdGetClubStudent']), // 如果要在新增其他方法，就在[]中在新增要使用的方法
+        // 將響應轉換為 JSON 格式
+        const data = await response.json();
+        console.log('API 返回的資料：', data); // 調試輸出
+        // 設置 tableData 為返回的數據
+        this.tableData = data.studentList || [];
+      } catch (error) {
+        // 捕捉錯誤並在控制台輸出
+        console.error(`無法獲取數據：${error.message}`);
+      }
     }
+  },
+  // 組件創建時，調用 fetchTableData 方法獲取數據
+  created() {
+    this.fetchTableData();
+  },
 };
+
+// import location from '@/stores/location';
+// import { mapState, mapActions } from 'pinia'; // 這邊要import pinia的方法
+// export default {
+//     data() {   // 這邊的 data 就像前端使用者輸入完需要送資料去後端的值
+//         return {
+//           student_id:null,     
+//                 grade:"", 
+//                 name:"",
+//                 status:""
+
+//         };
+//     },
+//     created() {
+
+//     },
+//     mounted() {
+
+//     },
+//     computed: {
+//         ...mapState(location, ['errmsg',]), // 要把值顯現出來就要在這邊貼上要顯現的方法
+//     },
+//     components: {
+
+//     },
+
+//     methods: {
+//         ...mapActions(location, ['lteacherIdGetClubStudent']), // 如果要在新增其他方法，就在[]中在新增要使用的方法
+//     }
+// };
 </script>
 
 <style scoped lang="scss">
@@ -213,7 +213,7 @@ export default {
         }
     }
 
-    .add {
+    .delete {
         margin-left: 4vw;
         margin-right: 55vw;
     }
@@ -226,7 +226,7 @@ export default {
   table {
     width: 100%;
     border-collapse: collapse; /* 合併邊框 */
-    background-color: rgb(46, 245, 245); /* 表格背景顏色 */
+    background-color: rgb(204, 250, 250); /* 表格背景顏色 */
   }
 
   th, td {

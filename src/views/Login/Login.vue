@@ -54,14 +54,15 @@ const loginRequest = () => {
             if(data.statusCode==404){
                 errmsg.value = ("帳號或密碼錯誤")
             }
-            else if (data.statusCode == 200 && loginType.value == "student") {
-                sessionStorage.setItem('student_id', JSON.stringify(data.student_id))
-                router.push({ path: '/StudentHome' })
+            else if(data.statusCode==200 && loginType.value=="student"){
+                router.push({path:'/StudentHome'})
+                
             }
-            else if (data.statusCode == 200 && loginType.value == "teacher") {
-                sessionStorage.setItem('teacher_id', JSON.stringify(data.teacher_id))
-                router.push({ path: '/TeacherHome' })
+            else if(data.statusCode==200 && loginType.value=="teacher"){
+                router.push({path:'/TeacherHome'})
             }
+            sessionStorage.setItem('account', JSON.stringify(account.value))
+
         })
         .catch(err => {
             console.log(err)

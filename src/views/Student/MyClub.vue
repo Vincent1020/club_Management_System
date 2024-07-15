@@ -4,7 +4,6 @@
     <header class="header">
       <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
       <nav class="nav">
-
         <!-- 當前頁面指示 -->
         <span class="current-interface">學生介面</span>
       </nav>
@@ -14,8 +13,7 @@
     <main class="main-content">
       <el-table :data="myClub" style="width: 80%">
         <el-table-column prop="name" label="學生姓名"></el-table-column> 
-         <!-- prop	表單域 model 字段，在使用 validate、resetFields 方法的情况下，該屬性是必填的，label	標籤文本-->
-        <el-table-column prop="club" label="學生所屬社團"></el-table-column>
+        <el-table-column prop="clubId" label="學生所屬社團"></el-table-column>
         <el-table-column prop="pay" label="社團費用 "></el-table-column>
         <el-table-column prop="classroom" label="社團教室 "></el-table-column>
       </el-table>
@@ -32,14 +30,14 @@ export default {
   },
   methods: {
     // 獲取抽籤結果數據的方法
-    async fetchmyClub() {
+    async fetchMyClub() {
       const url = 'http://localhost:8080/student/search'; // 定義請求的URL
       const options = {
         method: 'POST', // 設置請求方法為POST
         headers: {
           'Content-Type': 'application/json' // 設置請求頭的Content-Type為application/json
         },
-        body: JSON.stringify({ clubId: '0' }) // 設置請求的body為空值
+        body: JSON.stringify({ student_id: 104033 }) // 設置請求的body，這裡使用硬編碼的學生ID
       };
 
       try {
@@ -55,7 +53,7 @@ export default {
         const data = await response.json();
         
         // 設置抽籤結果數據
-        this.myClub = data.quizList || [];
+        this.myClub = data.studentList || [];
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
@@ -63,7 +61,7 @@ export default {
   },
   created() {
     // 組件創建時調用獲取數據的方法
-    this.fetchmyClub();
+    this.fetchMyClub();
   }
 };
 </script>
@@ -144,7 +142,7 @@ export default {
     gap: 8%; /* 調整元素間距 */
     background-color: #D3D3D3; 
     width: 100%;
-    padding: 20px;
+    padding: 30px;
   }
 }
 </style>
