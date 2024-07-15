@@ -185,8 +185,9 @@ function arrowRotate2() {
            
 
             li {
+                
                 margin: 0.2em 0;
-                background-color: #2f3238;
+                background-color: #393e4b;
                 border-radius: 0.5em;
                 transition: 0.5s;
                 transition-delay: calc(60ms * var(--delay));
@@ -194,7 +195,7 @@ function arrowRotate2() {
                 left: 100%;
 
                 &:hover {
-                    background-color: #1d1f24;
+                    background-color: #77787b;
                 }
 
 
