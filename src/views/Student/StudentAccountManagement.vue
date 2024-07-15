@@ -122,6 +122,7 @@ function submitForm() {
     align-items: center;
     background-color: #D3D3D3;
     width: 100%;
+    color: black;
   
     .form {
       display: flex; 

@@ -198,6 +198,7 @@ export default {
     flex: 1; /* 填滿剩餘空間 */
     padding: 20px; /* 內邊距 */
     background-color: #F5F5F5; /* 背景顏色 */
+    color: black;
   }
 
   .function {
