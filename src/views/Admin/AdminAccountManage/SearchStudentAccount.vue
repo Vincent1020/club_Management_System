@@ -78,13 +78,14 @@ function setpage(page) {
 
             <div class="function">
                 <!-- 新增按鈕 -->
-                <a class="add" href="/adminhomepage/createteacheraccount"><img
+                <a class="add" href="/adminhomepage/revisestudentaccount"><img
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 畢業學生 -->
                 <a class="graduate" href=""><img src="https://cdn-icons-png.flaticon.com/512/4645/4645232.png"
                         alt=""></a>
 
+                   
                 <!-- 搜尋按鈕 -->
                 <input type="text" placeholder="搜尋學生名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">

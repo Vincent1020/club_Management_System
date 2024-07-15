@@ -3,38 +3,59 @@ import adminHeader from '@/components/adminHeader.vue'
 import { onBeforeUpdate } from 'vue';
 import { ref, onMounted, computed } from 'vue'
 
-let status = ref("")
+let status = ref("在職中")
 let identity = ref("")
-let pwd = ref("")
 let name = ref("")
 let email = ref("")
 
+let searchAll = ref(false)
 let accountarr = ref([])
-function accountFetch(){
-    fetch("http://localhost:8080/teacherDatabase/search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(teacherAccount)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                accountarr.value = data.quizList
-                console.log(accountarr.value);
-            })
-            .catch(err => { console.log(err) })
-}
 
+let checked = ref(false)
+let checkedall = ref(false)
+let buttontext = ref("全選")
 
 let teacherAccount = ref([{
     status: status,
-    teacher_id: identity,  
+    teacher_id: identity,
     name: name,
     email: email,
+
 }])
 
+let searchall=()=> {
+    searchAll= false ? status="":status="在職中";
+ 
+}
+function accountFetch() {
+
+
+    fetch("http://localhost:8080/teacherDatabase/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(teacherAccount)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            accountarr.value = data.quizList
+            console.log(accountarr.value);
+        })
+        .catch(err => { console.log(err) })
+}
+
+onMounted(() => {
+    accountFetch()
+
+})
+
+function checkall(){
+
+     checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
+    checked.value == true?checked.value = false:checked.value = true
+}
 
 // 頁碼
 let currentPage = ref(1)
@@ -55,16 +76,6 @@ function setpage(page) {
     currentPage.value = page
 }
 
-
-onMounted(() => {
-    accountFetch()
-    
-})
-
-
- function search(){
-    accountFetch()
-}
 </script>
 
 <template>
@@ -73,7 +84,7 @@ onMounted(() => {
         <adminHeader />
         <div class="breadcrumb">
             <ul>
-                <li><a href="/adminhomepage">管理者首頁</a> ></li>
+                <li><a href="/adminhomepage">管理者首頁</a></li>
                 <li>&nbsp;搜尋老師帳號</li>
             </ul>
         </div>
@@ -88,6 +99,11 @@ onMounted(() => {
                 <!-- 刪除人員 -->
                 <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt=""></a>
 
+                <!-- 搜尋非在職 -->
+                <div class="unemployed">
+                    <span>包含非在職</span>
+                    <input type="checkbox" v-model="searchAll" @change="searchall" value="false">
+                </div>
                 <!-- 搜尋按鈕 -->
                 <input type="text" placeholder="搜尋老師名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
@@ -97,9 +113,9 @@ onMounted(() => {
             <table>
                 <thead>
                     <tr>
-                        <th><input type="button" value="全選"></th>
+                        <th><input type="button" v-model="checkedall" value={{ buttontext }} @click="checkall"></th>    
                         <th class="status">狀態</th>
-                        <th class="identity">教職員編號</th>                     
+                        <th class="identity">教職員編號</th>
                         <th class="name">姓名</th>
                         <th class="email">Email</th>
                         <th class="revise">修改</th>
@@ -110,15 +126,14 @@ onMounted(() => {
 
                 <tbody>
                     <tr v-for="item in pagenumber">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" v-model="checked" ></td>
                         <td>{{ item.status }}</td>
-                        <td>{{ item.teacherId}}</td>                        
+                        <td>{{ item.teacherId }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
                             <a href="/adminhomepage/reviseteacheraccount"><img
                                     src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
-
                         </td>
                         <td>
                             <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
@@ -155,11 +170,12 @@ body {
     left: 15vw;
     top: 5vh;
 
-    ul{
+    ul {
         display: flex;
         list-style: none;
         font-size: 1.1em;
-        a{
+
+        a {
             text-decoration: none;
             color: rgb(51, 68, 161);
         }
@@ -177,7 +193,6 @@ body {
         display: flex;
         align-items: center;
 
-
         img {
             width: 2vw;
             height: 4vh;
@@ -191,14 +206,25 @@ body {
             width: 2vw;
             height: 4vh;
             margin-left: 4vw;
-
         }
 
         .remove {
             width: 2vw;
             height: 4vh;
             margin-left: 2vw;
-            margin-right: 50vw;
+            margin-right: 35vw;
+        }
+
+        // 包含非在職
+        .unemployed {
+            display: flex;
+            align-items: center;
+
+            input {
+                width: 2.5vw;
+                height: 2.5vh;
+                margin-right: 2vw;
+            }
         }
 
         .search {
@@ -206,9 +232,10 @@ body {
         }
 
         input {
-
             font-size: 18px;
         }
+
+
     }
 
     table {

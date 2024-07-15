@@ -58,7 +58,8 @@ export default {
       tableData: [], // 初始化表格數據為空
     };
   },
-  methods: {
+  methods: { 
+
     // 定義一個方法來獲取表格數據
     async fetchTableData() {
       try {
@@ -77,6 +78,8 @@ export default {
           // 如果響應不成功，丟一個錯誤
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
+        
+   
 
         // 將響應轉換為 JSON 格式
         const data = await response.json();

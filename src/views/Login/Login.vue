@@ -85,12 +85,12 @@ const loginRequest = () => {
             <div class="userLoginChoose">
 
                 <label>
-                    <input type="radio" class="choice" name="login" v-model="loginType" value="student"><span
+                    <input type="radio" class="choice" name="login" v-model="loginType" value="student" checked><span
                         class="button">學生登入</span>
                 </label>
 
                 <label>
-                    <input type="radio" class="choice" name="login" v-model="loginType" value="teacher"><span
+                    <input type="radio" class="choice" name="login" v-model="loginType" value="teacher" ><span
                         class="button">老師登入</span>
                 </label>
 
