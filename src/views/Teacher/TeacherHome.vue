@@ -1,6 +1,6 @@
-<template> 
-  <div class="teacher-home"> 
-    <!-- 頁面頭部，包括標題和導航欄 --> 
+<template>
+  <div class="teacher-home">
+    <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
       <h1>
         <router-link to="TeacherHome">
@@ -16,6 +16,11 @@
       </nav>
     </header>
 
+    <!-- 跑馬燈顯示老師姓名和社團名稱 -->
+    <div class="marquee">
+      <marquee>☺☺  歡迎光臨!! {{ clubName }}的{{ teacherName }} 登入  ☺☺</marquee>
+    </div>
+
     <!-- 主內容區域 -->
     <main class="main-content">
       <div class="area">
@@ -23,7 +28,7 @@
           <!-- 新增按鈕 -->
           <img class="delete" src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt="">
           <!-- 搜尋按鈕 -->
-          <input type="text">
+          <input type="text" v-model="searchQuery">
           <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
         </div>
       </div>
@@ -32,18 +37,21 @@
       <table>
         <thead>
           <tr>
-            <th>學號</th> <!--"student_id"-->
-            <th>班級</th><!--"grade"-->
-            <th>姓名</th><!--"name"-->       
-            <th>在學狀態</th><!--"status"-->
+            <th><input type="checkbox" @change="selectAll($event)"></th>
+            <th>學號</th>
+            <th>班級</th>
+            <th>姓名</th>
+            <th>在學狀態</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, index) in tableData" :key="index">
+          <tr v-for="(row, index) in filteredTableData" :key="index">
+            <td><input type="checkbox" :value="row.studentId" v-model="selected"></td>
             <td>{{ row.studentId }}</td>
             <td>{{ row.grade }}</td>
             <td>{{ row.name }}</td>
             <td>{{ row.status === '在學中' ? '✔️' : '❌' }}</td>
+          
           </tr>
         </tbody>
       </table>
@@ -51,49 +59,78 @@
   </div>
 </template>
 
+
 <script>
 export default {
   data() {
     return {
       tableData: [], // 初始化表格數據為空
+      teacherobj: {
+        teacher_id: null,
+        studentId: null,
+         grade: '',
+         name:'',
+         status: ''
+         
+      },
+      searchQuery: '', // 用於存儲搜索查詢
+      selected: [], // 用於存儲選中的學生 ID
+      teacherName: '', // 新增
+      clubName: '' // 新增
     };
   },
+  computed: {
+    filteredTableData() {
+      if (this.searchQuery) {
+        return this.tableData.filter(row => 
+          row.name.includes(this.searchQuery) || 
+          row.studentId.toString().includes(this.searchQuery)
+        );
+      }
+      return this.tableData;
+    }
+  },
   methods: {
-    // 定義一個方法來獲取表格數據
     async fetchTableData() {
       try {
-        // 使用 fetch API 發送 POST 請求到后端
+        this.teacherobj.teacher_id = JSON.parse(sessionStorage.getItem('account'));
+        console.log(this.teacherobj);
+
         const response = await fetch('http://localhost:8080/teacherDatabase/clubStudentData', {
-          method: 'POST', // 使用 POST 方法
+          method: 'POST',
           headers: {
-            'Content-Type': 'application/json' // 設置請求頭
+            'Content-Type': 'application/json'
           },
-          // 發送的請求體
-          body: JSON.stringify({ teacher_id: 1 }) 
+          body: JSON.stringify(this.teacherobj)
         });
 
-        // 檢查響應是否成功
         if (!response.ok) {
-          // 如果響應不成功，丟一個錯誤
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
 
-        // 將響應轉換為 JSON 格式
         const data = await response.json();
-        console.log('API 返回的資料：', data); // 調試輸出
-        // 設置 tableData 為返回的數據
+        console.log('API 返回的資料：', data);
+
         this.tableData = data.studentList || [];
+        this.teacherName = data.teacherName || ''; // 設置 teacherName
+        this.clubName = data.clubName || ''; // 設置 clubName
       } catch (error) {
-        // 捕捉錯誤並在控制台輸出
         console.error(`無法獲取數據：${error.message}`);
+      }
+    },
+    selectAll(event) {
+      if (event.target.checked) {
+        this.selected = this.tableData.map(item => item.studentId);
+      } else {
+        this.selected = [];
       }
     }
   },
-  // 組件創建時，調用 fetchTableData 方法獲取數據
   created() {
     this.fetchTableData();
   },
 };
+
 
 // import location from '@/stores/location';
 // import { mapState, mapActions } from 'pinia'; // 這邊要import pinia的方法
@@ -125,6 +162,7 @@ export default {
 //     }
 // };
 </script>
+
 
 <style scoped lang="scss">
 .teacher-home {
@@ -192,6 +230,13 @@ export default {
     50% {
       opacity: 0.5; /* 半透明 */
     }
+  }
+
+  .marquee {
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000; /* 跑馬燈文字顏色 */
   }
   
   .main-content {

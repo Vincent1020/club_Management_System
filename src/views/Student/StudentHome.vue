@@ -123,7 +123,7 @@ export default {
       transition: background-color 0.3s, transform 0.3s; /* 過渡效果 */
 
       &:hover {
-        background-color: #5cb85c; /* 懸停背景顏色 */
+        background-color: #a7e2a7; /* 懸停背景顏色 */
         transform: translateY(-20px); /* 懸停位移 ，就是往上位移動，如果你負越多，會飄越高*/
       }
     }

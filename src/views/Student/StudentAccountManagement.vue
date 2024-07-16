@@ -40,7 +40,7 @@ const email = ref('');
 
 // 提交表單的方法
 function submitForm() {
-  fetch('http://localhost:8080/teacherDatabase/createOrUpdate', {
+  fetch('http://localhost:8080/student/createOrUpdate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

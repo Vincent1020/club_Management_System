@@ -25,7 +25,12 @@
 export default {
   data() {
     return {
-      myClub: [] // 初始化抽籤結果數據為空
+      myClub: [] ,// 初始化抽籤結果數據為空
+      studentobj: {
+        student_id: null
+         
+      },
+
     };
   },
   methods: {
@@ -37,7 +42,7 @@ export default {
         headers: {
           'Content-Type': 'application/json' // 設置請求頭的Content-Type為application/json
         },
-        body: JSON.stringify({ student_id: 104033 }) // 設置請求的body，這裡使用硬編碼的學生ID
+        body: JSON.stringify({ student_id: 1040531 }) // 設置請求的body，這裡直接使用編碼的學生ID
       };
 
       try {
@@ -133,7 +138,7 @@ export default {
     }
   }
 
-  //-------------------------------------------------------------
+  //-----------------------以上是藍色導覽列區域--------------------------------------
   .main-content {
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; 

@@ -36,11 +36,7 @@
           <label for="type">類型</label>
           <input id="type" v-model="type" type="text" >
         </div>
-        <div class="form-group">
-          <label for="club_id">社團ID</label>
-          <input id="club_id" v-model="club_id" type="number" >
-        </div>
-        <button type="submit" class="submit-button">提交修改</button>
+   <button type="submit" class="submit-button">提交修改</button>
       </form>
     </main>
   </div>
@@ -55,8 +51,7 @@ export default {
       name: '',
       email: '',
       status: '',
-      type: '',
-      club_id: null
+      type: ''
     };
   },
   methods: {
@@ -72,8 +67,7 @@ export default {
           name: this.name,
           email: this.email,
           status: this.status,
-          type: this.type,
-          club_id: this.club_id
+          type: this.type
         }),
       })
         .then(response => response.json())
