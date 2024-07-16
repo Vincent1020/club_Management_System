@@ -1,7 +1,92 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
+import {ref} from 'vue'
 
 
+    let name = ref("")
+    let identity =ref()
+    let pwd = ref("")
+    let pwd2 = ref("")
+    let email  = ref("")
+    let status = ref("")
+
+    let errmsg = ref("")
+
+    let accountarr = ref([])
+    let teacherAccount = ref({
+        name: name,
+        pwd: pwd,
+        email: email,
+        status: status
+    })
+
+    let clearForm = ()=>{
+        name.value = ""
+        pwd.value = ""
+        pwd2.value = ""
+        email.value = ""
+        status.value = ""
+      
+    }
+    function submit(){
+        if(pwd.value != pwd2.value){
+            errmsg.value = ("密碼不一致")
+            return
+        }
+        else if(name.value == "" ){
+            errmsg.value = ("請輸入姓名")
+            return
+        }
+        else if(isNaN(identity.value)){
+            errmsg.value = ("請輸入正確學號")
+            return
+        }
+        else if(!isNaN(name.value )){
+            errmsg.value = ("請輸入文字")
+            return
+        }
+        else if(pwd.value == ""){
+            errmsg.value =("請輸入密碼")
+            return
+        }
+        else if(pwd2.value == ""){
+            errmsg.value =("請再次輸入密碼")
+            return
+        }
+        else if(email.value == "" || !email.value.includes("@")){
+            errmsg.value = ("請輸入有效的電子信箱")
+            return
+        }
+        else if (status.value == ""){
+            errmsg.value = ("請選擇狀態")
+            return
+        }
+        console.log(teacherAccount.value) 
+        fetch("http://localhost:8080/student/createOrUpdate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(teacherAccount)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    accountarr.value = data.quizList
+                    console.log(accountarr.value);
+                    errmsg.value = ("新增成功")
+               
+                    clearForm()
+
+                 
+                })
+                .catch(err => { 
+                    console.log(err) 
+                    errmsg.value = ("新增失敗")
+                })
+
+
+    }
 </script>
 
 <template>
@@ -23,26 +108,26 @@ import adminHeader from '@/components/adminHeader.vue'
                     <!-- <h1>新增學生資料</h1> -->
                     <div class="name">
                         <h2>姓名</h2>
-                        <input type="text" placeholder="請輸入學生姓名">
+                        <input type="text" v-model="name" placeholder="請輸入學生姓名">
                     </div>
                     <div class="identity">
                         <h2>學號</h2>
-                        <input type="text" placeholder="請輸入學號">
+                        <input type="text" v-model="identity" placeholder="請輸入學號">
                     </div>
 
                     <div class="pwd">
                         <h2>密碼</h2>
-                        <input type="password" placeholder="請輸入密碼">
+                        <input type="password" v-model="pwd" placeholder="請輸入密碼">
                     </div>
 
                     <div class="pwd2">
                         <h2>再次輸入密碼</h2>
-                        <input type="password" placeholder="請再次輸入密碼">
+                        <input type="password"v-model="pwd2" placeholder="請再次輸入密碼">
                     </div>
 
                     <div class="email">
                         <h2>E-mail</h2>
-                        <input type="text" placeholder="請輸入信箱">
+                        <input type="text" v-model="email" placeholder="請輸入信箱">
                     </div>
                     <div class="state">
                         <h2>狀態</h2>
@@ -50,13 +135,10 @@ import adminHeader from '@/components/adminHeader.vue'
                             <option value="">請選擇</option>
                             <option value="入學中">入學中</option>
                             <option value="在學">在學</option>
-                            <option value="在學">畢業</option>
-                            <option value="在學">轉學</option>
-                            <option value="在學">退學</option>
-                            <option value="在學">休學</option>
-                        </select>
+                         </select>
+                         <span>{{ errmsg }}</span>
                     </div>
-                    <button>提交</button>
+                    <button @click="submit">提交</button>
                 </div>
             </div>
 
@@ -143,6 +225,14 @@ body {
                 cursor: pointer;
             }
         }
+        .state{
+                span{
+                    font-size: 18px;
+                    color: red;
+                    margin-left: 18vw;
+                    
+                }
+            }
     
 }
 </style>

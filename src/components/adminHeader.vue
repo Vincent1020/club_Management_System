@@ -186,7 +186,7 @@ function arrowRotate2() {
 
             li {
                 
-                margin: 0.2em 0;
+                margin: 0.2em 0.3em;
                 background-color: #393e4b;
                 border-radius: 0.5em;
                 transition: 0.5s;
@@ -201,7 +201,7 @@ function arrowRotate2() {
 
                 a {
                     font-size: 18px;
-                    padding: 0.7em 1em;
+                    padding: 0.7em 0.8em;
                     color: #ffffff;
                     text-decoration: none;
                 }

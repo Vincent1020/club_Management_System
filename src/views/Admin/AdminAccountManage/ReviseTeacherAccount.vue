@@ -18,7 +18,7 @@ const submit = () => {
   
 
 }
-
+console.log(sessionStorage.getItem("teacherId")); 
 </script>
 
 <template>
@@ -42,12 +42,7 @@ const submit = () => {
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入老師姓名">
                     </div>
-                    <div class="identity">
-                        <h2>教職員編號</h2>
-                        <input type="text" v-model="identity" placeholder="請輸入教職員編號">
-                    </div>
-
-                    <div class="pwd">
+                 <div class="pwd">
                         <h2>密碼</h2>
                         <input type="password" v-model="pwd" placeholder="請輸入密碼">
                     </div>
@@ -93,7 +88,7 @@ body {
 }
 
 .breadcrumb {
-    width: 30vw;
+    width: 40vw;
     position: absolute;
     color: rgb(82, 87, 99);
     left: 15vw;
@@ -121,8 +116,9 @@ body {
 
     .information {
         width: 50vw;
-        height: 85vh;
+        height: 70vh;
         margin-left: 15vw;
+        margin-top: 7vh;
         border-radius: 1em;
         background-color: rgba(240, 247, 250, 0.863);
 
