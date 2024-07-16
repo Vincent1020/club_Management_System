@@ -22,6 +22,7 @@ import {ref} from 'vue'
 
     let clearForm = ()=>{
         name.value = ""
+        identity.value = ""
         pwd.value = ""
         pwd2.value = ""
         email.value = ""
@@ -131,10 +132,10 @@ import {ref} from 'vue'
                     </div>
                     <div class="state">
                         <h2>狀態</h2>
-                        <select name="" id="">
+                        <select v-model="status">
                             <option value="">請選擇</option>
                             <option value="入學中">入學中</option>
-                            <option value="在學">在學</option>
+                            <option value="在學中">在學</option>
                          </select>
                          <span>{{ errmsg }}</span>
                     </div>

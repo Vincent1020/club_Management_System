@@ -3,9 +3,9 @@ import adminHeader from '@/components/adminHeader.vue'
 import { ref, onMounted, computed } from 'vue'
 
 let status = ref("在職中")
-let identity1 = ref("")
-let name1 = ref("")
-let email1 = ref("")
+let identity = ref("")
+let name = ref("")
+let email = ref("")
 
 let searchAll = ref(false)
 let accountarr = ref([])
@@ -17,9 +17,9 @@ let checkarr = ref([false, false, false, false, false, false, false, false, fals
 
 let teacherAccount = ref({
     status: status,
-    teacher_id: identity1.value,
-    name: name1.value,
-    email: email1.value,
+    teacher_id: identity,
+    name: name,
+    email:email,
 
 })
 
@@ -107,7 +107,6 @@ function setpage(page) {
                 <!-- 搜尋非在職 -->
                 <div class="unemployed">
                     <span>非在職</span>
-
                     <input type="checkbox" v-model="searchAll" @change="searchall" value="false">
 
                 </div>
@@ -137,7 +136,7 @@ function setpage(page) {
                 </thead>
 
                 <tbody>
-                    <tr v-for="(item, index) in pagenumber">
+                    <tr v-for="(item, index) in pagenumber" >
                         <td><input type="checkbox" v-model="checkarr[index]"></td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.teacherId }}</td>
