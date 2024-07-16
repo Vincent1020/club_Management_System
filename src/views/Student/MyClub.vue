@@ -36,38 +36,35 @@ export default {
   methods: {
     // 獲取抽籤結果數據的方法
     async fetchMyClub() {
-      const url = 'http://localhost:8080/student/search'; // 定義請求的URL
-      const options = {
-        method: 'POST', // 設置請求方法為POST
-        headers: {
-          'Content-Type': 'application/json' // 設置請求頭的Content-Type為application/json
-        },
-        body: JSON.stringify({ student_id: 1040531 }) // 設置請求的body，這裡直接使用編碼的學生ID
-      };
-
       try {
-        // 發送請求
-        const response = await fetch(url, options);
-        
-        // 檢查請求是否成功
+        this.studentobj.student_id = JSON.parse(sessionStorage.getItem('account'));
+        console.log(this.studentobj);
+
+        const response = await fetch('http://localhost:8080/student/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.studentobj)
+        });
+
         if (!response.ok) {
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
 
-        // 解析響應數據
         const data = await response.json();
-        
-        // 設置抽籤結果數據
+        console.log('API 返回的資料：', data);
+
         this.myClub = data.studentList || [];
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
-    }
-  },
+    },
   created() {
     // 組件創建時調用獲取數據的方法
     this.fetchMyClub();
   }
+}
 };
 </script>
 
