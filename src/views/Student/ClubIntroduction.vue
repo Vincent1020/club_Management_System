@@ -1,4 +1,7 @@
 <template> 
+<body>
+  
+
   <div class="ClubIntroduction"> 
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
@@ -69,6 +72,7 @@
       </div>
     </section>
   </div>
+</body>
 </template>
 
 <script>
@@ -120,6 +124,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+body{
+  background-color:  #fff;
+}
 .ClubIntroduction {
   text-align: center; /* 文字置中 */
   font-family: Arial, sans-serif; /*字體 */
@@ -140,7 +147,7 @@ export default {
         width: 4vw;
         height: 8vh;
         margin-top: 1vh;
-        margin-left: 4vw;
+        margin-left: 4vw; 
        
     }
 
@@ -194,7 +201,8 @@ export default {
     display: flex; 
     flex-direction: column; 
     padding: 20px;
-  }
+    background-color: #eee;
+ 
 
   .carousel-section {
     width: 100%; 
@@ -287,12 +295,13 @@ h3{
 
 
 .club-introduction-section {
+  color: black;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  width: 80%;
+  // margin-top: 20px;
+  width: 100%;
 
   
   .club-introduction {
@@ -321,5 +330,6 @@ h3{
       }
     }
   }
+}
 }
 </style>

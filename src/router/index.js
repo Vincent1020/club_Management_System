@@ -124,8 +124,14 @@ const router = createRouter({
     path:'/adminhomepage/schedule',
     name:'Schedule',
     component: () => import('../views/Admin/ClubManage/Schedule.vue') 
+<<<<<<< HEAD
   },
 
+=======
+  }
+ 
+    
+>>>>>>> 5728edbca01885fd86ba5d73c8f1bd3a79e169b0
   
   ]
 })

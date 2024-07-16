@@ -79,6 +79,7 @@ export default {
       clubName: '' // 新增
     };
   },
+<<<<<<< HEAD
   computed: {
     filteredTableData() {
       if (this.searchQuery) {
@@ -91,6 +92,11 @@ export default {
     }
   },
   methods: {
+=======
+  methods: { 
+
+    // 定義一個方法來獲取表格數據
+>>>>>>> 5728edbca01885fd86ba5d73c8f1bd3a79e169b0
     async fetchTableData() {
       try {
         this.teacherobj.teacher_id = JSON.parse(sessionStorage.getItem('account'));
@@ -107,6 +113,8 @@ export default {
         if (!response.ok) {
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
+        
+   
 
         const data = await response.json();
         console.log('API 返回的資料：', data);
@@ -243,6 +251,7 @@ export default {
     flex: 1; /* 填滿剩餘空間 */
     padding: 20px; /* 內邊距 */
     background-color: #F5F5F5; /* 背景顏色 */
+    color: black;
   }
 
   .function {
