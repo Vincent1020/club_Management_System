@@ -37,12 +37,8 @@
             errmsg.value = ("請輸入姓名")
             return
         }
-        else if(isNaN(identity.value)){
-            errmsg.value = ("請輸入正確學號")
-            return
-        }
         else if(!isNaN(name.value )){
-            errmsg.value = ("請輸入文字")
+            errmsg.value = ("姓名請輸入文字")
             return
         }
         else if(pwd.value == ""){

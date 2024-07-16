@@ -30,7 +30,13 @@ const loginRequest = () => {
         }
         loginfetch = ("http://localhost:8080/student/login")
     }
-
+    else if(loginType.value == "teacher" && account.value == 6666) {
+        login = {
+            teacher_id: account.value,
+            password: password.value
+        }
+        loginfetch = ("http://localhost:8080/teacherDatabase/login")
+    }
     else if (loginType.value == "teacher") {
         login = {
             teacher_id: account.value,
@@ -57,6 +63,9 @@ const loginRequest = () => {
             else if(data.statusCode==200 && loginType.value=="student"){
                 router.push({path:'/StudentHome'})
                 
+            }
+            else if(data.statusCode==200 && loginType.value=="teacher"&& account.value == 6666){
+                router.push({path:'/adminhomepage'})
             }
             else if(data.statusCode==200 && loginType.value=="teacher"){
                 router.push({path:'/TeacherHome'})
@@ -85,7 +94,7 @@ const loginRequest = () => {
             <div class="userLoginChoose">
 
                 <label>
-                    <input type="radio" class="choice" name="login" v-model="loginType" value="student" checked><span
+                    <input type="radio" class="choice" name="login" v-model="loginType" value="student"><span
                         class="button">學生登入</span>
                 </label>
 

@@ -1,60 +1,65 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import { onBeforeUpdate } from 'vue';
 import { ref, onMounted, computed } from 'vue'
 
 let status = ref("在職中")
-let identity = ref("")
-let name = ref("")
-let email = ref("")
+let identity1 = ref("")
+let name1 = ref("")
+let email1 = ref("")
 
 let searchAll = ref(false)
 let accountarr = ref([])
 
-let checked = ref(false)
 let checkedall = ref(false)
-let buttontext = ref("全選")
 
-let teacherAccount = ref([{
+// 全選陣列
+let checkarr = ref([false, false, false, false, false, false, false, false, false, false])
+
+let teacherAccount = ref({
     status: status,
-    teacher_id: identity,
-    name: name,
-    email: email,
+    teacher_id: identity1.value,
+    name: name1.value,
+    email: email1.value,
 
-}])
+})
 
-let searchall=()=> {
-    searchAll= false ? status="":status="在職中";
- 
+function search() {
+    accountFetch()
 }
-function accountFetch() {
-
-
+onMounted(() => {
+    accountFetch()
+})
+let searchall = () => {
+    status.value = searchAll.value === false ? "在職中" : "非在職";
+}
+let accountFetch = () => {
+    console.log(JSON.stringify(teacherAccount.value));
+    let a = JSON.stringify(teacherAccount.value)
     fetch("http://localhost:8080/teacherDatabase/search", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(teacherAccount)
+        body: a
     })
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            accountarr.value = data.quizList
             console.log(accountarr.value);
+            accountarr.value = data.quizList
         })
         .catch(err => { console.log(err) })
 }
 
-onMounted(() => {
-    accountFetch()
 
-})
 
-function checkall(){
 
-     checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
-    checked.value == true?checked.value = false:checked.value = true
+
+function checkall() {
+    console.log(checkedall.value);
+    //  checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
+    checkarr.value = checkedall.value === true ? [false, false, false, false, false, false, false, false, false, false] : [true, true, true, true, true, true, true, true, true, true]
+    console.log(checkarr.value);
 }
 
 // 頁碼
@@ -84,7 +89,7 @@ function setpage(page) {
         <adminHeader />
         <div class="breadcrumb">
             <ul>
-                <li><a href="/adminhomepage">管理者首頁</a></li>
+                <li><a href="/adminhomepage">管理者首頁</a> ></li>
                 <li>&nbsp;搜尋老師帳號</li>
             </ul>
         </div>
@@ -101,8 +106,10 @@ function setpage(page) {
 
                 <!-- 搜尋非在職 -->
                 <div class="unemployed">
-                    <span>包含非在職</span>
+                    <span>非在職</span>
+
                     <input type="checkbox" v-model="searchAll" @change="searchall" value="false">
+
                 </div>
                 <!-- 搜尋按鈕 -->
                 <input type="text" placeholder="搜尋老師名稱">
@@ -113,7 +120,12 @@ function setpage(page) {
             <table>
                 <thead>
                     <tr>
-                        <th><input type="button" v-model="checkedall" value={{ buttontext }} @click="checkall"></th>    
+                        <th>
+                            <label>
+                                <input type="checkbox" v-model="checkedall" @click="checkall">
+                                <span>全選</span>
+                            </label>
+                        </th>
                         <th class="status">狀態</th>
                         <th class="identity">教職員編號</th>
                         <th class="name">姓名</th>
@@ -125,14 +137,14 @@ function setpage(page) {
                 </thead>
 
                 <tbody>
-                    <tr v-for="item in pagenumber">
-                        <td><input type="checkbox" v-model="checked" ></td>
+                    <tr v-for="(item, index) in pagenumber">
+                        <td><input type="checkbox" v-model="checkarr[index]"></td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.teacherId }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount"><img
+                            <a href="/adminhomepage/reviseteacheraccount" @click="sessionStorage.setItem('teacherId',item.teacherId)"><img
                                     src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
                         </td>
                         <td>
@@ -224,6 +236,7 @@ body {
                 width: 2.5vw;
                 height: 2.5vh;
                 margin-right: 2vw;
+
             }
         }
 
@@ -251,6 +264,26 @@ body {
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+            // 全選
+            label {
+                background-color: rgb(223, 227, 229);
+                border-radius: 0.3em;
+                padding: 0.1vh 0.5vw;
+
+                span {
+                    font-size: 18px;
+                }
+
+                input[type="checkbox"] {
+                    display: none;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+            }
 
             input {
                 height: 4vh;

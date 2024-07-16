@@ -18,7 +18,7 @@ const submit = () => {
   
 
 }
-
+console.log(sessionStorage.getItem("teacherId")); 
 </script>
 
 <template>
@@ -88,7 +88,7 @@ body {
 }
 
 .breadcrumb {
-    width: 30vw;
+    width: 40vw;
     position: absolute;
     color: rgb(82, 87, 99);
     left: 15vw;
