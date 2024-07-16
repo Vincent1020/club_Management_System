@@ -97,7 +97,6 @@ const router = createRouter({
       name:'CreateStudentAccount',
       component: () => import('../views/Admin/AdminAccountManage/CreateStudentAccount.vue') 
     },
-<<<<<<< HEAD
     {
       path:'/StudentAccountManagement',//學生帳號管理
       name:'StudentAccountManagement',
@@ -107,8 +106,7 @@ const router = createRouter({
       path:'/TeacherAccountManagement',//老師帳號管理
       name:'TeacherAccountManagement',
       component: () => import('../views/Teacher/TeacherAccountManagement.vue') 
-    }
-=======
+    },
     // 搜尋社團
     {
       path:'/adminhomepage/searchclub',
@@ -126,10 +124,8 @@ const router = createRouter({
     path:'/adminhomepage/schedule',
     name:'Schedule',
     component: () => import('../views/Admin/ClubManage/Schedule.vue') 
-  }
- 
-    
->>>>>>> 25e6771f010aac7eda19af2faf3d07182fc331bf
+  },
+
   
   ]
 })
