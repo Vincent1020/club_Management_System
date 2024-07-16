@@ -79,7 +79,6 @@ export default {
       clubName: '' // 新增
     };
   },
-<<<<<<< HEAD
   computed: {
     filteredTableData() {
       if (this.searchQuery) {
@@ -92,11 +91,6 @@ export default {
     }
   },
   methods: {
-=======
-  methods: { 
-
-    // 定義一個方法來獲取表格數據
->>>>>>> 5728edbca01885fd86ba5d73c8f1bd3a79e169b0
     async fetchTableData() {
       try {
         this.teacherobj.teacher_id = JSON.parse(sessionStorage.getItem('account'));

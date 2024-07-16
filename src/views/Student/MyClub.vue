@@ -14,8 +14,8 @@
       <el-table :data="myClub" style="width: 80%">
         <el-table-column prop="name" label="學生姓名"></el-table-column> 
         <el-table-column prop="clubId" label="學生所屬社團"></el-table-column>
-        <!-- <el-table-column prop="pay" label="社團費用 "></el-table-column>
-        <el-table-column prop="classroom" label="社團教室 "></el-table-column>-->
+        <el-table-column prop="pay" label="社團費用 "></el-table-column>
+        <el-table-column prop="classroom" label="社團教室 "></el-table-column>
       </el-table>
     </main>
   </div>
