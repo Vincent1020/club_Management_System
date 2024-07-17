@@ -13,7 +13,9 @@ let checkarr = ref([false, false, false, false, false, false, false, false, fals
 let clubs = ref({
     semester: semester,
 })
-
+onMounted(()=>{
+    clubsearch()
+})
 function search(){
     console.log(semester.value);
     clubsearch()
@@ -337,6 +339,12 @@ body {
             li {
                 padding: 0.5vh 0.5vw;
                 border-radius: 1em;
+                &:hover {
+                    background-color:rgb(238, 245, 255) ;
+                }
+                &.active{
+                    background-color: rgb(171, 201, 243);
+                }
             }
         }
 

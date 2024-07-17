@@ -1,11 +1,14 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router';
 
 let status = ref("在職中")
 let identity = ref("")
 let name = ref("")
 let email = ref("")
+
+let router = useRouter()
 
 let searchAll = ref(false)
 let accountarr = ref([])
@@ -19,7 +22,7 @@ let teacherAccount = ref({
     status: status,
     teacher_id: identity,
     name: name,
-    email:email,
+    email: email,
 
 })
 
@@ -67,7 +70,6 @@ let currentPage = ref(1)
 let row = 10
 
 let pageCount = computed(() =>
-
     Math.ceil(accountarr.value.length / row)
 )
 
@@ -80,7 +82,12 @@ let pagenumber = computed(() => {
 function setpage(page) {
     currentPage.value = page
 }
+function send(teacherId) {
+    sessionStorage.setItem("teacherId", JSON.stringify(teacherId))
 
+    router.push({ path: "/adminhomepage/reviseteacheraccount" })
+
+}
 </script>
 
 <template>
@@ -136,15 +143,15 @@ function setpage(page) {
                 </thead>
 
                 <tbody>
-                    <tr v-for="(item, index) in pagenumber" >
+                    <tr v-for="(item, index) in pagenumber">
                         <td><input type="checkbox" v-model="checkarr[index]"></td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.teacherId }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount" @click="sessionStorage.setItem('teacherId',item.teacherId)"><img
-                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <img @click="send(item.teacherId)"
+                                src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt="">
                         </td>
                         <td>
                             <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
@@ -160,8 +167,6 @@ function setpage(page) {
                     <li v-for="page in pageCount" :class="{ active: currentPage == page }" @click="setpage(page)">
                         {{ page }}
                     </li>
-
-
                 </ul>
             </div>
         </div>
@@ -346,12 +351,21 @@ body {
             list-style: none;
 
             &:hover {
+
                 cursor: pointer;
             }
 
             li {
                 padding: 0.5vh 0.5vw;
                 border-radius: 1em;
+
+                &:hover {
+                    background-color: rgb(238, 245, 255);
+                }
+
+                &.active {
+                    background-color: rgb(171, 201, 243);
+                }
             }
         }
 
