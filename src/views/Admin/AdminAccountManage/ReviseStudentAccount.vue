@@ -55,7 +55,7 @@ onMounted(() => {
                     choiceList.value = accountarr.value[0].choiceList  
                     semester.value = accountarr.value[0].semester
             }
-            
+            console.log(accountarr.value);
         })
         .catch(err => { console.log(err) })
 })
@@ -92,38 +92,37 @@ function submit() {
     }
 
     let reviseAccount = {
-        studentId: identity.value,
+        student_id: identity.value,
         name: name.value,
         pwd: pwd.value,
         email: email.value,
         status: status.value,
         grade : grade.value,
-        clubId : clubId.value,
-        choiceListt : choiceList.value,
+        club_id : clubId.value,
+        choice_list : choiceList.value,
         semester: semester.value
     }
 
 
     console.log(reviseAccount)
-    fetch("http://localhost:8080/teacherDatabase/createOrUpdate", {
+    fetch("http://localhost:8080/student/createOrUpdate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(reviseAccount.value)
+        body: JSON.stringify(reviseAccount)
     })
         .then(res => res.json())
         .then(data => {
             console.log(data)
-       
+     
             if(data.status== 400){
                 errmsg.value = ("修改失敗")
             }
-        
-
-            // accountarr.value = data.quizList
-            // console.log(accountarr.value);
-            // router.push({ path: '/adminhomepage/searchstudentaccount' })
+            else if(data.statusCode== 200){
+                errmsg.value = ("修改成功")
+                router.push({ path: '/adminhomepage/searchstudentaccount' })
+            }         
 
         })
         .catch(err => {
@@ -151,8 +150,10 @@ function submit() {
         </div>
 
         <div class="area">
+       
             <div class="information">
-
+                <!-- 讓方框內的資料對齊 -->
+                <div class="area2">
                 <div class="name">
                     <h2>姓名</h2>
                     <input type="text" v-model="name" placeholder="請輸入學生姓名">
@@ -189,7 +190,7 @@ function submit() {
                 <button @click="submit">提交</button>
             </div>
         </div>
-
+    </div>
 
     </body>
 </template>

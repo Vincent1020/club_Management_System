@@ -1,6 +1,9 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
 
 let name = ref("")
 let pwd = ref("")
