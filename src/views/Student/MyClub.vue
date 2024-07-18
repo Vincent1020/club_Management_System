@@ -13,8 +13,12 @@
     <main class="main-content">
       <el-table :data="myClub" style="width: 80%">
         <el-table-column prop="name" label="學生姓名"></el-table-column> 
+<<<<<<< HEAD
         <el-table-column prop="clubId" label="社團編號"></el-table-column>
         <el-table-column prop="clubName" label="社團名稱"></el-table-column>
+=======
+        <el-table-column prop="clubId" label="學生所屬社團"></el-table-column>
+>>>>>>> 695727a45fcde5099c01c00b70f83f863f760c5f
         <el-table-column prop="pay" label="社團費用 "></el-table-column>
         <el-table-column prop="classroom" label="社團教室 "></el-table-column>
       </el-table>

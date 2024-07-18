@@ -2,169 +2,91 @@
 import adminHeader from '@/components/adminHeader.vue'
 import { ref, onMounted, computed } from 'vue'
 
-let status = ref("")
-let identity = ref("")
-let pwd = ref("")
-let name = ref("")
-let email = ref("")
+let semester = ref("")
+let clubId = ref()
+let clubArr = ref([])
 
-let teacherAccount = ref([{
-    status: status,
-    identity: identity,
-    pwd: pwd,
-    name: name,
-    email: email,
-}])
-// 測試用
-let test = ref([
-    {
-        status: "在職",
-        identity: "A001",
-        pwd: "123",
-        name: "王大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A002",
-        pwd: "123",
-        name: "王小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A003",
-        pwd: "123",
-        name: "李大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A004",
-        pwd: "123",
-        name: "李小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A005",
-        pwd: "123",
-        name: "陳大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A006",
-        pwd: "123",
-        name: "陳小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A007",
-        pwd: "123",
-        name: "張大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A008",
-        pwd: "123",
-        name: "張小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A009",
-        pwd: "123",
-        name: "林大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A010",
-        pwd: "123",
-        name: "林小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A011",
-        pwd: "123",
-        name: "黃大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A012",
-        pwd: "123",
-        name: "黃小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A013",
-        pwd: "123",
-        name: "蔡大明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A014",
-        pwd: "123",
-        name: "蔡小明",
-        email: "D9S9s@example.com",
-    },
-    {
-        status: "在職",
-        identity: "A015",
-        pwd: "123",
-        name: "謝大明",
-        email: "D9S9s@example.com",
-    }
+let checkedall = ref(false)
+// 全選陣列
+let checkarr = ref([false, false, false, false, false, false, false, false, false, false])
 
-])
+let clubs = ref({
+    semester: semester,
+})
+onMounted(()=>{
+    clubsearch()
+})
+function search(){
+    console.log(semester.value);
+    clubsearch()
+}
+// 搜尋社團方法
+let clubsearch = () => {
+    fetch("http://localhost:8080/Club/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(clubs.value)
+    })
+        .then(res => res.json())
+        .then(data => {
+           
+            console.log(data)
+            clubArr.value = data.clubList
+            console.log(clubArr);
+        })
+        .catch(err => { console.log(err) })
 
+}
+// 刪除社團方法
+let clubdelete = () => {
+    fetch("http://localhost:8080/Club/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(clubs.value)
+    })
+        .then(res => res.json())
+        .then(data => {
+           
+            console.log(data)
+            clubArr.value = data.clubList
+            console.log(clubArr);
+        })
+        .catch(err => { console.log(err) })
+
+}
+
+function checkall() {
+    console.log(checkedall.value);
+    //  checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
+    checkarr.value = checkedall.value === true ? [false, false, false, false, false, false, false, false, false, false] : [true, true, true, true, true, true, true, true, true, true]
+    console.log(checkarr.value);
+}
+
+
+// 頁碼
 let currentPage = ref(1)
 let row = 10
 
 let pageCount = computed(() =>
 
-    Math.ceil(test.value.length / row)
+    Math.ceil(clubArr.value.length / row)
 )
 
 let pagenumber = computed(() => {
 
     let start = (currentPage.value - 1) * row
     let end = start + row
-    return test.value.slice(start, end)
+    return clubArr.value.slice(start, end)
+
 })
 function setpage(page) {
     currentPage.value = page
 }
 
-
-onMounted(() => {
-    function search() {
-
-        fetch("http://localhost:8080/quiz/search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(searchObj)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                this.resArr = data.quizList
-                console.log(this.resArr);
-            })
-            .catch(err => { console.log(err) })
-
-
-    }
-})
 </script>
 
 <template>
@@ -190,7 +112,7 @@ onMounted(() => {
                 <a class="remove" href=""><img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
 
                 <!-- 搜尋按鈕 -->
-                <input type="text" placeholder="搜尋社團名稱">
+                <input type="text" v-model="semester" placeholder="   104-1">&nbsp;學期
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             </div>
 
@@ -198,8 +120,12 @@ onMounted(() => {
             <table>
                 <thead>
                     <tr>
-                        <th><input type="button" value="全選"></th>        
-                        <th class="SchoolYear">學年</th>
+                        <th>
+                             <label>
+                                <input type="checkbox" v-model="checkedall" @click="checkall">
+                                <span>全選</span>
+                            </label></th>
+                        <th class="SchoolYear"> 學期</th>
                         <th class="identity">社團ID</th>
                         <th class="name">社團名稱</th>
                         <th class="email">指導老師</th>
@@ -211,19 +137,20 @@ onMounted(() => {
                 </thead>
 
                 <tbody>
-                    <tr v-for="item in pagenumber">
-                        <td><input type="checkbox"></td>
-                        <td>{{ item.status }}</td>
-                        <td>{{ item.identity }}</td>
-                        <td>{{ item.pwd }}</td>
+                    <tr v-for="(item, index) in pagenumber" @change="()=>{console.log(132)}">
+                        <td><input type="checkbox" v-model="checkarr[index]"></td>
+                        <td>{{ item.semester }}</td>
+                        <td>{{ item.clubId }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.email }}</td>
+                        <td>{{ item.teacherId }}</td>
+                        <td>{{ item.attendees }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount"><img src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <a href="/adminhomepage/reviseteacheraccount"><img
+                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
 
                         </td>
                         <td>
-                           <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                            <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
                         </td>
                     </tr>
 
@@ -249,6 +176,7 @@ onMounted(() => {
 body {
     background-color: #fff;
 }
+
 .breadcrumb {
     width: 30vw;
     position: absolute;
@@ -256,11 +184,12 @@ body {
     left: 15vw;
     top: 5vh;
 
-    ul{
+    ul {
         display: flex;
         list-style: none;
         font-size: 1.1em;
-        a{
+
+        a {
             text-decoration: none;
             color: rgb(51, 68, 161);
         }
@@ -302,10 +231,11 @@ body {
         }
 
         .search {
-            margin-left: 1vw;
+            margin-left: 0.5vw;
         }
-        input{
-            
+
+        input {
+            width: 6vw;
             font-size: 18px;
         }
     }
@@ -317,23 +247,42 @@ body {
         border-collapse: collapse;
         table-layout: auto;
 
+        label {
+                background-color: rgb(223, 227, 229);
+                border-radius: 0.3em;
+                padding: 0.1vh 0.5vw;
 
+                span {
+                    font-size: 18px;
+                }
+
+                input[type="checkbox"] {
+                    display: none;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+            }
         thead {
             font-size: 22px;
             background-color: #e6eef6;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            input{
-                    height: 4vh;
-                    width: 3vw;
-                    margin-bottom: 1vh; 
-                    background-color: rgb(216, 221, 230);
-                    border: none;
-                    border-radius: 0.5em;
-                    &:hover{
-                        cursor: pointer;
-                    }
+
+            input {
+                height: 4vh;
+                width: 3vw;
+                margin-bottom: 1vh;
+                background-color: rgb(216, 221, 230);
+                border: none;
+                border-radius: 0.5em;
+
+                &:hover {
+                    cursor: pointer;
                 }
+            }
         }
 
         tbody {
@@ -342,7 +291,7 @@ body {
             background-color: #fcfcfc;
 
             tr {
-              
+
                 &:hover {
                     background-color: #f3f7fb;
                 }
@@ -352,11 +301,12 @@ body {
                 padding: 0.8vh;
                 border-bottom: 1px solid #e8eef4;
 
-                input{
+                input {
                     height: 2.5vh;
                     width: 1.5vw;
 
                 }
+
                 img {
 
                     height: 3.3vh;
@@ -389,6 +339,12 @@ body {
             li {
                 padding: 0.5vh 0.5vw;
                 border-radius: 1em;
+                &:hover {
+                    background-color:rgb(238, 245, 255) ;
+                }
+                &.active{
+                    background-color: rgb(171, 201, 243);
+                }
             }
         }
 

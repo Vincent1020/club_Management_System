@@ -72,9 +72,7 @@
                     console.log(accountarr.value);
                     errmsg.value = ("新增成功")
                
-                    clearForm()
-
-                 
+                    clearForm()                
                 })
                 .catch(err => { 
                     console.log(err) 
@@ -123,7 +121,7 @@
                         </div>
                         <div class="state">
                             <h2>狀態</h2>
-                            <select v-model="status" name="" id="">
+                            <select v-model="status" >
                                 <option value="" >請選擇</option>
                                 <option value="未到職">未到職</option>
                                 <option value="在職">在職</option>

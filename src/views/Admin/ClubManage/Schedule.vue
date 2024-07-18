@@ -1,9 +1,39 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import { ref } from 'vue'
+import { ref,onBeforeUpdate } from 'vue'
 
 let draw = ref(false)
 let time = ref(false)
+let msg = ref("")
+
+let handleDraw =()=>{
+    
+    let startdraw = {
+
+    }
+    fetch("http://localhost:8080/Club/random", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(startdraw)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.statusCode == 200) {
+                draw.value = true
+                msg.value = "已完成本學期社團抽籤"
+                
+            }
+        }).catch(err => {
+            console.log(err)
+            errmsg.value = ("發生錯誤")
+        })
+}
+
+
+
 </script>
 
 <template>
@@ -18,7 +48,7 @@ let time = ref(false)
                 <li>&nbsp;期程&抽籤</li>
             </ul>
         </div>
-        
+
         <div class="area">
             <div v-if="time == false" class="schedule">
                 <h2>學生選社團開始時間</h2>
@@ -34,8 +64,8 @@ let time = ref(false)
                 <h2>開始時間為</h2>
             </div>
             <div class="draw">
-                <button v-if="draw == false" @click="draw = true">本學期社團抽籤</button>
-                <h1 v-else>已完成本學期社團抽籤</h1>
+                <button v-if="draw == false" @click=handleDraw>本學期社團抽籤</button>
+                <h1 v-else>{{ msg }}</h1>
             </div>
         </div>
     </body>
@@ -55,18 +85,20 @@ body {
     left: 15vw;
     top: 5vh;
 
-    ul{
+    ul {
         display: flex;
         list-style: none;
         font-size: 1.1em;
-        a{
+
+        a {
             text-decoration: none;
             color: rgb(51, 68, 161);
         }
     }
-   
+
 
 }
+
 .area {
     width: 84vw;
     height: 100vh;

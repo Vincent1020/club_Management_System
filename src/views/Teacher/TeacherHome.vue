@@ -73,7 +73,10 @@ export default {
       clubName: '' // 新增
     };
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 695727a45fcde5099c01c00b70f83f863f760c5f
   computed: {
     filteredTableData() {
       // 檢查是否存在搜索查詢
