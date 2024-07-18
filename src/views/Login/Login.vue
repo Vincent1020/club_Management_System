@@ -26,21 +26,22 @@ const loginRequest = () => {
     if (loginType.value == "student") {
         login= {
             student_id: account.value,
-            password: password.value
+            pwd: password.value
         }
         loginfetch = ("http://localhost:8080/student/login")
+      
     }
     else if(loginType.value == "teacher" && account.value == 6666) {
         login = {
             teacher_id: account.value,
-            password: password.value
+            pwd: password.value
         }
         loginfetch = ("http://localhost:8080/teacherDatabase/login")
     }
     else if (loginType.value == "teacher") {
         login = {
             teacher_id: account.value,
-            password: password.value
+            pwd: password.value
         }
         loginfetch = ("http://localhost:8080/teacherDatabase/login")
     }

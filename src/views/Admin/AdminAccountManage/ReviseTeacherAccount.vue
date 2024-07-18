@@ -1,24 +1,63 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
 
 let name = ref("")
-let identity = ref()
 let pwd = ref("")
 let pwd2 = ref("")
 let email = ref("")
 let status = ref("")
 let errmsg = ref("")
 
+
+let accountarr = ref([])
 const submit = () => {
 
     if (name.value == "") {
         errmsg.value = "請輸入姓名"
     }
-  
-
 }
-console.log(sessionStorage.getItem("teacherId")); 
+
+
+// 搜尋該老師帳號所有資訊
+onMounted(() => {
+    let teacherId = sessionStorage.getItem("teacherId")
+    console.log(teacherId);
+
+    let teacherAccount = ref({
+        teacher_id: teacherId
+    })
+    fetch("http://localhost:8080/teacherDatabase/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(teacherAccount.value)
+    })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            accountarr.value = data.quizList
+            console.log(accountarr.value)
+
+            if(accountarr.value.length>0){
+                name.value= accountarr.value[0].name,                
+                email.value= accountarr.value[0].email,
+                status.value = accountarr.value[0].status
+            }
+       
+        })
+        .catch(err => {
+            console.log(err)
+            errmsg.value = ("修改失敗")
+        })
+
+})
+
+
 </script>
 
 <template>
@@ -29,7 +68,7 @@ console.log(sessionStorage.getItem("teacherId"));
         <div class="breadcrumb">
             <ul>
                 <li><a href="/adminhomepage">管理者首頁</a> ></li>
-                <li><a href="/adminhomepage/searchstudentaccount">搜尋老師帳號</a> ></li>
+                <li><a href="/adminhomepage/searchteacheraccount">搜尋老師帳號</a> ></li>
                 <li>&nbsp;修改老師帳號</li>
             </ul>
         </div>
@@ -42,7 +81,7 @@ console.log(sessionStorage.getItem("teacherId"));
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入老師姓名">
                     </div>
-                 <div class="pwd">
+                    <div class="pwd">
                         <h2>密碼</h2>
                         <input type="password" v-model="pwd" placeholder="請輸入密碼">
                     </div>
@@ -64,6 +103,7 @@ console.log(sessionStorage.getItem("teacherId"));
                         <select v-model="status">
                             <option value="">請選擇</option>
                             <option value="未到職">未到職</option>
+                            <option value="在職中">在職</option>
                             <option value="在職">在職</option>
                             <option value="離職">離職</option>
                             <option value="退休">退休</option>

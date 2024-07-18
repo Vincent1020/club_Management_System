@@ -1,6 +1,9 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
 
 let status = ref("在學中")
 let identity = ref("")
@@ -20,24 +23,36 @@ let studentAccount = ref({
     student_id: identity,
     name: name,
     email: email,
-})  
+})
 
 onMounted(() => {
     accountFetch()
 })
+
+// 搜尋功能
 function search() {
     accountFetch()
 }
 let searchall = () => {
     status.value = searchAll.value === false ? "在學中" : "非在學";
-
 }
+// 全選
 function checkall() {
     console.log(checkedall.value);
     //  checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
     checkarr.value = checkedall.value === true ? [false, false, false, false, false, false, false, false, false, false] : [true, true, true, true, true, true, true, true, true, true]
     console.log(checkarr.value);
 }
+// 傳送帳號資料
+function sent(studentId) {
+    
+    sessionStorage.setItem('studentId', studentId)
+
+    console.log(studentId);
+
+    router.push({path: '/adminhomepage/revisestudentaccount'})
+}
+
 function accountFetch() {
     fetch("http://localhost:8080/student/search", {
         method: "POST",
@@ -67,7 +82,20 @@ let pageCount = computed(() =>
 
     Math.ceil(accountarr.value.length / row)
 )
+let visiblePages = computed(() => {
+    let totalVisiblePages = 7 // 顯示的頁碼數量
+    let halfVisible = Math.floor(totalVisiblePages / 2)
 
+    let startPage = Math.max(currentPage.value - halfVisible, 1)
+    let endPage = startPage + totalVisiblePages - 1
+
+    if (endPage > pageCount.value) {
+        endPage = pageCount.value
+        startPage = Math.max(endPage - totalVisiblePages + 1, 1)
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
+})
 let pagenumber = computed(() => {
 
     let start = (currentPage.value - 1) * row
@@ -110,66 +138,62 @@ function setpage(page) {
                     <span>非在學</span>
                     <input type="checkbox" v-model="searchAll" @change="searchall" value="false">
                 </div>
-                    <!-- 搜尋按鈕 -->
-                    <input type="text" placeholder="搜尋學生名稱">
-                    <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png"
-                        alt="">
-                </div>
-           
-                <!-- 顯示列 -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <label>
+                <!-- 搜尋按鈕 -->
+                <input type="text" placeholder="搜尋學生名稱">
+                <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
+            </div>
+
+            <!-- 顯示列 -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <label>
                                 <input type="checkbox" v-model="checkedall" @click="checkall">
                                 <span>全選</span>
                             </label>
-                            </th>
-                            <th class="status">狀態</th>
-                            <th class="identity">學號</th>
-                            <th class="name">姓名</th>
-                            <th class="email">Email</th>
-                            <th class="revise">修改</th>
-                            <th class="remove">畢業</th>
+                        </th>
+                        <th class="status">狀態</th>
+                        <th class="identity">學號</th>
+                        <th class="name">姓名</th>
+                        <th class="email">Email</th>
+                        <th class="revise">修改</th>
+                        <th class="remove">畢業</th>
 
 
-                        </tr>
-                    </thead>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <tr v-for="(item,index) in pagenumber">
-                            <td><input type="checkbox" v-model="checkarr[index]"></td>
-                            <td>{{ item.status }}</td>
-                            <td>{{ item.studentId }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.email }}</td>
-                            <td>
-                                <a href="/adminhomepage/revisestudentaccount"> <img
-                                        src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                <tbody>
+                    <tr v-for="(item, index) in pagenumber">
+                        <td><input type="checkbox" v-model="checkarr[index]"></td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.studentId }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>
+                            <img @click="sent(item.studentId)"
+                                src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt="">
+                        </td>
+                        <td>
+                            <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png" alt=""></a>
+                        </td>
 
-                            </td>
-                            <td>
-                                <a href=""> <img src="https://cdn-icons-png.flaticon.com/512/3096/3096750.png"
-                                        alt=""></a>
-                            </td>
+                    </tr>
 
-                        </tr>
+                </tbody>
 
-                    </tbody>
+            </table>
 
-                </table>
+            <div class="pagenumber">
+                <ul>
+                    <li v-for="page in visiblePages" :key="page" :class="{ active: currentPage === page }"
+                        @click="setpage(page)">
+                        {{ page }}
+                    </li>
+                </ul>
+            </div>
 
-                <div class="pagenumber">
-                    <ul>
-                        <li v-for="page in pageCount" :class="{ active: currentPage == page }" @click="setpage(page)">
-                            {{ page }}
-                        </li>
-
-
-                    </ul>
-                </div>
-         
         </div>
     </body>
 </template>
@@ -293,6 +317,7 @@ body {
                 }
 
             }
+
             input {
                 height: 4vh;
                 width: 3vw;
@@ -349,31 +374,32 @@ body {
         position: absolute;
         bottom: 5vh;
         left: 50vw;
+        color: black;
 
         ul {
-            width: 5vw;
             font-size: 16px;
-
             display: flex;
-            list-style: none;
+            list-style-type: none;
+
+        }
+
+        li {
+            margin: 0.3vh;
+            padding: 1vh;
+            border-radius: 0.8em;
+            transition: all 0.2s ease;
+            cursor: pointer;
 
             &:hover {
-                cursor: pointer;
+                background-color: lighten(#007bff, 35%);
             }
 
-            li {
-                padding: 0.5vh 0.5vw;
-                border-radius: 1em;
+            &.active {
+                font-size: 18px;
+                background-color: rgb(171, 201, 243);
+                color: white;
             }
         }
-
-        .active {
-            background-color: rgb(171, 201, 243);
-            font-size: 18px;
-            color: #fff;
-        }
-
-        color: black;
     }
 
 }
