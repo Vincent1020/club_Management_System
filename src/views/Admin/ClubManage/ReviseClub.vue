@@ -1,7 +1,9 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router';
+import { ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
 
 let name = ref("")
 let intro = ref("")
@@ -10,21 +12,55 @@ let max = ref()
 let semester = ref("")
 let pay = ref()
 
-let msg = ref("")
 
+let msg = ref("")
 let teacherId = ref()
+let clubId = ref()
 let teacherName = ref("")
+let clubarr = ref([])
+
 let accountarr = ref([])
 
-let clearForm = ()=>{
-    name.value = ""
-    intro.value = ""
-    classroom.value = ""
-    max.value = ""
-    semester.value = ""
-    pay.value = ""
-    teacherId = ""
-}
+// 搜尋該社團所有資訊
+onMounted(() => {
+    clubId = sessionStorage.getItem("clubId")
+    console.log(clubId);
+
+    let clubsearch = {
+        club_id: clubId
+    }
+    fetch("http://localhost:8080/Club/search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(clubsearch)
+    })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            clubarr.value = data.clubList
+            
+
+            if (clubarr.value.length > 0) {
+                classroom.value = clubarr.value[0].classroom
+                name.value = clubarr.value[0].name,
+                teacherId.value = clubarr.value[0].teacherId,
+                intro.value = clubarr.value[0].intro,
+                semester.value = clubarr.value[0].semester
+                pay.value = clubarr.value[0].pay
+                max.value = clubarr.value[0].max
+                clubId.value = clubarr.value[0].clubId             
+
+            }
+          
+        })
+        .catch(err => {
+            console.log(err)
+         
+        })
+
+})
 
 watch(teacherId, (searchId) => {
 
@@ -55,7 +91,7 @@ watch(teacherId, (searchId) => {
             })
 
             .catch(err => {
-                console.log(err)              
+                console.log(err)
             })
 
     } else {
@@ -63,39 +99,38 @@ watch(teacherId, (searchId) => {
     }
 }, { immediate: true })
 
-// 創建社團
+// 修改社團
 function submit() {
 
-    if(name.value == ""){
+    if (name.value == "") {
         msg.value = "請輸入社團名稱"
         return
     }
     else if (intro.value == "") {
         msg.value = "請輸入社團簡介"
     }
-    else if(classroom.value == ""){
+    else if (classroom.value == "") {
         msg.value = "請輸入社團教室"
     }
-    else if(max.value == ""){
+    else if (max.value == "") {
         msg.value = "請輸入社團人數"
     }
-    else if(semester.value == ""){
+    else if (semester.value == "") {
         msg.value = "請輸入社團學期"
     }
-    else if(pay.value == ""){
+    else if (pay.value == "") {
         msg.value = "請輸入社團費用"
     }
-    else if(teacherId.value == ""){
+    else if (teacherId.value == "") {
         msg.value = "請輸入社團教師"
     }
-    else{
+    else {
         msg.value = ""
     }
 
-    let creatClub = {
+    let reviseClub = {
         club_id: 0,
         name: name.value,
-        // identity: identity.value,
         intro: intro.value,
         classroom: classroom.value,
         max: max.value,
@@ -104,27 +139,27 @@ function submit() {
         teacher_id: teacherId.value
     }
     fetch("http://localhost:8080/Club/createOrUpdate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(creatClub)
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviseClub)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.statusCode == 200) {
+                msg.value = "修改成功"
+                router.push({ path: '/adminhomepage/searchclub' })
+            }
+            else {
+                msg.value = "修改失敗"
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if( data.statusCode == 200){
-                    msg.value = "新增成功"
-                    clearForm()
-                }
-                else{
-                    msg.value = "新增失敗"
-                }               
-            })
-            .catch(err => {
-                console.log(err)
-                msg.value = ("新增失敗，請稍後再試")
-            })
+        .catch(err => {
+            console.log(err)
+            msg.value = ("新增失敗，請稍後再試")
+        })
 }
 
 </script>
@@ -133,13 +168,11 @@ function submit() {
 
     <body>
         <adminHeader />
-
-
         <div class="breadcrumb">
             <ul>
                 <li><a href="/adminhomepage">管理者首頁</a> ></li>
                 <li><a href="/adminhomepage/searchclub">社團查詢</a> ></li>
-                <li>&nbsp;新增社團</li>
+                <li>&nbsp;修改社團</li>
             </ul>
         </div>
 
@@ -151,10 +184,6 @@ function submit() {
                             <h2>社團名稱</h2>
                             <input type="text" v-model="name" placeholder="請輸入社團名稱">
                         </div>
-                        <!-- <div class="identity">
-                            <h2>社團ID</h2>
-                            <input type="text" v-model="identity" placeholder="請輸入社團ID">
-                        </div> -->
                     </div>
                     <div class="intro">
                         <h2>介紹</h2>
@@ -170,23 +199,23 @@ function submit() {
                             <input type="text" v-model="max" placeholder="請輸入上線人數">
                         </div>
                     </div>
-                    
+
                     <div class="otherinfo">
                         <div class="semester">
                             <h2>學期</h2>
                             <input type="text" v-model="semester" placeholder="請輸入學期">
                         </div>
-                            <div class="pay">
-                                <h2>社費</h2>
-                                <input type="text" v-model="pay" placeholder="如不需要社費請打0">
-                            </div>                       
+                        <div class="pay">
+                            <h2>社費</h2>
+                            <input type="text" v-model="pay" placeholder="如不需要社費請打0">
+                        </div>
                     </div>
 
                     <div class="teacherId">
                         <h2>負責教師教職員編號</h2>
                         <input type="text" v-model.number="teacherId" @change="searchteacheraccount"
                             placeholder="請輸入教職員編號">
-                        <span >{{ teacherName }}</span> <!-- 即時查詢老師姓名 -->
+                        <span>{{ teacherName }}</span> <!-- 即時查詢老師姓名 -->
                         <span class="msg">{{ msg }}</span>
                     </div>
 
@@ -324,15 +353,17 @@ body {
             font-size: 1.5em;
             color: rgb(86, 86, 87);
         }
-        .msg{
+
+        .msg {
             margin: 1vw;
             color: red;
         }
     }
 
-    .otherinfo{
+    .otherinfo {
         display: flex;
-        .pay{
+
+        .pay {
             margin-left: 3vw;
         }
     }

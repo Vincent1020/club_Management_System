@@ -11,15 +11,13 @@ let pwd2 = ref("")
 let email = ref("")
 let status = ref("")
 let errmsg = ref("")
-
+let type = ref("")
+let identity = ref()
+let clubId = ref()
 
 let accountarr = ref([])
-const submit = () => {
+let reviseAccount = ref({})
 
-    if (name.value == "") {
-        errmsg.value = "請輸入姓名"
-    }
-}
 
 
 // 搜尋該老師帳號所有資訊
@@ -43,12 +41,17 @@ onMounted(() => {
             accountarr.value = data.quizList
             console.log(accountarr.value)
 
-            if(accountarr.value.length>0){
-                name.value= accountarr.value[0].name,                
-                email.value= accountarr.value[0].email,
-                status.value = accountarr.value[0].status
+            if (accountarr.value.length > 0) {
+                name.value = accountarr.value[0].name,
+                    identity.value = accountarr.value[0].teacherId,
+                    email.value = accountarr.value[0].email,
+                    status.value = accountarr.value[0].status
+                // 其他資訊
+                type.value = accountarr.value[0].type
+                clubId.value = accountarr.value[0].clubId
+    
             }
-       
+
         })
         .catch(err => {
             console.log(err)
@@ -57,6 +60,91 @@ onMounted(() => {
 
 })
 
+function submit() {
+
+    if (name.value == "") {
+        errmsg.value = ("請輸入姓名")
+        return
+    }
+    else if (!isNaN(name.value)) {
+        errmsg.value = ("姓名請輸入文字")
+        return
+    }
+    else if (pwd.value == "") {
+        errmsg.value = ("請輸入密碼")
+        return
+    }
+    else if (pwd2.value == "") {
+        errmsg.value = ("請再次輸入密碼")
+        return
+    }
+    else if (email.value == "" || !email.value.includes("@")) {
+        errmsg.value = ("請輸入有效的電子信箱")
+        return
+    }
+    else if (status.value == "") {
+        errmsg.value = ("請選擇狀態")
+        return
+    }
+
+    if (pwd.value > 0 && pwd.value != pwd2.value) {
+        errmsg.value = ("密碼不一致")
+        return
+    }
+    else if (pwd.value == pwd2.value) {
+        reviseAccount = {
+            teacher_id: identity.value,
+            name: name.value,
+            pwd: pwd.value,
+            email: email.value,
+            status: status.value,
+            club_id: clubId.value,
+            type: type.value,
+       
+        }
+
+    }
+
+    else {
+        reviseAccount = {
+            teacher_id: identity.value,
+            name: name.value,         
+            email: email.value,
+            status: status.value,
+            club_id: clubId.value,
+            type: type.value,
+          
+        }
+    }
+    console.log(reviseAccount)
+    fetch("http://localhost:8080/teacherDatabase/createOrUpdate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviseAccount)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            if (data.status == 400) {
+                errmsg.value = ("修改失敗")
+            }
+            else if (data.statusCode == 200) {
+                errmsg.value = ("修改成功")
+                router.push({ path: '/adminhomepage/searchteacheraccount' })
+            }
+
+        })
+        .catch(err => {
+            console.log(err)
+
+            errmsg.value = ("修改失敗")
+        })
+
+
+}
 
 </script>
 
@@ -76,7 +164,6 @@ onMounted(() => {
         <div class="area">
             <div class="information">
                 <div class="area2">
-                    <!-- <h1>新增教師資料</h1> -->
                     <div class="name">
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入老師姓名">
@@ -112,7 +199,7 @@ onMounted(() => {
                         <!-- 錯誤訊息 -->
                         <span>{{ errmsg }}</span>
                     </div>
-                    <a href="/adminhomepage/searchteacheraccount"><button @click="submit">修改</button></a>
+                    <button @click="submit">修改</button>
                 </div>
             </div>
 
