@@ -8,18 +8,15 @@
         </router-link>
       </h1>
       <nav class="nav">
+        <!-- 歡迎信息 -->
+        <span class="info">歡迎登入!! {{ clubName }}的{{ teacherName }} 登入</span>
         <!-- 帳號管理連結 -->
-        <router-link to="TeacherLogin">老師登入測試</router-link>
+        <!--<router-link to="TeacherLogin">老師登入測試</router-link> -->
         <router-link to="TeacherAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面</span>
       </nav>
     </header>
-
-    <!-- 跑馬燈顯示老師姓名和社團名稱 -->
-    <div class="marquee">
-      <marquee>☺☺  歡迎光臨!! {{ clubName }}的{{ teacherName }} 登入  ☺☺</marquee>
-    </div>
 
     <!-- 主內容區域 -->
     <main class="main-content">
@@ -51,14 +48,12 @@
             <td>{{ row.grade }}</td>
             <td>{{ row.name }}</td>
             <td>{{ row.status === '在學中' ? '✔️' : '❌' }}</td>
-          
           </tr>
         </tbody>
       </table>
     </main>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -68,10 +63,9 @@ export default {
       teacherobj: {
         teacher_id: null,
         studentId: null,
-         grade: '',
-         name:'',
-         status: ''
-         
+        grade: '',
+        name: '',
+        status: ''
       },
       searchQuery: '', // 用於存儲搜索查詢
       selected: [], // 用於存儲選中的學生 ID
@@ -79,24 +73,22 @@ export default {
       clubName: '' // 新增
     };
   },
-<<<<<<< HEAD
+
   computed: {
     filteredTableData() {
+      // 檢查是否存在搜索查詢
       if (this.searchQuery) {
+        // 如果存在，根據搜索查詢過濾 tableData
         return this.tableData.filter(row => 
-          row.name.includes(this.searchQuery) || 
-          row.studentId.toString().includes(this.searchQuery)
+          row.name.includes(this.searchQuery) || // 檢查 row.name 是否包含搜索查詢
+          row.studentId.toString().includes(this.searchQuery) // 檢查 row.studentId（轉換為字符串後）是否包含搜索查詢
         );
       }
+      // 如果沒有搜索查詢，返回完整的 tableData
       return this.tableData;
     }
   },
   methods: {
-=======
-  methods: { 
-
-    // 定義一個方法來獲取表格數據
->>>>>>> 5728edbca01885fd86ba5d73c8f1bd3a79e169b0
     async fetchTableData() {
       try {
         this.teacherobj.teacher_id = JSON.parse(sessionStorage.getItem('account'));
@@ -113,8 +105,6 @@ export default {
         if (!response.ok) {
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
-        
-   
 
         const data = await response.json();
         console.log('API 返回的資料：', data);
@@ -138,39 +128,7 @@ export default {
     this.fetchTableData();
   },
 };
-
-
-// import location from '@/stores/location';
-// import { mapState, mapActions } from 'pinia'; // 這邊要import pinia的方法
-// export default {
-//     data() {   // 這邊的 data 就像前端使用者輸入完需要送資料去後端的值
-//         return {
-//           student_id:null,     
-//                 grade:"", 
-//                 name:"",
-//                 status:""
-
-//         };
-//     },
-//     created() {
-
-//     },
-//     mounted() {
-
-//     },
-//     computed: {
-//         ...mapState(location, ['errmsg',]), // 要把值顯現出來就要在這邊貼上要顯現的方法
-//     },
-//     components: {
-
-//     },
-
-//     methods: {
-//         ...mapActions(location, ['lteacherIdGetClubStudent']), // 如果要在新增其他方法，就在[]中在新增要使用的方法
-//     }
-// };
 </script>
-
 
 <style scoped lang="scss">
 .teacher-home {
@@ -195,7 +153,7 @@ export default {
         margin-top: 1vh;
         margin-left: 4vw;
     }
-    
+
     .nav {
       display: flex;
       gap: 20px; /* 元素間距 */
@@ -227,6 +185,13 @@ export default {
         background-color: white; 
         animation: blink 1.5s infinite;
       }
+
+      .info {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff0000; /* 跑馬燈文字顏色 */
+        margin-right: 20px; /* 調整位置 */
+      }
     }
   }
 
@@ -240,13 +205,6 @@ export default {
     }
   }
 
-  .marquee {
-    margin: 10px 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff0000; /* 跑馬燈文字顏色 */
-  }
-  
   .main-content {
     flex: 1; /* 填滿剩餘空間 */
     padding: 20px; /* 內邊距 */

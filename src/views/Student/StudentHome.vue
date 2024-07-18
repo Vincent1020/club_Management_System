@@ -2,9 +2,14 @@
   <div class="student-home">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1><router-link to="StudentHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
-     
+      <h1>
+        <router-link to="StudentHome">
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁
+        </router-link>
+      </h1>
       <nav class="nav">
+        <!-- 顯示學生名字 -->
+        <span class="student-name">歡迎光臨!! {{ studentName }} 登入</span>
         <!-- 帳號管理連結 -->
         <router-link class="a" to="/StudentAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
@@ -26,56 +31,104 @@
 
 <script>
 export default {
-  
- 
+  data() {
+    return {
+      studentName: '', // 用於存儲學生名字
+      studentId: null,
+    };
+  },
+  methods: {
+    async fetchStudentData() {
+      try {
+        // 從 sessionStorage 獲取 student_id
+        this.studentId = JSON.parse(sessionStorage.getItem('account'));
+        console.log('從 sessionStorage 取到的 account:', this.studentId);
+
+        // 發送 POST 請求獲取學生數據
+        const response = await fetch('http://localhost:8080/student/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ student_id: this.studentId })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('API 返回的資料：', data);
+
+        // 設置 studentName 為返回的學生名字
+        if (data.studentList && data.studentList.length > 0) {
+          this.studentName = data.studentList[0].name;
+        } else {
+          console.error('未找到學生資料');
+        }
+      } catch (error) {
+        console.error(`無法獲取數據：${error.message}`);
+      }
+    }
+  },
+  created() {
+    this.fetchStudentData();
+  }
 };
 </script>
 
 <style scoped lang="scss">
 .student-home {
   text-align: center; /* 文字置中 */
-  font-family: Arial, sans-serif; /* GPT給我的字體，我也不知這是什麼字體 */
+  font-family: Arial, sans-serif; /* 字體 */
   height: 100vh; 
   width: 100%;
   display: flex;
   flex-direction: column;
   
   img {
-        width: 4vw;
-        height: 8vh;
-        margin-top: 1vh;
-        margin-left: 4vw;
-    }
+    width: 4vw;
+    height: 8vh;
+    margin-top: 1vh;
+    margin-left: 4vw;
+  }
 
   .header {
     background-color: #87CEEB;
-    padding: 3%; /* 內邊距 ，如果你想加寬導覽列的畫，直接在這裡加數字就好了*/
+    padding: 3%; /* 內邊距 */
     display: flex; 
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
+    
     .nav {
       display: flex;
       gap: 20px; /* 元素間距 */
 
+      .student-name {
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+      }
+
       .a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-       font-size: 30px; /*帳號管理的字，還是要跟介面的字同大小比較好 */
+        font-size: 30px;
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */
         }
       }
 
-      .current-interface {/*介面的字，只是要拿來顯示現在在哪個頁面而已，實際沒有功用 */
+      .current-interface {
         position: relative; 
         font-size: 30px; 
-        font-weight: bold; /* 字體加粗 */
+        font-weight: bold;
         color: white; 
       }
 
-      .current-interface::after {/*介面的字，只是要拿來顯示現在在哪個頁面而已，實際沒有功用 */
+      .current-interface::after {
         content: ""; /* 內容為空 */
         position: absolute; 
         bottom: -5px; /* 底部距離 */
@@ -83,13 +136,12 @@ export default {
         right: 0;
         height: 2px; 
         background-color: white; 
-        animation: blink 1.5s infinite; /* 應用 blink 動畫 */
+        animation: blink 1.5s infinite;
       }
     }
   }
 
-  
-  /* @keyframes blink 動畫效果，就是顯示現在位於學生介面的動畫效果 */
+  /* @keyframes blink 動畫效果 */
   @keyframes blink { 
     0%, 100% {
       opacity: 1; /* 完全不透明 */
@@ -99,22 +151,18 @@ export default {
     }
   }
 
-  //------------------------以上是導覽列--------------------------------------
-
-  .main-content { /* 就是我灰灰的地方，主內容區 */
+  .main-content {
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; 
     justify-content: center; /* 設水平居中 */
-    align-items: center; /* 社垂直居中 */
-    gap: 8%; /* 調整元素間距用的，如果你內容沒東西，應該是用不到，就把這個刪了 */
-    background-color: #e3e1e1; 
+    align-items: center; /* 垂直居中 */
+    gap: 8%; /* 調整元素間距 */
+    background-color: #ececec; 
     width: 100%;
-  
-
 
     .option {
       background-color: #F5F5F5; 
-      padding: 50px 60px; /* 內邊距 ，我增加白色框框大小用的*/
+      padding: 50px 60px; /* 內邊距 */
       border-radius: 10px; 
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 陰影 */
       text-decoration: none; /* 去除下劃線 */
@@ -124,7 +172,7 @@ export default {
 
       &:hover {
         background-color: #a7e2a7; /* 懸停背景顏色 */
-        transform: translateY(-20px); /* 懸停位移 ，就是往上位移動，如果你負越多，會飄越高*/
+        transform: translateY(-20px); /* 懸停位移 */
       }
     }
   }

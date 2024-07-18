@@ -9,13 +9,14 @@
       </nav>
     </header>
 
-    <!-- 主內容區，同樣使用element 的表格組件 -->
+    <!-- 主內容區，同樣使用 element 的表格組件 -->
     <main class="main-content">
       <el-table :data="myClub" style="width: 80%">
         <el-table-column prop="name" label="學生姓名"></el-table-column> 
-        <el-table-column prop="clubId" label="學生所屬社團"></el-table-column>
-        <!-- <el-table-column prop="pay" label="社團費用 "></el-table-column>
-        <el-table-column prop="classroom" label="社團教室 "></el-table-column>-->
+        <el-table-column prop="clubId" label="社團編號"></el-table-column>
+        <el-table-column prop="clubName" label="社團名稱"></el-table-column>
+        <el-table-column prop="pay" label="社團費用 "></el-table-column>
+        <el-table-column prop="classroom" label="社團教室 "></el-table-column>
       </el-table>
     </main>
   </div>
@@ -25,46 +26,97 @@
 export default {
   data() {
     return {
-      myClub: [] ,// 初始化抽籤結果數據為空
+      myClub: [], // 初始化 myClub 為空數組，用於存儲學生社團數據
       studentobj: {
-        student_id: null
-         
+        student_id: null, // 初始化 student_id 為 null
       },
-
     };
   },
   methods: {
-    // 獲取抽籤結果數據的方法
+    // 獲取學生社團數據的方法
     async fetchMyClub() {
       try {
+        // 從 sessionStorage 獲取 student_id
         this.studentobj.student_id = JSON.parse(sessionStorage.getItem('account'));
-        console.log(this.studentobj);
+        console.log('從 sessionStorage 取到的 account:', this.studentobj.student_id);
 
+        // 發送 POST 請求獲取學生數據
         const response = await fetch('http://localhost:8080/student/search', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(this.studentobj)
+          body: JSON.stringify(this.studentobj),
         });
 
+        // 如果響應不成功，拋出錯誤
         if (!response.ok) {
           throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
         }
 
+        // 將響應轉換為 JSON 格式
         const data = await response.json();
         console.log('API 返回的資料：', data);
 
-        this.myClub = data.studentList || [];
+        // 設置 myClub 為返回的學生數據，如果找到學生數據則更新 myClub
+        if (data.studentList && data.studentList.length > 0) {
+          const student = data.studentList[0];
+          console.log('學生社團編號:', student.clubId);
+          this.myClub = [{
+            name: student.name,
+            clubId: student.clubId,
+            clubName: '', // 初始化為空，稍後設置
+            pay: '', // 初始化為空，稍後設置
+            classroom: '', // 初始化為空，稍後設置
+          }];
+          await this.fetchClubDetails(student.clubId);
+        } else {
+          console.error('未找到學生資料');
+        }
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
     },
+    // 獲取社團詳細信息的方法
+    async fetchClubDetails(clubId) {
+      try {
+        console.log('發送請求獲取社團詳細信息，club_id:', clubId);
+        // 發送 POST 請求獲取社團數據
+        const response = await fetch('http://localhost:8080/Club/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ club_id: clubId }),
+        });
+
+        // 如果響應不成功，拋出錯誤
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
+
+        // 將響應轉換為 JSON 格式
+        const data = await response.json();
+        console.log('Club API 返回的資料：', data);
+
+        // 設置 myClub 的詳細信息，如果找到社團數據則更新 myClub
+        if (data.clubList && data.clubList.length > 0) {
+          const club = data.clubList[0];
+          this.myClub[0].clubName = club.name || '無資料';
+          this.myClub[0].pay = club.pay || '無資料';
+          this.myClub[0].classroom = club.classroom || '無資料';
+        } else {
+          console.error('未找到社團資料');
+        }
+      } catch (error) {
+        console.error(`無法獲取社團數據：${error.message}`);
+      }
+    }
+  },
+  // 組件創建時調用獲取數據的方法
   created() {
-    // 組件創建時調用獲取數據的方法
     this.fetchMyClub();
-  }
-}
+  },
 };
 </script>
 
@@ -135,7 +187,6 @@ export default {
     }
   }
 
-  //-----------------------以上是藍色導覽列區域--------------------------------------
   .main-content {
     flex: 1; /* 使主內容區域填滿剩餘空間 */
     display: flex; 

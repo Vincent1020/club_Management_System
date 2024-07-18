@@ -21,6 +21,10 @@
           <input id="pwd" v-model="pwd" type="password" required>
         </div>
         <div class="form-group">
+          <label for="pwd">再次輸入新密碼</label>
+          <input id="pwd" v-model="password" type="text" required>
+        </div>
+        <div class="form-group">
           <label for="name">姓名</label>
           <input id="name" v-model="name" type="text" required>
         </div>
