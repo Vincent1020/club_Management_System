@@ -32,7 +32,7 @@
         <div class="form-group">
           <label for="second-choice">第二志願</label>
           <select id="second-choice" v-model="secondChoice">
-            <option value="">選擇志願</option>
+            <option value="">選擇志願二</option>
             <!-- 使用 v-for 迭代可用選項 -->
             <option v-for="option in filteredOptions('secondChoice')" :key="option" :value="option">
               {{ option }}
@@ -43,7 +43,7 @@
         <div class="form-group">
           <label for="third-choice">第三志願</label>
           <select id="third-choice" v-model="thirdChoice">
-            <option value="">選擇志願</option>
+            <option value="">選擇志願三</option>
             <!-- 使用 v-for 迭代可用選項 -->
             <option v-for="option in filteredOptions('thirdChoice')" :key="option" :value="option">
               {{ option }}

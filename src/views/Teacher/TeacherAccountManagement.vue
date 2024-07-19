@@ -2,7 +2,11 @@
   <div class="TeacherAccountManagement">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
-      <h1><router-link to="TeacherHome"><img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁</router-link></h1>
+      <h1>
+        <router-link to="TeacherHome">
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁
+        </router-link>
+      </h1>
       <nav class="nav">
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面-帳號管理</span>
@@ -13,18 +17,6 @@
     <main class="main-content">
       <form @submit.prevent="submitForm" class="form">
         <div class="form-group">
-          <label for="teacher_id">教師ID</label>
-          <input id="teacher_id" v-model="teacher_id" type="number" >
-        </div>
-        <div class="form-group">
-          <label for="pwd">密碼</label>
-          <input id="pwd" v-model="pwd" type="password" required>
-        </div>
-        <div class="form-group">
-          <label for="pwd">再次輸入新密碼</label>
-          <input id="pwd" v-model="password" type="text" required>
-        </div>
-        <div class="form-group">
           <label for="name">姓名</label>
           <input id="name" v-model="name" type="text" required>
         </div>
@@ -32,15 +24,11 @@
           <label for="email">e-mail</label>
           <input id="email" v-model="email" type="email" required>
         </div>
-        <div class="form-group">
-          <label for="status">在學狀態</label>
-          <input id="status" v-model="status" type="text" >
+        <div class="form-buttons">
+          <button type="button" class="password-button" @click="goToForgotPassword">更新密碼</button>
+          <button type="submit" class="submit-button">提交修改</button>
+          
         </div>
-        <div class="form-group">
-          <label for="type">類型</label>
-          <input id="type" v-model="type" type="text" >
-        </div>
-   <button type="submit" class="submit-button">提交修改</button>
       </form>
     </main>
   </div>
@@ -50,37 +38,73 @@
 export default {
   data() {
     return {
-      teacher_id: null,
-      pwd: '',
-      name: '',
-      email: '',
-      status: '',
-      type: ''
+      teacher_id: null, // 用於存儲教師ID
+      name: '', // 用於存儲教師姓名
+      email: '', // 用於存儲教師電子郵件
+      pwd: '123', // 設置默認密碼
+      status: '在職中', // 設置默認在職狀態
+      type: '老師', // 設置默認類型
+      club_id: 1 // 設置默認社團ID
     };
+  },
+  created() {
+    // 在組件創建時從 sessionStorage 中獲取 teacher_id
+    const account = sessionStorage.getItem('account');
+    if (account) {
+      this.teacher_id = JSON.parse(account); // 將獲取到的 teacher_id 設置到 data 中
+    } else {
+      console.error('教師ID未找到，請重新登录'); // 如果未找到 teacher_id，輸出錯誤信息
+    }
   },
   methods: {
     submitForm() {
+      // 確保 teacher_id 已從 sessionStorage 獲取到
+      if (!this.teacher_id) {
+        alert('教師ID未找到，請重新登录');
+        return;
+      }
+
+      // 構建請求數據
+      const requestData = {
+        teacher_id: this.teacher_id,
+        pwd: this.pwd,
+        name: this.name,
+        email: this.email,
+        status: this.status,
+        type: this.type,
+        club_id: this.club_id
+      };
+
+      // 打印請求數據以進行調試
+      console.log('發送的數據:', requestData);
+
+      // 發送 POST 請求更新教師數據
       fetch('http://localhost:8080/teacherDatabase/createOrUpdate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // 設置請求的內容類型為 JSON
         },
-        body: JSON.stringify({
-          teacher_id: this.teacher_id,
-          pwd: this.pwd,
-          name: this.name,
-          email: this.email,
-          status: this.status,
-          type: this.type
-        }),
+        body: JSON.stringify(requestData), // 將請求數據轉換為 JSON 字符串
       })
-        .then(response => response.json())
+        .then(response => {
+          // 檢查響應是否成功
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`); // 如果響應不成功，拋出錯誤
+          }
+          return response.json(); // 將響應轉換為 JSON
+        })
         .then(data => {
-          alert('修改成功');
+          alert('修改成功'); // 顯示修改成功的提示信息
+          // 跳轉到 TeacherHome.vue 頁面
+          this.$router.push('TeacherHome');
         })
         .catch(error => {
-          console.error('錯誤:', error);
+          console.error('錯誤:', error); // 如果請求失敗，輸出錯誤信息
         });
+    },
+    // 新增的跳轉到ForgotPassword.vue的方法
+    goToForgotPassword() {
+      this.$router.push('ForgotPassword');
     }
   }
 };
@@ -151,7 +175,7 @@ export default {
     background-color: #D3D3D3;
     width: 100%;
     color: black;
-  
+
     .form {
       display: flex; 
       flex-direction: column;
@@ -189,19 +213,37 @@ export default {
       }
     }
 
-    .submit-button {
-      align-self: center;
+    .form-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* 按鈕間距 */
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .submit-button, .password-button {
       padding: 15px 30px;
       border: none;
       border-radius: 4px;
-      background-color: #5cb85c;
       color: white;
       cursor: pointer;
       font-size: 20px;
+    }
 
-      &:hover {
-        background-color: #4cae4c;
-      }
+    .submit-button {
+      background-color: #5cb85c;
+    }
+
+    .submit-button:hover {
+      background-color: #4cae4c;
+    }
+
+    .password-button {
+      background-color: #0275d8;
+    }
+
+    .password-button:hover {
+      background-color: #025aa5;
     }
   }
 }

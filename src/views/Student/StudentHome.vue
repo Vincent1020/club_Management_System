@@ -9,7 +9,7 @@
       </h1>
       <nav class="nav">
         <!-- 顯示學生名字 -->
-        <span class="student-name">歡迎光臨!! {{ studentName }} 登入</span>
+        <span class="student-name"> {{ studentName }} 學生你好!!</span>
         <!-- 帳號管理連結 -->
         <router-link class="a" to="/StudentAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
@@ -171,8 +171,8 @@ export default {
       transition: background-color 0.3s, transform 0.3s; /* 過渡效果 */
 
       &:hover {
-        background-color: #a7e2a7; /* 懸停背景顏色 */
-        transform: translateY(-20px); /* 懸停位移 */
+        background-color: #d1fff5; /* 懸停背景顏色 */
+        transform: translateY(-20px); /* 懸停位移，數字越大，飄得越高*/
       }
     }
   }

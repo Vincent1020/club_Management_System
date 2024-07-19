@@ -2,16 +2,17 @@
   <div class="teacher-home">
     <!-- 頁面頭部，包括標題和導航欄 -->
     <header class="header">
+      <!-- 首頁連結和圖標 -->
       <h1>
         <router-link to="TeacherHome">
           <img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁
         </router-link>
       </h1>
+      <!-- 導航欄 -->
       <nav class="nav">
         <!-- 歡迎信息 -->
-        <span class="info">歡迎登入!! {{ clubName }}的{{ teacherName }} 登入</span>
+        <span class="info">{{ clubName }}  {{ teacherName }} 你好!!</span>
         <!-- 帳號管理連結 -->
-        <!--<router-link to="TeacherLogin">老師登入測試</router-link> -->
         <router-link to="TeacherAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面</span>
@@ -24,9 +25,12 @@
         <div class="function">
           <!-- 新增按鈕 -->
           <img class="delete" src="https://cdn-icons-png.flaticon.com/512/748/748138.png" alt="">
-          <!-- 搜尋按鈕 -->
-          <input type="text" v-model="searchQuery">
-          <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
+          <!-- 搜尋部分 -->
+          <div class="search-section">
+            <input type="text" v-model="searchQuery" placeholder="搜尋學生"> 
+           <!--  v-model="searchQuery" 的雙向綁定特性。當您在搜尋輸入框中輸入內容時，searchQuery 的值會立即更新，並觸發 filteredTableData 計算屬性的重新計算，從而立即更新表格中的資料顯示。-->
+            <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
+          </div>
         </div>
       </div>
 
@@ -34,7 +38,7 @@
       <table>
         <thead>
           <tr>
-            <th><input type="checkbox" @change="selectAll($event)"></th>
+            <th></th> <!-- 保留空的表頭單元格 -->
             <th>學號</th>
             <th>班級</th>
             <th>姓名</th>
@@ -43,7 +47,7 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in filteredTableData" :key="index">
-            <td><input type="checkbox" :value="row.studentId" v-model="selected"></td>
+            <td><input type="checkbox" :value="row.studentId"></td>
             <td>{{ row.studentId }}</td>
             <td>{{ row.grade }}</td>
             <td>{{ row.name }}</td>
@@ -69,14 +73,11 @@ export default {
       },
       searchQuery: '', // 用於存儲搜索查詢
       selected: [], // 用於存儲選中的學生 ID
-      teacherName: '', // 新增
-      clubName: '' // 新增
+      teacherName: '', // 新增，用於存儲教師姓名
+      clubName: '' // 新增，用於存儲社團名稱
     };
   },
-<<<<<<< HEAD
 
-=======
->>>>>>> 695727a45fcde5099c01c00b70f83f863f760c5f
   computed: {
     filteredTableData() {
       // 檢查是否存在搜索查詢
@@ -94,9 +95,11 @@ export default {
   methods: {
     async fetchTableData() {
       try {
+        // 從 sessionStorage 獲取教師帳號信息
         this.teacherobj.teacher_id = JSON.parse(sessionStorage.getItem('account'));
         console.log(this.teacherobj);
 
+        // 發送 POST 請求以獲取表格數據
         const response = await fetch('http://localhost:8080/teacherDatabase/clubStudentData', {
           method: 'POST',
           headers: {
@@ -112,22 +115,19 @@ export default {
         const data = await response.json();
         console.log('API 返回的資料：', data);
 
+        // 設置表格數據
         this.tableData = data.studentList || [];
-        this.teacherName = data.teacherName || ''; // 設置 teacherName
-        this.clubName = data.clubName || ''; // 設置 clubName
+        // 設置教師姓名
+        this.teacherName = data.teacherName || ''; 
+        // 設置社團名稱
+        this.clubName = data.clubName || ''; 
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
-      }
-    },
-    selectAll(event) {
-      if (event.target.checked) {
-        this.selected = this.tableData.map(item => item.studentId);
-      } else {
-        this.selected = [];
       }
     }
   },
   created() {
+    // 在組件創建時調用 fetchTableData 方法以獲取表格數據
     this.fetchTableData();
   },
 };
@@ -144,27 +144,33 @@ export default {
 
   .header {
     background-color: #87CEEB;
-    padding: 3%; /* 內邊距 */
+    padding: 20px; /* 內邊距 */
     display: flex; 
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
 
     img {
-        width: 4vw;
-        height: 8vh;
-        margin-top: 1vh;
-        margin-left: 4vw;
+      width: 4vw;
+      height: 8vh;
+      margin-right: 20px;
     }
 
     .nav {
       display: flex;
+      align-items: center;
       gap: 20px; /* 元素間距 */
+
+      .info {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff; 
+      }
 
       a {
         color: white; /* 連結文字顏色 */
         text-decoration: none; /* 去除下劃線 */
-        font-size: 30px; /* 字體大小 */
+        font-size: 24px; /* 字體大小 */
 
         &:hover {
           text-decoration: underline; /* 懸停效果 */
@@ -172,39 +178,10 @@ export default {
       }
 
       .current-interface {
-        position: relative; 
-        font-size: 30px; 
+        font-size: 24px; 
         font-weight: bold;
         color: white; 
       }
-
-      .current-interface::after {
-        content: ""; /* 內容為空 */
-        position: absolute; 
-        bottom: -5px; /* 底部距離 */
-        left: 0;
-        right: 0;
-        height: 2px; 
-        background-color: white; 
-        animation: blink 1.5s infinite;
-      }
-
-      .info {
-        font-size: 24px;
-        font-weight: bold;
-        color: #ff0000; /* 跑馬燈文字顏色 */
-        margin-right: 20px; /* 調整位置 */
-      }
-    }
-  }
-
-  /* @keyframes blink 動畫效果 */
-  @keyframes blink { 
-    0%, 100% {
-      opacity: 1; /* 完全不透明 */
-    }
-    50% {
-      opacity: 0.5; /* 半透明 */
     }
   }
 
@@ -217,37 +194,50 @@ export default {
 
   .function {
     display: flex;
+    justify-content: space-between; /* 新增按鈕和搜尋部分分開佈局 */
     align-items: center;
+    margin-bottom: 20px;
 
     img {
-        width: 2vw;
-        height: 4vh;
-
-        &:hover {
-            cursor: pointer;
-        }
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      margin-left: 5%;//左邊的icon圖案
     }
 
-    .delete {
-        margin-left: 4vw;
-        margin-right: 55vw;
+    .search-section {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      width: 200px;
+      padding: 5px;
+      margin-left: 10px;
+      border: 1px solid #b73131;
+      border-radius: 4px;
     }
 
     .search {
-        margin-left: 1vw;
+      margin-left: 5%;
+      margin-right: 0%;
     }
   }
 
   table {
     width: 100%;
     border-collapse: collapse; /* 合併邊框 */
-    background-color: rgb(204, 250, 250); /* 表格背景顏色 */
+    background-color: rgb(218, 247, 247); /* 表格背景顏色 */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   th, td {
     padding: 12px; /* 單元格內邊距 */
-    border: 1px solid #dddddd00; /* 單元格邊框 */
+    border: 1px solid #dddddd; /* 單元格邊框 */
     text-align: center; /* 文字置中 */
+    font-size: 18px; /* 字體大小 */
   }
 
   th {
@@ -260,6 +250,11 @@ export default {
 
   tbody tr:hover {
     background-color: #f1f1f1; /* 懸停效果 */
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

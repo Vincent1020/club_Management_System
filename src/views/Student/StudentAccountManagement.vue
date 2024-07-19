@@ -21,15 +21,9 @@
           <label for="email">e-mail</label>
           <input id="email" v-model="email" type="email" required>
         </div>
-        <div class="form-group">
-          <label for="pwd">新密碼</label>
-          <input id="pwd" v-model="password" type="text" required>
-        </div>
-        <div class="form-group">
-          <label for="pwd">再次輸入新密碼</label>
-          <input id="pwd" v-model="password" type="text" required>
-        </div>
+
         <button type="submit" class="submit-button">提交修改</button>
+
       </form>
     </main>
   </div>

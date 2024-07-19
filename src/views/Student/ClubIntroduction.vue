@@ -56,7 +56,7 @@
           <img :src="club.image" alt="Club Image" class="club-image">
           <div class="club-details">
             <h4>{{ club.name }}</h4>
-            <p>{{ club.intro }}</p>
+            <p>社團介紹: {{ club.intro }}</p>
             <p>社團費用: {{ club.pay }}</p>
             <p>上課地點: {{ club.classroom }}</p>
             <p>社團人數上限: {{ club.max }}人</p>
@@ -79,7 +79,7 @@
           { image: 'https://freshman.cmu.edu.tw/new/sites/default/files/u21/%E7%B1%83%E7%90%83%E7%A4%BE%282%29-1%20-%20105007017%20105a-_0.jpg', text: '籃球社' },
           { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/03/2.jpg', text: '羽球社系羽比賽' },
           { image: 'https://www.nssh.ntpc.edu.tw/var/file/0/1000/pictures/314/m/mczh-tw700x700_large750_895163558067.jpg', text: '社團活動' },
-          { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/09/1167%E6%9C%9F%E6%A1%83%E5%9C%92%E7%A4%BE%E5%8D%9A%E9%9B%BB%E5%AD%90%E5%A0%B1%E9%85%8D%E5%9C%96.jpg', text: '社團博覽會', attendees: '20' },
+          { image: 'https://www.week.mcu.edu.tw/wp-content/uploads/2023/09/1167%E6%9C%9F%E6%A1%83%E5%9C%92%E7%A4%BE%E5%8D%9A%E9%9B%BB%E5%AD%90%E5%A0%B1%E9%85%8D%E5%9C%96.jpg', text: '社團博覽會' },
         ],
         // 卡片項目數據(社團簡介)
         cards: [],
