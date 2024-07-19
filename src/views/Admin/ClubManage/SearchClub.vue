@@ -1,9 +1,12 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
 
 let semester = ref("")
-let clubId = ref()
+
 let clubArr = ref([])
 
 let checkedall = ref(false)
@@ -13,12 +16,18 @@ let checkarr = ref([false, false, false, false, false, false, false, false, fals
 let clubs = ref({
     semester: semester,
 })
-onMounted(()=>{
+onMounted(() => {
     clubsearch()
 })
-function search(){
+function search() {
     console.log(semester.value);
     clubsearch()
+}
+
+function send(clubId) {
+    sessionStorage.setItem("clubId", JSON.stringify(clubId))
+
+    router.push({ path: "/adminhomepage/reviseclub" })
 }
 // 搜尋社團方法
 let clubsearch = () => {
@@ -31,7 +40,7 @@ let clubsearch = () => {
     })
         .then(res => res.json())
         .then(data => {
-           
+
             console.log(data)
             clubArr.value = data.clubList
             console.log(clubArr);
@@ -50,7 +59,7 @@ let clubdelete = () => {
     })
         .then(res => res.json())
         .then(data => {
-           
+
             console.log(data)
             clubArr.value = data.clubList
             console.log(clubArr);
@@ -105,7 +114,7 @@ function setpage(page) {
 
             <div class="function">
                 <!-- 新增按鈕 -->
-                <a class="add" href="/adminhomepage/createteacheraccount"><img
+                <a class="add" href="/adminhomepage/createclub"><img
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 刪除人員 -->
@@ -121,10 +130,11 @@ function setpage(page) {
                 <thead>
                     <tr>
                         <th>
-                             <label>
+                            <label>
                                 <input type="checkbox" v-model="checkedall" @click="checkall">
                                 <span>全選</span>
-                            </label></th>
+                            </label>
+                        </th>
                         <th class="SchoolYear"> 學期</th>
                         <th class="identity">社團ID</th>
                         <th class="name">社團名稱</th>
@@ -137,7 +147,7 @@ function setpage(page) {
                 </thead>
 
                 <tbody>
-                    <tr v-for="(item, index) in pagenumber" @change="()=>{console.log(132)}">
+                    <tr v-for="(item, index) in pagenumber">
                         <td><input type="checkbox" v-model="checkarr[index]"></td>
                         <td>{{ item.semester }}</td>
                         <td>{{ item.clubId }}</td>
@@ -145,8 +155,8 @@ function setpage(page) {
                         <td>{{ item.teacherId }}</td>
                         <td>{{ item.attendees }}</td>
                         <td>
-                            <a href="/adminhomepage/reviseteacheraccount"><img
-                                    src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt=""></a>
+                            <img @click="send(item.clubId)"
+                                src="https://cdn-icons-png.flaticon.com/512/1160/1160119.png" alt="">
 
                         </td>
                         <td>
@@ -248,23 +258,24 @@ body {
         table-layout: auto;
 
         label {
-                background-color: rgb(223, 227, 229);
-                border-radius: 0.3em;
-                padding: 0.1vh 0.5vw;
+            background-color: rgb(223, 227, 229);
+            border-radius: 0.3em;
+            padding: 0.1vh 0.5vw;
 
-                span {
-                    font-size: 18px;
-                }
-
-                input[type="checkbox"] {
-                    display: none;
-                }
-
-                &:hover {
-                    cursor: pointer;
-                }
-
+            span {
+                font-size: 18px;
             }
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+
+        }
+
         thead {
             font-size: 22px;
             background-color: #e6eef6;
@@ -339,10 +350,12 @@ body {
             li {
                 padding: 0.5vh 0.5vw;
                 border-radius: 1em;
+
                 &:hover {
-                    background-color:rgb(238, 245, 255) ;
+                    background-color: rgb(238, 245, 255);
                 }
-                &.active{
+
+                &.active {
                     background-color: rgb(171, 201, 243);
                 }
             }

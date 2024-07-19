@@ -22,7 +22,8 @@ let choiceList = ref("")
 let errmsg = ref("")
 
 let accountarr = ref([])
-
+let reviseAccount = {}
+// 搜尋該學生帳號所有資訊
 onMounted(() => {
     let studentId = sessionStorage.getItem("studentId")
     console.log(studentId);
@@ -49,11 +50,11 @@ onMounted(() => {
                     identity.value = accountarr.value[0].studentId,
                     email.value = accountarr.value[0].email,
                     status.value = accountarr.value[0].status
-                    // 其他資訊
-                    grade.value = accountarr.value[0].grade
-                    clubId.value = accountarr.value[0].clubId
-                    choiceList.value = accountarr.value[0].choiceList  
-                    semester.value = accountarr.value[0].semester
+                // 其他資訊
+                grade.value = accountarr.value[0].grade
+                clubId.value = accountarr.value[0].clubId
+                choiceList.value = accountarr.value[0].choiceList
+                semester.value = accountarr.value[0].semester
             }
             console.log(accountarr.value);
         })
@@ -62,11 +63,8 @@ onMounted(() => {
 
 // 驗證
 function submit() {
-    if (pwd.value != pwd2.value) {
-        errmsg.value = ("密碼不一致")
-        return
-    }
-    else if (name.value == "") {
+    
+    if (name.value == "") {
         errmsg.value = ("請輸入姓名")
         return
     }
@@ -90,49 +88,69 @@ function submit() {
         errmsg.value = ("請選擇狀態")
         return
     }
+    if (pwd.value > 0 && pwd.value != pwd2.value) {
+        errmsg.value = ("密碼不一致")
+        return
+    }
+    else if (pwd.value == pwd2.value) {
+        reviseAccount = {
+            student_id: identity.value,
+            name: name.value,
+            pwd: pwd.value,
+            email: email.value,
+            status: status.value,
+            grade: grade.value,
+            club_id: clubId.value,
+            choice_list: choiceList.value,
+            semester: semester.value
+        }
 
-    let reviseAccount = {
-        student_id: identity.value,
-        name: name.value,
-        pwd: pwd.value,
-        email: email.value,
-        status: status.value,
-        grade : grade.value,
-        club_id : clubId.value,
-        choice_list : choiceList.value,
-        semester: semester.value
     }
 
-
-    console.log(reviseAccount)
-    fetch("http://localhost:8080/student/createOrUpdate", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(reviseAccount)
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-     
-            if(data.status== 400){
-                errmsg.value = ("修改失敗")
+    else 
+        {
+            reviseAccount = {
+                student_id: identity.value,
+                name: name.value,
+                email: email.value,
+                status: status.value,
+                grade: grade.value,
+                club_id: clubId.value,
+                choice_list: choiceList.value,
+                semester: semester.value
             }
-            else if(data.statusCode== 200){
-                errmsg.value = ("修改成功")
-                router.push({ path: '/adminhomepage/searchstudentaccount' })
-            }         
+        }
 
+        console.log(reviseAccount)
+        fetch("http://localhost:8080/student/createOrUpdate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(reviseAccount)
         })
-        .catch(err => {
-            console.log(err)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
 
-            errmsg.value = ("修改失敗")
-        })
+                if (data.status == 400) {
+                    errmsg.value = ("修改失敗")
+                }
+                else if (data.statusCode == 200) {
+                    errmsg.value = ("修改成功")
+                    router.push({ path: '/adminhomepage/searchstudentaccount' })
+                }
+
+            })
+            .catch(err => {
+                console.log(err)
+
+                errmsg.value = ("修改失敗")
+            })
 
 
-}
+    }
+
 
 </script>
 
@@ -150,47 +168,47 @@ function submit() {
         </div>
 
         <div class="area">
-       
+
             <div class="information">
                 <!-- 讓方框內的資料對齊 -->
                 <div class="area2">
-                <div class="name">
-                    <h2>姓名</h2>
-                    <input type="text" v-model="name" placeholder="請輸入學生姓名">
-                </div>
-                <div class="identity">
-                    <h2>學號</h2>
-                    <input type="text" v-model="identity" placeholder="請輸入學號">
-                </div>
+                    <div class="name">
+                        <h2>姓名</h2>
+                        <input type="text" v-model="name" placeholder="請輸入學生姓名">
+                    </div>
+                    <div class="identity">
+                        <h2>學號</h2>
+                        <input type="text" v-model="identity" placeholder="請輸入學號">
+                    </div>
 
-                <div class="pwd">
-                    <h2>密碼</h2>
-                    <input type="password" v-model="pwd" placeholder="請輸入密碼">
-                </div>
+                    <div class="pwd">
+                        <h2>密碼</h2>
+                        <input type="password" v-model="pwd" placeholder="請輸入密碼">
+                    </div>
 
-                <div class="pwd2">
-                    <h2>再次輸入密碼</h2>
-                    <input type="password" v-model="pwd2" placeholder="請再次輸入密碼">
-                </div>
+                    <div class="pwd2">
+                        <h2>再次輸入密碼</h2>
+                        <input type="password" v-model="pwd2" placeholder="請再次輸入密碼">
+                    </div>
 
-                <div class="email">
-                    <h2>E-mail</h2>
-                    <input type="text" v-model="email" placeholder="請輸入信箱">
-                </div>
-                <div class="state">
-                    <h2>狀態</h2>
-                    <select v-model="status">
-                        <option value="">請選擇</option>
-                        <option value="在學中">在學</option>
-                        <option value="非在學">非在學</option>
+                    <div class="email">
+                        <h2>E-mail</h2>
+                        <input type="text" v-model="email" placeholder="請輸入信箱">
+                    </div>
+                    <div class="state">
+                        <h2>狀態</h2>
+                        <select v-model="status">
+                            <option value="">請選擇</option>
+                            <option value="在學中">在學</option>
+                            <option value="非在學">非在學</option>
 
-                    </select>
-                    <span>{{ errmsg }}</span>
+                        </select>
+                        <span>{{ errmsg }}</span>
+                    </div>
+                    <button @click="submit">提交</button>
                 </div>
-                <button @click="submit">提交</button>
             </div>
         </div>
-    </div>
 
     </body>
 </template>
