@@ -9,27 +9,31 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-
+//學生首頁
     {
-      path: '/StudentHome',//學生首頁
+      path: '/StudentHome',
       name: 'StudentHome',
       component: () => import('../views/Student/StudentHome.vue')
     },
+    // 管理者首頁
     {
       path: '/adminhomepage',
       name: 'AdminHomepage',
       component: () => import('../views/Admin/AdminHomepage.vue')
     },
+    // 登入
     {
       path: '/login',
       name: 'Login',
       component: () => import('../views/Login/Login.vue'),
     },
+    // 忘記密碼
     {
       path: '/login/forgotpassword',
       name: 'ForgotPassword',
       component: () => import('../views/Login/ForgotPassword.vue')
     },
+    // 驗證
     {
       path: '/login/verify',
       name: 'Verify',

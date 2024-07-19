@@ -23,11 +23,11 @@ let accountarr = ref([])
 
 // 搜尋該社團所有資訊
 onMounted(() => {
-    clubId = sessionStorage.getItem("clubId")
-    console.log(clubId);
+    clubId.value = sessionStorage.getItem("clubId")
+    console.log(clubId.value);
 
     let clubsearch = {
-        club_id: clubId
+        club_id: clubId.value
     }
     fetch("http://localhost:8080/Club/search", {
         method: "POST",
@@ -126,7 +126,7 @@ function submit() {
     }
 
     let reviseClub = {
-        club_id: 0,
+        club_id: clubId.value,
         name: name.value,
         intro: intro.value,
         classroom: classroom.value,
@@ -135,6 +135,7 @@ function submit() {
         pay: pay.value,
         teacher_id: teacherId.value
     }
+    console.log(reviseClub);
     fetch("http://localhost:8080/Club/createOrUpdate", {
         method: "POST",
         headers: {

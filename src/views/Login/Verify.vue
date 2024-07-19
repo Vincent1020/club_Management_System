@@ -25,29 +25,29 @@ function changeMode(bool) {
 
 function verify() {
     let fetchWeb = "http://localhost:8080/quiz/create_update/{}";
-    if(mode.value == false){
-        fetchWeb =( "http://localhost:8080/quiz/update/{}")
+    if (mode.value == false) {
+        fetchWeb = ("http://localhost:8080/quiz/update/{}")
     }
-    if (!email.value || !account.value) {
-        msg.value = "請輸入Account或Email"
+    if (!account.value) {
+        msg.value = "請輸入帳號"
         return
     }
     else {
         console.log(fetchWeb);
-       
+
         fetch(fetchWeb, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-           
+
         })
             .then(res => res.json())
             .then(data => {
                 emailres.value = data
                 console.log(data)
                 if (email.value == emailres.value) {
-                    router.push({ path: '/login/forgotpassword'})
+                    router.push({ path: '/login/forgotpassword' })
                 }
                 else {
                     msg.value = "Email輸入錯誤"
@@ -71,38 +71,37 @@ function verify() {
 <template>
 
     <body>
-        <div class="identity">
-           
 
-        </div>
         <div class="center">
-            <div class="choice">
-                <h1>我是</h1>
-                <button type="button" @click="changeMode(true)" :class="{now: mode}">學生</button>
-                <button type="button" @click="changeMode(false)" :class="{now: !mode}">老師</button>
-          
-            </div>
-            <div class="account">
-                <h2>請輸入帳號</h2>
-                <input type="text" v-model="account" placeholder="A123">
-            </div>
-            <div class="verify">
-                <h2>請輸入Email</h2>
-                <input type="email" v-model="email" placeholder="XXX@email.com">
-                <p>{{ msg }}</p>
-            </div>
-            <div class="function">
-                <input type="button" onclick="location.href='/login'" value="Back"> <!-- 上一頁 -->
-                <input type="button" @click="verify" value="Verify"> <!-- 驗證 -->
+            <div class="aera">
+                <div class="choice">
+                    <h1>我是</h1>
+                    <button type="button" @click="changeMode(true)" :class="{ now: mode }">學生</button>
+                    <button type="button" @click="changeMode(false)" :class="{ now: !mode }">老師</button>
 
+                </div>
+                <div class="account">
+                    <h2>請輸入帳號</h2>
+                    <input type="text" v-model="account" placeholder="A123">
+                </div>
+                <div class="verify">
+
+                    <p>{{ msg }}</p>
+                </div>
+                <div class="function">
+                    <input type="button" onclick="location.href='/login'" value="Back"> <!-- 上一頁 -->
+                    <input type="button" @click="verify" value="Verify"> <!-- 驗證 -->
+
+                </div>
             </div>
         </div>
     </body>
 </template>
 
 <style scoped lang="scss">
+
 .center {
-    
+
     width: 40vw;
     height: 50vh;
     background-color: white;
@@ -112,6 +111,11 @@ function verify() {
     display: flex;
     flex-direction: column;
     align-items: center;
+// .area{
+// color: black;
+// background-color: aqua;
+// margin-top: 5vh;
+// }
     // 選擇身分
     .choice {
         height: 5vh;
@@ -119,20 +123,23 @@ function verify() {
         display: flex;
         justify-content: center;
         align-items: center;
-        h1{
-           margin-right: 1vw;
+
+        h1 {
+            margin-right: 1vw;
             color: black;
             font-size: 25px;
         }
+
         // 沒有查看時的預設樣式
-        button{
+        button {
             padding: 1vh;
             font-size: 25px;
             background-color: #fff;
-            border: 1px solid rgb(208, 208, 208);   
+            border: 1px solid rgb(208, 208, 208);
         }
+
         // 正在查看的頁面樣式
-        .now{
+        .now {
             color: rgb(255, 255, 255);
             background-color: rgb(140, 236, 186);
         }
@@ -141,7 +148,7 @@ function verify() {
     // 帳號輸入框
     .account {
         width: 65%;
-       
+
         color: black;
 
         input {
@@ -182,8 +189,8 @@ function verify() {
         width: 80%;
         display: flex;
         justify-content: flex-end;
-        
-        
+
+
         input {
             width: 10vw;
             height: 6vh;
@@ -192,6 +199,7 @@ function verify() {
             border-radius: 10px;
         }
     }
+
 }
 
 body {

@@ -70,14 +70,7 @@ function submit() {
         errmsg.value = ("姓名請輸入文字")
         return
     }
-    else if (pwd.value == "") {
-        errmsg.value = ("請輸入密碼")
-        return
-    }
-    else if (pwd2.value == "") {
-        errmsg.value = ("請再次輸入密碼")
-        return
-    }
+   
     else if (email.value == "" || !email.value.includes("@")) {
         errmsg.value = ("請輸入有效的電子信箱")
         return
@@ -91,21 +84,6 @@ function submit() {
         errmsg.value = ("密碼不一致")
         return
     }
-    else if (pwd.value == pwd2.value) {
-        reviseAccount = {
-            teacher_id: identity.value,
-            name: name.value,
-            pwd: pwd.value,
-            email: email.value,
-            status: status.value,
-            club_id: clubId.value,
-            type: type.value,
-       
-        }
-
-    }
-
-    else {
         reviseAccount = {
             teacher_id: identity.value,
             name: name.value,         
@@ -115,8 +93,7 @@ function submit() {
             type: type.value,
           
         }
-    }
-    console.log(reviseAccount)
+        console.log(reviseAccount)
     fetch("http://localhost:8080/teacherDatabase/createOrUpdate", {
         method: "POST",
         headers: {

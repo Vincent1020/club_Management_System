@@ -44,6 +44,7 @@ function arrowRotate2() {
 
         <!-- 上面導覽列 -->
         <div class="above">
+            <a href="/login">登出</a>
             <a href="/adminhomepage">管理者介面</a>
 
 

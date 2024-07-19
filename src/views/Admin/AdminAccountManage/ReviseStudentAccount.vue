@@ -63,7 +63,7 @@ onMounted(() => {
 
 // 驗證
 function submit() {
-    
+
     if (name.value == "") {
         errmsg.value = ("請輸入姓名")
         return
@@ -72,14 +72,7 @@ function submit() {
         errmsg.value = ("姓名請輸入文字")
         return
     }
-    else if (pwd.value == "") {
-        errmsg.value = ("請輸入密碼")
-        return
-    }
-    else if (pwd2.value == "") {
-        errmsg.value = ("請再次輸入密碼")
-        return
-    }
+
     else if (email.value == "" || !email.value.includes("@")) {
         errmsg.value = ("請輸入有效的電子信箱")
         return
@@ -88,68 +81,46 @@ function submit() {
         errmsg.value = ("請選擇狀態")
         return
     }
-    if (pwd.value > 0 && pwd.value != pwd2.value) {
-        errmsg.value = ("密碼不一致")
-        return
-    }
-    else if (pwd.value == pwd2.value) {
-        reviseAccount = {
-            student_id: identity.value,
-            name: name.value,
-            pwd: pwd.value,
-            email: email.value,
-            status: status.value,
-            grade: grade.value,
-            club_id: clubId.value,
-            choice_list: choiceList.value,
-            semester: semester.value
-        }
-
+    reviseAccount = {
+        student_id: identity.value,
+        name: name.value,
+        email: email.value,
+        status: status.value,
+        grade: grade.value,
+        club_id: clubId.value,
+        choice_list: choiceList.value,
+        semester: semester.value
     }
 
-    else 
-        {
-            reviseAccount = {
-                student_id: identity.value,
-                name: name.value,
-                email: email.value,
-                status: status.value,
-                grade: grade.value,
-                club_id: clubId.value,
-                choice_list: choiceList.value,
-                semester: semester.value
-            }
-        }
+    console.log(reviseAccount)
+    fetch("http://localhost:8080/student/createOrUpdate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviseAccount)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
 
-        console.log(reviseAccount)
-        fetch("http://localhost:8080/student/createOrUpdate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(reviseAccount)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-
-                if (data.status == 400) {
-                    errmsg.value = ("修改失敗")
-                }
-                else if (data.statusCode == 200) {
-                    errmsg.value = ("修改成功")
-                    router.push({ path: '/adminhomepage/searchstudentaccount' })
-                }
-
-            })
-            .catch(err => {
-                console.log(err)
-
+            if (data.status == 400) {
                 errmsg.value = ("修改失敗")
-            })
+            }
+            else if (data.statusCode == 200) {
+                errmsg.value = ("修改成功")
+                router.push({ path: '/adminhomepage/searchstudentaccount' })
+            }
+
+        })
+        .catch(err => {
+            console.log(err)
+
+            errmsg.value = ("修改失敗")
+        })
 
 
-    }
+}
 
 
 </script>
