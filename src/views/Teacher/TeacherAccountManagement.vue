@@ -104,7 +104,7 @@ export default {
     },
     // 新增的跳轉到ForgotPassword.vue的方法
     goToForgotPassword() {
-      this.$router.push('ForgotPassword');
+      this.$router.push({path:"/login/forgotpassword"});
     }
   }
 };
