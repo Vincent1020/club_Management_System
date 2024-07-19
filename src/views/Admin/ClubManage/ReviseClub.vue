@@ -117,10 +117,7 @@ function submit() {
     }
     else if (semester.value == "") {
         msg.value = "請輸入社團學期"
-    }
-    else if (pay.value == "") {
-        msg.value = "請輸入社團費用"
-    }
+    }  
     else if (teacherId.value == "") {
         msg.value = "請輸入社團教師"
     }

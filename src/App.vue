@@ -1,5 +1,12 @@
 <script setup>
+import { onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
+
+
+// router.push({path:'/login'})
 
 </script>
 
