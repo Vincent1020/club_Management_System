@@ -114,6 +114,7 @@ function verify() {
     width: 40vw;
     height: 50vh;
     background-color: white;
+    border-radius: 1em;
     position: fixed;
     top: 25%;
     left: 30%;
@@ -123,7 +124,7 @@ function verify() {
 
     .aera {
         color: black;
-
+     
         margin-top: 6vh;
     }
 
