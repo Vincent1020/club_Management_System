@@ -9,27 +9,31 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-
+//學生首頁
     {
-      path: '/StudentHome',//學生首頁
+      path: '/StudentHome',
       name: 'StudentHome',
       component: () => import('../views/Student/StudentHome.vue')
     },
+    // 管理者首頁
     {
       path: '/adminhomepage',
       name: 'AdminHomepage',
       component: () => import('../views/Admin/AdminHomepage.vue')
     },
+    // 登入
     {
       path: '/login',
       name: 'Login',
       component: () => import('../views/Login/Login.vue'),
     },
+    // 忘記密碼
     {
       path: '/login/forgotpassword',
       name: 'ForgotPassword',
       component: () => import('../views/Login/ForgotPassword.vue')
     },
+    // 驗證
     {
       path: '/login/verify',
       name: 'Verify',
@@ -125,11 +129,11 @@ const router = createRouter({
       name:'ReviseClub',
       component: () => import('../views/Admin/ClubManage/ReviseClub.vue') 
     },
-      // 期程排定
+      // 社團抽籤
    {
-    path:'/adminhomepage/schedule',
+    path:'/adminhomepage/draw',
     name:'Schedule',
-    component: () => import('../views/Admin/ClubManage/Schedule.vue') 
+    component: () => import('../views/Admin/ClubManage/Draw.vue') 
   }
  
     

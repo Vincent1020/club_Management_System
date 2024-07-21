@@ -5,11 +5,11 @@ let pw1 =ref("")
 let pw2 =ref("")
 let errmsg = ref("")
 function reset (){
-    if (!pw1.value || !wp2.value) {
+    if (!pw1.value || !pw2.value) {
         errmsg.value = "帳號、密碼不得為空"
         return
     }
-    else if(pw1.value != wp2.value){
+    else if(pw1.value != pw2.value){
         errmsg.value = "密碼不一致"
         return
     }
@@ -24,20 +24,20 @@ function reset (){
         <!-- 輸入密碼 -->
         <div class="pwd1 pw">
             <h1>請輸入新密碼</h1>
-            <input type="text" v-model="pw1" required>
+            <input type="password" v-model="pw1" required>
         </div>
 
         <!-- 再次輸入密碼 -->
         <div class="pwd2 pw">
             <h1>再次輸入新密碼</h1>
-            <input type="text" v-model="pw2" required>
+            <input type="password" v-model="pw2" required>
             <p>{{errmsg}}</p>
         </div>
       
         <!-- 功能選項 -->
         <div class="function">
 
-            <input type="button" @click="reset" value="Reset Password">
+            <input type="button" @click="reset" value="更新密碼">
 
         </div>
 
@@ -88,10 +88,11 @@ body{width: 100%;height: 100%;position: relative;background-color: #cce3f5}
      
         margin-top: 2vh;
         margin-left: 22vw;
+
         input{
             width: 12vw;
             height: 6vh; 
-            font-size: 20px;    
+            font-size: 1.7em;    
             border-radius: 10px;
         }
     }

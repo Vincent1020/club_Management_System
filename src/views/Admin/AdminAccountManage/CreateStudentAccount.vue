@@ -30,11 +30,8 @@ import {ref} from 'vue'
       
     }
     function submit(){
-        if(pwd.value != pwd2.value){
-            errmsg.value = ("密碼不一致")
-            return
-        }
-        else if(name.value == "" ){
+       
+        if(name.value == "" ){
             errmsg.value = ("請輸入姓名")
             return
         }
@@ -45,15 +42,7 @@ import {ref} from 'vue'
         else if(!isNaN(name.value )){
             errmsg.value = ("請輸入文字")
             return
-        }
-        else if(pwd.value == ""){
-            errmsg.value =("請輸入密碼")
-            return
-        }
-        else if(pwd2.value == ""){
-            errmsg.value =("請再次輸入密碼")
-            return
-        }
+        }     
         else if(email.value == "" || !email.value.includes("@")){
             errmsg.value = ("請輸入有效的電子信箱")
             return
@@ -78,7 +67,6 @@ import {ref} from 'vue'
                     errmsg.value = ("新增成功")
                
                     clearForm()
-
                  
                 })
                 .catch(err => { 
@@ -106,7 +94,6 @@ import {ref} from 'vue'
         <div class="area">
             <div class="information">
                 <div class="area2">
-                    <!-- <h1>新增學生資料</h1> -->
                     <div class="name">
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入學生姓名">
@@ -115,17 +102,6 @@ import {ref} from 'vue'
                         <h2>學號</h2>
                         <input type="text" v-model="identity" placeholder="請輸入學號">
                     </div>
-
-                    <div class="pwd">
-                        <h2>密碼</h2>
-                        <input type="password" v-model="pwd" placeholder="請輸入密碼">
-                    </div>
-
-                    <div class="pwd2">
-                        <h2>再次輸入密碼</h2>
-                        <input type="password"v-model="pwd2" placeholder="請再次輸入密碼">
-                    </div>
-
                     <div class="email">
                         <h2>E-mail</h2>
                         <input type="text" v-model="email" placeholder="請輸入信箱">
@@ -182,16 +158,17 @@ body {
     
         .information {
             width: 50vw;
-            height: 85vh;
+            height: 70vh;
+            margin-top: 7vh;
             margin-left: 15vw;
             border-radius: 1em;
             background-color: rgba(240, 247, 250, 0.863);
             h2{
-                margin-top: 1.5vh;
+                margin-top: 3vh;
                 margin-bottom: 1vh;
             }
             .area2{
-               padding-top: 1vh;
+               padding-top: 2vh;
                padding-left: 5vw;
                h1{
                 margin-left: 13vw;
@@ -210,17 +187,18 @@ body {
         }
 
         select {
-            font-size: 18px;
-        }
+                font-size: 1.3em;
+            }
 
-        option {
-            font-size: 17px;
-        }
+            option {
+                font-size: 0.9em;
+            }
         button{
             width: 7vw;
             height: 4vh; 
+            margin-top: 3vh;
             margin-left: 33vw;
-            font-size: 18px;
+            font-size: 1.3em;
 
             &:hover{
                 cursor: pointer;
@@ -228,7 +206,7 @@ body {
         }
         .state{
                 span{
-                    font-size: 18px;
+                    font-size: 1.3em;
                     color: red;
                     margin-left: 18vw;
                     

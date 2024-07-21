@@ -39,7 +39,7 @@ let searchall = () => {
 // 全選
 function checkall() {
     console.log(checkedall.value);
-    //  checked.value ==true? buttontext.value="全選":buttontext.value="取消全選"
+    
     checkarr.value = checkedall.value === true ? [false, false, false, false, false, false, false, false, false, false] : [true, true, true, true, true, true, true, true, true, true]
     console.log(checkarr.value);
 }
