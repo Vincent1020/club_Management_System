@@ -130,9 +130,6 @@ const loginRequest = () => {
                 <input type="button" onclick="location.href='/login/verify'" value="忘記密碼">
 
                 <input type="button" @click="loginRequest" value="登入">
-
-                <!-- 暫放 完成後移除 -->
-                <a href="/login/forgotpassword">Forgotpassword</a>
             </div>
 
         </div>

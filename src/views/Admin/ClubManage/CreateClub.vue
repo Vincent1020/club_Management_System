@@ -94,8 +94,7 @@ function submit() {
 
     let creatClub = {
         club_id: 0,
-        name: name.value,
-        // identity: identity.value,
+        name: name.value,     
         intro: intro.value,
         classroom: classroom.value,
         max: max.value,
