@@ -9,11 +9,11 @@
       </h1>
       <nav class="nav">
         <!-- 顯示學生名字 -->
-        <span class="student-name"> {{ studentName }} 學生你好!!</span>
+        <span class="student-name"> {{ studentName }} 同學你好!!</span>
         <!-- 帳號管理連結 -->
         <router-link class="a" to="/StudentAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
-        <span class="current-interface">學生介面</span>
+        <!-- <span class="current-interface">學生介面</span> -->
       </nav>
     </header>
 
