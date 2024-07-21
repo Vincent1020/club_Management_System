@@ -10,26 +10,29 @@
       <nav class="nav">
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面-帳號管理</span>
+        <router-link to="Login" class="logout-link">登出</router-link>
       </nav>
     </header>
 
     <!-- 主內容區域 -->
     <main class="main-content">
-      <form @submit.prevent="submitForm" class="form">
-        <div class="form-group">
-          <label for="name">姓名</label>
-          <input id="name" v-model="name" type="text" required>
-        </div>
-        <div class="form-group">
-          <label for="email">e-mail</label>
-          <input id="email" v-model="email" type="email" required>
-        </div>
-        <div class="form-buttons">
-          <button type="button" class="password-button" @click="goToForgotPassword">更新密碼</button>
-          <button type="submit" class="submit-button">提交修改</button>
-          
-        </div>
-      </form>
+      <div class="sidebar">
+        <button class="sidebar-button">提交修改</button>
+        <button class="sidebar-button" @click="goToForgotPassword">更新密碼</button>
+      </div>
+      <div class="form-container">
+        <form @submit.prevent="submitForm" class="form">
+          <div class="form-group">
+            <label for="name">姓名</label>
+            <input id="name" v-model="name" type="text" required>
+          </div>
+          <div class="form-group">
+            <label for="email">e-mail</label>
+            <input id="email" v-model="email" type="email" required>
+          </div>
+          <button type="submit" class="confirm-button" @click="submitForm">確認</button>
+        </form>
+      </div>
     </main>
   </div>
 </template>
@@ -104,7 +107,7 @@ export default {
     },
     // 新增的跳轉到ForgotPassword.vue的方法
     goToForgotPassword() {
-      this.$router.push({path:"/login/forgotpassword"});
+      this.$router.push({ path: "/login/forgotpassword" });
     }
   }
 };
@@ -113,16 +116,16 @@ export default {
 <style scoped lang="scss">
 .TeacherAccountManagement {
   text-align: center; /* 文字置中 */
-  font-family: Arial, sans-serif; 
-  height: 100vh; 
+  font-family: Arial, sans-serif;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
 
   .header {
     background-color: #87CEEB; /* 背景顏色 */
-    padding: 3%; 
-    display: flex; 
+    padding: 3%;
+    display: flex;
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
     color: white; /* 文字顏色 */
@@ -139,26 +142,32 @@ export default {
       gap: 20px;
 
       .current-interface {
-        position: relative; 
-        font-size: 30px; 
+        position: relative;
+        font-size: 30px;
         font-weight: bold;
-        color: white; 
+        color: white;
+      }
+
+      .logout-link {
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
       }
 
       .current-interface::after {
         content: "";
-        position: absolute; 
+        position: absolute;
         bottom: -5px;
         left: 0;
         right: 0;
-        height: 2px; 
-        background-color: white; 
+        height: 2px;
+        background-color: white;
         animation: blink 1.5s infinite;
       }
     }
   }
-  
-  @keyframes blink { 
+
+  @keyframes blink {
     0%, 100% {
       opacity: 1;
     }
@@ -169,80 +178,86 @@ export default {
 
   .main-content {
     flex: 1;
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #D3D3D3;
     width: 100%;
     color: black;
 
-    .form {
-      display: flex; 
+    .sidebar {
+      display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 20px;
-      align-items: flex-start;
+      margin-right: 20px;
+    }
+
+    .sidebar-button {
+      width: 150px;
+      padding: 15px 30px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .sidebar-button:hover {
+      background-color: #4cae4c;
+    }
+
+    .form-container {
       background-color: #F5F5F5;
       padding: 5%;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
       font-size: 24px;
-      width: 60%;
+      width: 300px;
     }
 
     .form-group {
-      display: flex; 
-      justify-content: flex-start;
-      width: 100%; 
-      align-items: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
 
       label {
         font-weight: bold;
-        margin-right: 20px;
+        margin-bottom: 10px;
         white-space: nowrap;
-        flex: 0 0 100px;
-        text-align: right;
       }
 
       input {
         width: 100%;
-        padding: 20px;
+        padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 20px;
-        flex: 1;
       }
     }
 
-    .form-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px; /* 按鈕間距 */
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .submit-button, .password-button {
+    .confirm-button {
+      align-self: center;
       padding: 15px 30px;
+      background-color: #0275d8;
+      color: white;
       border: none;
       border-radius: 4px;
-      color: white;
       cursor: pointer;
       font-size: 20px;
+      margin-top: 20px;
     }
 
-    .submit-button {
-      background-color: #5cb85c;
-    }
-
-    .submit-button:hover {
-      background-color: #4cae4c;
-    }
-
-    .password-button {
-      background-color: #0275d8;
-    }
-
-    .password-button:hover {
+    .confirm-button:hover {
       background-color: #025aa5;
     }
   }

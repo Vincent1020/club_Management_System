@@ -7,7 +7,7 @@
         
         <nav class="nav">
           <!-- 當前頁面指示 -->
-          <span class="current-interface">學生介面-社團介紹</span>
+          <span class="current-interface">社團介紹</span>
         </nav>
       </header>
   
@@ -173,6 +173,7 @@
   
       .nav {
         display: flex;
+     
         gap: 20px; /* 元素間距 */
   
         a {
@@ -187,6 +188,7 @@
   
         .current-interface {
           position: relative; 
+          right: 6vw;
           font-size: 30px; 
           font-weight: bold;
           color: white; 
