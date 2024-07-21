@@ -83,13 +83,13 @@ export default {
     return {
       // 用於儲存所有可選擇的社團數據
       clubs: [],
-      // 用於儲存用戶選擇的社團，初始化為空字符串
+      // 用於儲存用戶選擇的社團，初始化為空
       choices: {
-        firstChoice: '',
-        secondChoice: '',
-        thirdChoice: '',
-        fourthChoice: '',
-        fifthChoice: ''
+        firstChoice: null,
+        secondChoice: null,
+        thirdChoice: null,
+        fourthChoice: null,
+        fifthChoice: null
       },
       // 用於儲存學生資訊
       student: {
