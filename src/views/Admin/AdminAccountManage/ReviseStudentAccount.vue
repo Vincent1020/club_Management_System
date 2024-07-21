@@ -150,18 +150,7 @@ function submit() {
                     <div class="identity">
                         <h2>學號</h2>
                         <input type="text" v-model="identity" placeholder="請輸入學號">
-                    </div>
-
-                    <div class="pwd">
-                        <h2>密碼</h2>
-                        <input type="password" v-model="pwd" placeholder="請輸入密碼">
-                    </div>
-
-                    <div class="pwd2">
-                        <h2>再次輸入密碼</h2>
-                        <input type="password" v-model="pwd2" placeholder="請再次輸入密碼">
-                    </div>
-
+                    </div>            
                     <div class="email">
                         <h2>E-mail</h2>
                         <input type="text" v-model="email" placeholder="請輸入信箱">
@@ -218,19 +207,20 @@ body {
 
     .information {
         width: 50vw;
-        height: 85vh;
+        height: 70vh;
+        margin-top: 7vh;
         margin-left: 15vw;
         border-radius: 1em;
         background-color: rgba(240, 247, 250, 0.863);
 
         h2 {
-            margin-top: 1.5vh;
+            margin-top: 3vh;
             margin-bottom: 1vh;
         }
 
         .area2 {
-            padding-top: 1vh;
-            padding-left: 5vw;
+            padding-top: 2vh;
+               padding-left: 5vw;
 
             h1 {
                 margin-left: 13vw;
@@ -249,11 +239,11 @@ body {
     }
 
     select {
-        font-size: 18px;
+        font-size: 1.3em;
     }
 
     option {
-        font-size: 17px;
+        font-size: 0.9em;
     }
 
     span {
@@ -265,8 +255,9 @@ body {
     button {
         width: 7vw;
         height: 4vh;
+        margin-top: 3vh;
         margin-left: 33vw;
-        font-size: 18px;
+        font-size: 1.3em;
 
         &:hover {
             cursor: pointer;

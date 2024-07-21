@@ -60,6 +60,7 @@ const loginRequest = () => {
             console.log(data) 
             if(data.statusCode==404){
                 errmsg.value = ("帳號或密碼錯誤")
+                return
             }
             else if(data.statusCode==200 && loginType.value=="student"){
                 router.push({path:'/StudentHome'})
@@ -126,9 +127,9 @@ const loginRequest = () => {
             <!-- 功能選項 -->
             <div class="function">
 
-                <input type="button" onclick="location.href='/login/verify'" value="ForgotPassword">
+                <input type="button" onclick="location.href='/login/verify'" value="忘記密碼">
 
-                <input type="button" @click="loginRequest" value="Login">
+                <input type="button" @click="loginRequest" value="登入">
 
                 <!-- 暫放 完成後移除 -->
                 <a href="/login/forgotpassword">Forgotpassword</a>
@@ -150,7 +151,7 @@ body {
     width: 40vw;
     height: 50vh;
     background-color: white;
-
+    border-radius: 0.7em;
     position: fixed;
     top: 25%;
     left: 30%;
@@ -165,6 +166,7 @@ body {
         justify-content: space-around;
 
         label {
+           
             width: 50%;
             height: 12vh;
             border: 1px solid rgb(105, 105, 105);
@@ -185,7 +187,7 @@ body {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 28px;
+                font-size: 1.8em;
                 // margin: 0 5px 10px 0;
                 // padding: 5px 10px;
                 background: #f7f7f7;
@@ -243,7 +245,7 @@ body {
             height: 6vh;
             width: 12vw;
             margin-right: 3%;
-            font-size: 20px;
+            font-size: 1.7em;
             border-radius: 10px;
 
             &:hover {

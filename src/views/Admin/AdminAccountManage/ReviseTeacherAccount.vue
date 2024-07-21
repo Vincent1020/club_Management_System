@@ -6,8 +6,7 @@ import { useRouter } from 'vue-router';
 let router = useRouter()
 
 let name = ref("")
-let pwd = ref("")
-let pwd2 = ref("")
+
 let email = ref("")
 let status = ref("")
 let errmsg = ref("")
@@ -49,7 +48,7 @@ onMounted(() => {
                 // 其他資訊
                 type.value = accountarr.value[0].type
                 clubId.value = accountarr.value[0].clubId
-    
+
             }
 
         })
@@ -70,7 +69,7 @@ function submit() {
         errmsg.value = ("姓名請輸入文字")
         return
     }
-   
+
     else if (email.value == "" || !email.value.includes("@")) {
         errmsg.value = ("請輸入有效的電子信箱")
         return
@@ -79,21 +78,16 @@ function submit() {
         errmsg.value = ("請選擇狀態")
         return
     }
+    reviseAccount = {
+        teacher_id: identity.value,
+        name: name.value,
+        email: email.value,
+        status: status.value,
+        club_id: clubId.value,
+        type: type.value,
 
-    if (pwd.value > 0 && pwd.value != pwd2.value) {
-        errmsg.value = ("密碼不一致")
-        return
     }
-        reviseAccount = {
-            teacher_id: identity.value,
-            name: name.value,         
-            email: email.value,
-            status: status.value,
-            club_id: clubId.value,
-            type: type.value,
-          
-        }
-        console.log(reviseAccount)
+    console.log(reviseAccount)
     fetch("http://localhost:8080/teacherDatabase/createOrUpdate", {
         method: "POST",
         headers: {
@@ -145,16 +139,6 @@ function submit() {
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入老師姓名">
                     </div>
-                    <div class="pwd">
-                        <h2>密碼</h2>
-                        <input type="password" v-model="pwd" placeholder="請輸入密碼">
-                    </div>
-
-                    <div class="pwd2">
-                        <h2>再次輸入密碼</h2>
-                        <input type="password" v-model="pwd2" placeholder="請再次輸入密碼">
-                    </div>
-
                     <div class="email">
                         <h2>E-mail</h2>
                         <input type="text" v-model="email" placeholder="請輸入信箱">
@@ -220,19 +204,19 @@ body {
 
     .information {
         width: 50vw;
-        height: 70vh;
+        height: 60vh;
         margin-left: 15vw;
         margin-top: 7vh;
         border-radius: 1em;
         background-color: rgba(240, 247, 250, 0.863);
 
         h2 {
-            margin-top: 1.5vh;
+            margin-top: 3vh;
             margin-bottom: 1vh;
         }
 
         .area2 {
-            padding-top: 1vh;
+            padding-top:4vh;
             padding-left: 5vw;
 
             h1 {
@@ -252,11 +236,12 @@ body {
     }
 
     select {
-        font-size: 18px;
+        font-size: 1.3em;
     }
 
     option {
-        font-size: 17px;
+      
+        font-size: 0.9em;
     }
 
     span {
@@ -268,6 +253,7 @@ body {
     button {
         width: 7vw;
         height: 4vh;
+        margin-top: 5vh;
         margin-left: 33vw;
         font-size: 18px;
 

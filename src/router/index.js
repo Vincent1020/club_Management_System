@@ -129,11 +129,11 @@ const router = createRouter({
       name:'ReviseClub',
       component: () => import('../views/Admin/ClubManage/ReviseClub.vue') 
     },
-      // 期程排定
+      // 社團抽籤
    {
-    path:'/adminhomepage/schedule',
+    path:'/adminhomepage/draw',
     name:'Schedule',
-    component: () => import('../views/Admin/ClubManage/Schedule.vue') 
+    component: () => import('../views/Admin/ClubManage/Draw.vue') 
   }
  
     

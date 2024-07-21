@@ -83,7 +83,7 @@ function arrowRotate2() {
                 <ul class="content menu2">
                     <li style="--delay:1"><a href="/adminhomepage/searchclub">社團查詢</a></li>
                     <li style="--delay:2"><a href="/adminhomepage/createclub">創建社團</a></li>
-                    <li style="--delay:3"><a href="/adminhomepage/schedule">期程&抽籤</a></li>
+                    <li style="--delay:3"><a href="/adminhomepage/draw">社團抽籤</a></li>
             
 
                 </ul>
