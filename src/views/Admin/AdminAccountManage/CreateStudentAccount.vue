@@ -5,8 +5,8 @@ import {ref} from 'vue'
 
     let name = ref("")
     let identity =ref()
-    let pwd = ref("")
-    let pwd2 = ref("")
+    let pwd = "123"
+ 
     let email  = ref("")
     let status = ref("")
 
@@ -14,17 +14,15 @@ import {ref} from 'vue'
 
     let accountarr = ref([])
     let teacherAccount = ref({
-        name: name,
+        name: name.value,
         pwd: pwd,
-        email: email,
-        status: status
+        email: email.value,
+        status: status.value
     })
 
     let clearForm = ()=>{
         name.value = ""
         identity.value = ""
-        pwd.value = ""
-        pwd2.value = ""
         email.value = ""
         status.value = ""
       

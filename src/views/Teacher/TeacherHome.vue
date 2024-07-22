@@ -265,7 +265,7 @@ export default {
         學號: row.studentId,
         班級: row.grade,
         姓名: row.name,
-        在學狀態: row.status
+ 
       }));
 
       const workbook = XLSX.utils.book_new();

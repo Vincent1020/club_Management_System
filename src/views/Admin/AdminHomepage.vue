@@ -321,6 +321,7 @@ body {
             width: 3vw;
             height: 6vh;
             margin-top: -2vh;
+            cursor: pointer;
 
         }
 
