@@ -4,8 +4,9 @@
     <header class="header">
       <!-- 首頁連結和圖標 -->
       <h1>
-        <router-link to="TeacherHome">
-          <img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">首頁
+        <a href="/teacherhome">首頁</a>
+        <router-link to="teacherhome">
+          <img src="https://cdn-icons-png.flaticon.com/512/869/869189.png" alt="">
         </router-link>
       </h1>
       <!-- 導航欄 -->
@@ -28,12 +29,12 @@
             <input type="text" v-model="searchQuery" placeholder="搜尋學生">
             <img class="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             <select v-model="selectedSemester">
-              <option value="">請選擇</option>
-              <option v-for="semester in semesters" :key="semester" :value="semester">{{ semester }}</option>
+              <option value="">114-1學年度</option>
+           
             </select>
           </div>
           <!-- 場地租借按鈕 -->
-          <button @click="openModal" class="rent">租借項目</button>
+         <a href="/teacherhome/teacherrent"> <button  class="rent">租借項目</button></a>
           <!-- 導出 Excel 按鈕 -->
           <button @click="exportToExcel" class="export-button">導出Excel</button>
         </div>
@@ -65,30 +66,6 @@
         </tbody>
       </table>
 
-      <!-- 租借項目彈跳視窗 -->
-      <div v-if="isModalOpen" class="modal">
-        <div class="modal-content">
-          <span @click="closeModal" class="close">&times;</span>
-          <table class="styled-table">
-            <thead>
-              <tr>
-                <th>租借項目</th>
-                <th>使用者</th>
-                <th>租借</th>
-                <th>退租</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in rentalItems" :key="item.id">
-                <td>{{ item.name }}</td>
-                <td><input type="text" v-model="item.user"></td>
-                <td><button @click="rentItem(item.id, item.user)">租借</button></td>
-                <td><button @click="returnItem(item.id)">退租</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </main>
   </div>
 </template>
@@ -156,100 +133,17 @@ export default {
         this.tableData = data.studentList || [];
         this.teacherName = data.teacherName || '';
         this.clubName = data.clubName || '';
+        sessionStorage.setItem("teacherName",this.teacherName);
+        sessionStorage.setItem("clubName",this.clubName);
+      
+        console.log(sessionStorage.getItem("teacherName"));
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
     },
 
-    // 獲取租借項目數據
-    async fetchRentalItems() {
-      try {
-        const response = await fetch('http://localhost:8080/Venue/search', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id: '' })
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('租借項目 API 返回的資料：', data);
-
-        this.rentalItems = data.map(item => ({
-          id: item.id,
-          name: item.name,
-          user: ''
-        }));
-      } catch (error) {
-        console.error(`無法獲取租借項目數據：${error.message}`);
-      }
-    },
-
-    // 開啟彈跳視窗
-    openModal() {
-      this.isModalOpen = true;
-      this.fetchRentalItems();
-    },
-
-    // 關閉彈跳視窗
-    closeModal() {
-      this.isModalOpen = false;
-    },
-
-    // 租借項目
-    async rentItem(id, user) {
-      if (!user) {
-        alert('請輸入使用者名稱');
-        return;
-      }
-
-      try {
-        const response = await fetch('http://localhost:8080/Venue/createOrUpdate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id, user })
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
-        }
-
-        const data = await response.json();
-        alert('租借成功');
-        console.log('租借成功：', data);
-      } catch (error) {
-        console.error(`租借失敗：${error.message}`);
-      }
-    },
-
-    // 退租項目
-    async returnItem(id) {
-      try {
-        const response = await fetch('http://localhost:8080/Venue/createOrUpdate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id, user: '' })
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
-        }
-
-        const data = await response.json();
-        alert('退租成功');
-        console.log('退租成功：', data);
-      } catch (error) {
-        console.error(`退租失敗：${error.message}`);
-      }
-    },
+    
+  
 
     // 刪除選中的學生
     deleteSelected() {
@@ -265,7 +159,7 @@ export default {
         學號: row.studentId,
         班級: row.grade,
         姓名: row.name,
- 
+        在學狀態: row.status
       }));
 
       const workbook = XLSX.utils.book_new();
@@ -399,10 +293,12 @@ export default {
       &:hover {
         background-color: #45a049;
       }
+      
     }
 
     .rent {
       padding: 10px 20px;
+      margin-right: 2vw;
       background-color: #ffa500;
       color: white;
       border: none;
