@@ -16,12 +16,8 @@
     <!-- 主內容區域 -->
     <main class="main-content">
       <div class="sidebar">
-        <el-menu
-          default-active="1"
-          class="el-menu-vertical-demo textword"
-          background-color="#fcf5f5"
-          text-color="#fff"
-          active-text-color="#051dfa"> 
+        <el-menu default-active="1" class="el-menu-vertical-demo textword" background-color="#fcf5f5" text-color="#fff"
+          active-text-color="#051dfa">
           <!-- 上方文字黃色 -->
           <el-menu-item class="word" index="1" style="font-size:29px">
             <i class="el-icon-edit"></i>
@@ -37,11 +33,11 @@
         <form @submit.prevent="submitForm" class="form">
           <div class="form-group">
             <label for="name">姓名</label>
-            <input id="name" v-model="name" type="text" required>
+            <input id="name" v-model="name" type="text" required placeholder="請輸入姓名">
           </div>
           <div class="form-group">
             <label for="email">e-mail</label>
-            <input id="email" v-model="email" type="email" required>
+            <input id="email" v-model="email" type="email" required placeholder="請輸入電子郵件">
           </div>
           <button type="submit" class="confirm-button">提交修改</button>
         </form>
@@ -81,7 +77,7 @@ export default {
         student_id: this.student_id,
         name: this.name,
         email: this.email,
-        
+
       };
 
       // 打印請求數據以進行調試
@@ -121,7 +117,8 @@ export default {
 
 <style scoped lang="scss">
 .TeacherAccountManagement {
-  text-align: center; /* 文字置中 */
+  text-align: center;
+  /* 文字置中 */
   font-family: Arial, sans-serif;
   height: 100vh;
   width: 100%;
@@ -129,12 +126,16 @@ export default {
   flex-direction: column;
 
   .header {
-    background-color: #87CEEB; /* 背景顏色 */
-     padding: 20px;
+    background-color: #87CEEB;
+    /* 背景顏色 */
+    padding: 20px;
     display: flex;
-    justify-content: space-between; /* 兩端對齊 */
-    align-items: center; /* 垂直置中 */
-    color: white; /* 文字顏色 */
+    justify-content: space-between;
+    /* 兩端對齊 */
+    align-items: center;
+    /* 垂直置中 */
+    color: white;
+    /* 文字顏色 */
 
     img {
       width: 4vw;
@@ -144,7 +145,8 @@ export default {
     }
 
     .nav {
-      display: flex; /* 使用 flex 布局 */
+      display: flex;
+      /* 使用 flex 布局 */
       gap: 20px;
 
       .current-interface {
@@ -168,9 +170,12 @@ export default {
   }
 
   @keyframes blink {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.5;
     }
@@ -179,32 +184,44 @@ export default {
   .main-content {
     flex: 1;
     display: flex;
-    justify-content: center; /* 主內容居中 */
-    align-items: flex-start; /* 垂直對齊 */
-    background-color: #D3D3D3;/* 灰色背景 */
+    justify-content: center;
+    /* 主內容居中 */
+    align-items: flex-start;
+    /* 垂直對齊 */
+    background-color: #D3D3D3;
+    /* 灰色背景 */
     width: 100%;
     color: black;
     padding-top: 2%;
 
     .sidebar {
-      background-color:rgba(174, 189, 204, 0.3);
+      background-color: rgba(174, 189, 204, 0.3);
       padding: 0px 0px 0px 0px; // 依序為 上右下左
-      font-size: 24px; /* 字體放大 */
+      font-size: 24px;
+      /* 字體放大 */
       height: calc(100vh - 100px);
-      margin-top:46px; /* 頂部沒有距離 */
-      margin-left: 0; /* 左邊沒有距離 */
-      position: fixed; /* 固定位置 */
-      top: 10%; /* 頂部距離 */
-      left: 0; /* 左邊距離 */
-      .textword{
+      margin-top: 46px;
+      /* 頂部沒有距離 */
+      margin-left: 0;
+      /* 左邊沒有距離 */
+      position: fixed;
+      /* 固定位置 */
+      top: 10%;
+      /* 頂部距離 */
+      left: 0;
+
+      /* 左邊距離 */
+      .textword {
         display: flex;
         flex-direction: column;
         align-content: center;
         background-color: #b0b9c000;
-        .word{
+
+        .word {
           color: #050505;
         }
-        .word2{
+
+        .word2 {
           color: #050505;
         }
       }
@@ -215,19 +232,25 @@ export default {
       padding: 5% 10% 10% 10%;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 60%;
-      margin-left: 20%; /* 左邊距離 */
+      width: 55%;
+      height: 60vh;
+      margin-top: 5vh;
+      margin-left: 15vw;
+      /* 左邊距離 */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 置中內容 */
+      justify-content: center;
+      /* 置中內容 */
     }
 
     .form {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      align-items: center; /* 置中內容 */
+      align-items: center;
+      /* 置中內容 */
       font-size: 24px;
+      margin-top: 7vh;
       width: 100%;
     }
 
@@ -235,9 +258,12 @@ export default {
       display: flex;
       flex-direction: row;
       width: 100%;
-      justify-content: center; /* 置中內容 */
-     
-     
+      margin-top: 6vh;
+
+      justify-content: center;
+      /* 置中內容 */
+
+
 
       label {
         font-weight: bold;
@@ -254,12 +280,13 @@ export default {
         font-size: 20px;
         flex: 1;
 
-    
-        
+
+
       }
     }
 
-    .confirm-button {/*按鈕樣式 */
+    .confirm-button {
+      /*按鈕樣式 */
       align-self: center;
       padding: 15px 30px;
       background-color: #0275d8;
@@ -271,7 +298,8 @@ export default {
       margin-top: 40px;
     }
 
-    .confirm-button:hover {/*按鈕樣式 */
+    .confirm-button:hover {
+      /*按鈕樣式 */
       background-color: #025aa5;
     }
   }

@@ -37,11 +37,11 @@
         <form @submit.prevent="submitForm" class="form">
           <div class="form-group">
             <label for="name">姓名</label>
-            <input id="name" v-model="name" type="text" required>
+            <input id="name" v-model="name" type="text" required placeholder="請輸入姓名">
           </div>
           <div class="form-group">
             <label for="email">e-mail</label>
-            <input id="email" v-model="email" type="email" required>
+            <input id="email" v-model="email" type="email" required placeholder="請輸入電子郵件">
           </div>
           <button type="submit" class="confirm-button">提交修改</button>
         </form>
@@ -222,19 +222,23 @@ export default {
       padding: 5% 10% 10% 10%;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 60%;
-      margin-left: 20%; /* 左邊距離 */
+      width: 55%;
+      height: 60vh;
+      margin-top: 5vh;
+      margin-left: 15vw;
+      /* 左邊距離 */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 置中內容 */
+      justify-content: center;
+      /* 置中內容 */
     }
-
     .form {
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: center; /* 置中內容 */
       font-size: 24px;
+      margin-top: 7vh;
       width: 100%;
     }
 
@@ -242,6 +246,7 @@ export default {
       display: flex;
       flex-direction: row;
       width: 100%;
+      margin-top: 6vh;
       justify-content: center; /* 置中內容 */
      
      
