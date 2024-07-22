@@ -126,7 +126,7 @@ function setpage(page) {
 
             <div class="function">
                 <!-- 新增按鈕 -->
-                <a class="add" href="/adminhomepage/revisestudentaccount"><img
+                <a class="add" href="/adminhomepage/createstudentaccount"><img
                         src="https://cdn-icons-png.flaticon.com/512/2377/2377839.png" alt=""></a>
 
                 <!-- 畢業學生 -->

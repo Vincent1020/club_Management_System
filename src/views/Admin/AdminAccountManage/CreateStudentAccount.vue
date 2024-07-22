@@ -6,29 +6,34 @@ import {ref} from 'vue'
     let name = ref("")
     let identity =ref()
     let pwd = "123"
- 
+ let semester = ref("")
     let email  = ref("")
     let status = ref("")
 
     let errmsg = ref("")
 
     let accountarr = ref([])
-    let teacherAccount = ref({
-        name: name.value,
-        pwd: pwd,
-        email: email.value,
-        status: status.value
-    })
+    let teacherAccount = { }
 
     let clearForm = ()=>{
         name.value = ""
+        
         identity.value = ""
         email.value = ""
         status.value = ""
       
     }
     function submit(){
-       
+     teacherAccount = {
+        name: name.value,
+        semester:semester.value,
+        pwd: pwd,
+        email: email.value,
+        status: status.value
+    }
+
+
+
         if(name.value == "" ){
             errmsg.value = ("請輸入姓名")
             return

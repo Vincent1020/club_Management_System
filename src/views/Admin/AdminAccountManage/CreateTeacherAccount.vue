@@ -116,7 +116,7 @@
                             <select v-model="status">
                                 <option value="">請選擇</option>
                                 <option value="未到職">未到職</option>
-                                <option value="在職">在職</option>
+                                <option value="在職中">在職</option>
                             </select>
                             <span>{{ errmsg }}</span>
                         </div>
