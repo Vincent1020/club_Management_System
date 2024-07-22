@@ -248,6 +248,7 @@ export default {
   .styled-table tbody tr {
     border-bottom: 1px solid #dddddd;
     background-color: #ffffff; /* 設置行背景為白色 */
+    color: black;
   }
 
   .styled-table tbody tr:nth-of-type(even) {
