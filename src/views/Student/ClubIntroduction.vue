@@ -27,7 +27,7 @@
                 <div style="padding: 10px;">
                   <span>{{ card.name }}</span>
                   <div class="bottom clearfix">
-                    <span>目前參加人數: {{ card.attendees }}人</span>
+                   
                     <el-button type="text" class="button" @click="scrollToClub(card.name)">瞭解更多</el-button>
                   </div>
                   <!-- 社團介紹 -->
@@ -64,7 +64,7 @@
             <p>社團費用: {{ club.pay }}</p>
             <p>上課地點: {{ club.classroom }}</p>
             <p>社團人數上限: {{ club.max }}人</p>
-            <p>目前參加人數: {{ club.attendees }}人</p>
+            
           </div>
         </div>
       </section>
@@ -98,7 +98,7 @@ export default {
           '戲劇社':'https://emars.com.tw/zenphoto/cache/-/pic-and-text/-5------A4-14-01_595.jpg?cached=1568726813',
           '電影社':'https://emars.com.tw/zenphoto/cache/-/-2/-286-1026----_595.jpg?cached=1560416863',
           '童軍社':'https://png.pngtree.com/png-vector/20240423/ourmid/pngtree-scouts-of-thailand-png-image_12307043.png',
-          '游泳社':'https://png.pngtree.com/png-clipart/20210308/original/pngtree-childrens-swimming-training-original-hand-drawn-cartoon-png-image_5764504.jpg',
+          '游泳社':'https://i.pinimg.com/originals/a2/56/a6/a256a69962d30d4afa92d27b91525b8c.jpg',
           '熱舞社':'https://club.mcu.edu.tw/fdcty/sites/fdcty/files/u11/VIDEO/Images/images6/14th/970518_607417732633254_1731583931_n.jpg',
           '環保社':'https://pic.616pic.com/ys_bnew_img/00/34/18/Q0lL7MLbPK.jpg',
           '漫研社A': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpHcfYOYecnSh_wF5IAam2r8BeKHH9nXeryg&s',
