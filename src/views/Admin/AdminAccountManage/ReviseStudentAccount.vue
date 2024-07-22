@@ -7,8 +7,6 @@ let router = useRouter()
 
 let name = ref("")
 let identity = ref(0)
-let pwd = ref("")
-let pwd2 = ref("")
 let email = ref("")
 let status = ref("")
 

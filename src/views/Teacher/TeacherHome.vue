@@ -110,7 +110,7 @@ export default {
       searchQuery: '', // 儲存搜尋關鍵字
       selected: [], // 儲存選中的學生 ID
       selectedSemester: '', // 儲存選中的學期
-      semesters: ['114-1學年度', '114-2學年度'], // 假設學年度選項
+      semesters: ['114-1學年度'], // 假設學年度選項
       teacherName: '', // 儲存老師姓名
       clubName: '', // 儲存社團名稱
       isModalOpen: false, // 控制彈跳視窗顯示
