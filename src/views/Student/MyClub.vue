@@ -149,12 +149,19 @@ export default {
   flex-direction: column;
 
   .header {
+<<<<<<< HEAD
+    background-color: #87CEEB; /* 背景颜色 */
+    padding: 3%; /* 内边距 */
+    display: flex;
+    justify-content: space-between; /* 两端对齐 */
+=======
     background-color: #87CEEB; /* 背景顏色 */
     padding: 3%; /* 內邊距 */
     display: flex;
     justify-content: space-between; /* 兩端對齊 */
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
     align-items: center; /* 垂直置中 */
-    color: white; /* 文字顏色 */
+    color: white; /* 文字颜色 */
 
     img {
       width: 4vw;
@@ -165,34 +172,48 @@ export default {
 
     .nav {
       display: flex;
-      gap: 20px; /* 元素間距 */
+      gap: 20px; /* 元素间距 */
 
       a {
-        color: white; /* 連結文字顏色 */
-        text-decoration: none; /* 去除下劃線 */
-        font-size: 30px; /* 字體大小 */
+        color: white; /* 连接文字颜色 */
+        text-decoration: none; /* 去除下划线 */
+        font-size: 30px; /* 字体大小 */
 
         &:hover {
-          text-decoration: underline; /* 懸停效果 */
+          text-decoration: underline; /* 悬停效果 */
         }
       }
 
       .current-interface {
         position: relative;
         font-size: 30px;
+<<<<<<< HEAD
+        font-weight: bold; /* 字体加粗 */
+=======
         font-weight: bold; /* 字體加粗 */
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
         color: white;
       }
 
       .current-interface::after {
+<<<<<<< HEAD
+        content: ""; /* 内容为空 */
+        position: absolute;
+        bottom: -5px; /* 底部距离 */
+=======
         content: ""; /* 內容為空 */
         position: absolute;
         bottom: -5px; /* 底部距離 */
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
         left: 0;
         right: 0;
         height: 2px;
         background-color: white;
+<<<<<<< HEAD
+        animation: blink 1.5s infinite; /* 应用 blink 动画 */
+=======
         animation: blink 1.5s infinite; /* 應用 blink 動畫 */
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
       }
     }
   }
@@ -219,11 +240,19 @@ export default {
 
   .table-container {
     background-color: white; /* 背景色為白色 */
+<<<<<<< HEAD
+    padding: 120px;
+    border-radius: 10px;
+    // box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 90%; /* 調整寬度 */
+    height: 90%;
+=======
     padding: 100px;
     
     // box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     width: 100%; /* 調整寬度 */
     height: 100%;
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
   }
 
   .styled-table {
@@ -231,8 +260,12 @@ export default {
     margin: 25px 0;
     font-size: 18px;
     min-width: 100%;
+<<<<<<< HEAD
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+=======
    
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
   }
 
   .styled-table th, .styled-table td {
@@ -247,8 +280,12 @@ export default {
 
   .styled-table tbody tr {
     border-bottom: 1px solid #dddddd;
+<<<<<<< HEAD
+    background-color: #ffffff; /* 设置行背景为白色 */
+=======
     background-color: #ffffff; /* 設置行背景為白色 */
     color: black;
+>>>>>>> 3208154d4e5d06c24f29f17b03b1d2419dcae80d
   }
 
   .styled-table tbody tr:nth-of-type(even) {

@@ -23,9 +23,9 @@
         <!-- 第一志願 -->
         <div class="form-group">
           <label for="first-choice">第一志願</label>
-          <select id="first-choice" v-model="this.choices.firstChoice">
+          <select id="first-choice" v-model="choices.firstChoice">
             <option value="">選擇志願一</option>
-            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+            <option v-for="option in filteredClubs('firstChoice')" :key="option.clubId" :value="option.clubId">
               {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
@@ -33,9 +33,9 @@
         <!-- 第二志願 -->
         <div class="form-group">
           <label for="second-choice">第二志願</label>
-          <select id="second-choice" v-model="this.choices.secondChoice">
+          <select id="second-choice" v-model="choices.secondChoice">
             <option value="">選擇志願二</option>
-            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+            <option v-for="option in filteredClubs('secondChoice')" :key="option.clubId" :value="option.clubId">
               {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
@@ -43,9 +43,9 @@
         <!-- 第三志願 -->
         <div class="form-group">
           <label for="third-choice">第三志願</label>
-          <select id="third-choice" v-model="this.choices.thirdChoice">
+          <select id="third-choice" v-model="choices.thirdChoice">
             <option value="">選擇志願三</option>
-            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+            <option v-for="option in filteredClubs('thirdChoice')" :key="option.clubId" :value="option.clubId">
               {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
@@ -55,7 +55,7 @@
           <label for="fourth-choice">第四志願</label>
           <select id="fourth-choice" v-model="choices.fourthChoice">
             <option value="">選擇志願四</option>
-            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+            <option v-for="option in filteredClubs('fourthChoice')" :key="option.clubId" :value="option.clubId">
               {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
@@ -65,7 +65,7 @@
           <label for="fifth-choice">第五志願</label>
           <select id="fifth-choice" v-model="choices.fifthChoice">
             <option value="">選擇志願五</option>
-            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+            <option v-for="option in filteredClubs('fifthChoice')" :key="option.clubId" :value="option.clubId">
               {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
@@ -144,6 +144,12 @@ export default {
       } catch (error) {
         console.error('獲取學生資訊時出錯:', error);
       }
+    },
+    // 過濾社團，避免重複選擇
+    filteredClubs(choiceKey) {
+      return this.clubs.filter(club => {
+        return !Object.keys(this.choices).some(key => this.choices[key] === club.clubId && key !== choiceKey);
+      });
     },
     // 提交表單
     submitForm() {
