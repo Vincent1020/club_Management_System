@@ -139,7 +139,7 @@ function setpage(page) {
                     <input type="checkbox" v-model="searchAll" @change="searchall" value="false">
                 </div>
                 <!-- 搜尋按鈕 -->
-                <input type="text" placeholder="搜尋學生名稱">
+                <input type="text" v-model="name" placeholder="搜尋學生名稱">
                 <img class="search" @click="search" src="https://cdn-icons-png.flaticon.com/512/954/954591.png" alt="">
             </div>
 

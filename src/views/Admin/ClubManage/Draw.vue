@@ -3,7 +3,7 @@ import adminHeader from '@/components/adminHeader.vue'
 import { ref, computed, onUnmounted } from 'vue'
 
 let draw = ref(false)
-
+let msg = ref("")
 
 //進度條
 const progress = ref(0)
@@ -18,8 +18,6 @@ let intervalId
 
 let handleDraw = () => {
     draw.value = true
-
-
     // 進度條參數
     const duration = 23000 // 23 seconds
     const interval = 50 // Update every 50ms
@@ -38,17 +36,15 @@ let handleDraw = () => {
         if (intervalId) clearInterval(intervalId)
     })
 
-
-
     // 抽籤fetch
 
-    let startdraw = {}
+ 
     fetch("http://localhost:8080/Club/random", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(startdraw)
+        body: JSON.stringify({})
     })
         .then(res => res.json())
         .then(data => {
@@ -59,11 +55,30 @@ let handleDraw = () => {
             }
         }).catch(err => {
             console.log(err)
-            errmsg.value = ("發生錯誤")
+            msg.value = ("發生錯誤")
         })
 }
+let resetclub = () => {
 
+fetch("http://localhost:8080/Club/resetClubId", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({})
+})
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if (data.statusCode == 200) {
+            msg.value = "社團抽籤重設完成"
+        }
+    }).catch(err => {
+        console.log(err)
+        msg.value = ("發生錯誤")
+    })
 
+}
 
 </script>
 
@@ -82,8 +97,11 @@ let handleDraw = () => {
 
         <div class="area">
             <div class="draw">
-                <button v-if="draw == false" @click=handleDraw>本學期社團抽籤</button>
 
+                <input v-if="draw == false" type="text" placeholder="  請輸入本學期 ex.114-1">
+                <button v-if="draw == false" @click=handleDraw>本學期社團抽籤</button>
+                <button v-if="draw == false" @click=resetclub>重設本學期社團抽籤</button>
+                <h1  v-if="draw == false">{{ msg }}</h1>
                 <div v-else-if="draw == true" class="drawing">
                     <div class="progress-ring">
                         <svg class="circle" width="200" height="200">
@@ -137,61 +155,78 @@ body {
     color: black;
     display: flex;
     flex-direction: column;
-
     align-items: center;
 
-    button {
-       
-        width: 20vw;
-        height: 10vh;
-        margin-top: 20vh;
-        margin-left: 5vw;
-        font-size: 30px;
-        border-radius: 1em;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        background-color: rgb(133, 173, 247);
-        &:hover {
-            background-color: rgb(108, 156, 219);
+    .draw {
+        display: flex;
+        flex-direction: column;
+
+        button {
+
+            width: 20vw;
+            height: 10vh;
+            margin-top: 8vh;
+            margin-left: 5vw;
+            font-size: 30px;
+            border-radius: 1em;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            background-color: rgb(133, 173, 247);
+
+            &:hover {
+                background-color: rgb(108, 156, 219);
+            }
+
         }
 
-    }
-.drawing{
-    width: 30vw;
-    height: 40vw;
-    margin-top: 10vh;
-    margin-left: 17vw;
-    .progress-ring {
-        position: relative;
-        width: 200px;
-        height: 200px;
+        input[type="text"] {
+            width: 18vw;
+            height: 5vh;
+            margin-top: 15vh;
+            margin-left: 6vw;
+            border-radius: 1em;
+            font-size: 1em;
 
-        .circle {
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
         }
 
-        .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2em;
-            font-weight: bold;
-            color: #333;
+        .drawing {
+            width: 30vw;
+            height: 40vw;
+            margin-top: 10vh;
+            margin-left: 17vw;
+
+            .progress-ring {
+                position: relative;
+                width: 200px;
+                height: 200px;
+
+                .circle {
+                    transform: rotate(-90deg);
+                    transform-origin: 50% 50%;
+                }
+
+                .text {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 2em;
+                    font-weight: bold;
+                    color: #333;
+                }
+
+            }
+
+            .subtext {
+                margin-top: 10vh;
+                margin-left: 10.5vw;
+                transform: translate(-50%, -50%);
+                font-size: 2em;
+                font-weight: bold;
+                color: #333;
+            }
         }
-
     }
-
-    .subtext {
-        margin-top: 10vh;
-        margin-left: 10.5vw;
-        transform: translate(-50%, -50%);
-        font-size: 2em;
-        font-weight: bold;
-        color: #333;
-    }
-}
 }
 </style>
