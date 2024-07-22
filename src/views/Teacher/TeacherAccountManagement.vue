@@ -18,15 +18,16 @@
       <div class="sidebar">
         <el-menu
           default-active="1"
-          class="el-menu-vertical-demo"
-          background-color="#2d2d2d"
+          class="el-menu-vertical-demo textword"
+          background-color="#fcf5f5"
           text-color="#fff"
-          active-text-color="#ffd04b">
-          <el-menu-item index="1" style="font-size: 24px;">
+          active-text-color="#051dfa"> 
+          <!-- 上方文字黃色 -->
+          <el-menu-item class="word" index="1" style="font-size:29px">
             <i class="el-icon-edit"></i>
-            <span slot="title">提交修改</span>
+            <span slot="title">更新帳號</span>
           </el-menu-item>
-          <el-menu-item index="2" @click="goToForgotPassword" style="font-size: 24px;">
+          <el-menu-item class="word2" index="2" @click="goToForgotPassword" style="font-size: 29px;">
             <i class="el-icon-lock"></i>
             <span slot="title">更新密碼</span>
           </el-menu-item>
@@ -42,7 +43,7 @@
             <label for="email">e-mail</label>
             <input id="email" v-model="email" type="email" required>
           </div>
-          <button type="submit" class="confirm-button">確認</button>
+          <button type="submit" class="confirm-button">提交修改</button>
         </form>
       </div>
     </main>
@@ -136,7 +137,7 @@ export default {
 
   .header {
     background-color: #87CEEB; /* 背景顏色 */
-    padding: 3%;
+     padding: 20px;
     display: flex;
     justify-content: space-between; /* 兩端對齊 */
     align-items: center; /* 垂直置中 */
@@ -193,17 +194,27 @@ export default {
     padding-top: 2%;
 
     .sidebar {
-      background-color: #2d2d2d;
-      padding: 10px 60px 10px 60px; // 依序為 上右下左
-    
-      color: white;
+      background-color:rgba(174, 189, 204, 0.3);
+      padding: 0px 0px 0px 0px; // 依序為 上右下左
       font-size: 24px; /* 字體放大 */
-      height: calc(100vh - 150px);
-      margin-top: 6.4%; /* 頂部沒有距離 */
+      height: calc(100vh - 100px);
+      margin-top:46px; /* 頂部沒有距離 */
       margin-left: 0; /* 左邊沒有距離 */
       position: fixed; /* 固定位置 */
       top: 10%; /* 頂部距離 */
       left: 0; /* 左邊距離 */
+      .textword{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        background-color: #b0b9c000;
+        .word{
+          color: #050505;
+        }
+        .word2{
+          color: #050505;
+        }
+      }
     }
 
     .form-container {
@@ -233,6 +244,7 @@ export default {
       width: 100%;
       justify-content: center; /* 置中內容 */
      
+     
 
       label {
         font-weight: bold;
@@ -248,12 +260,13 @@ export default {
         border-radius: 4px;
         font-size: 20px;
         flex: 1;
+
     
         
       }
     }
 
-    .confirm-button {
+    .confirm-button {/*按鈕樣式 */
       align-self: center;
       padding: 15px 30px;
       background-color: #0275d8;
@@ -265,7 +278,7 @@ export default {
       margin-top: 40px;
     }
 
-    .confirm-button:hover {
+    .confirm-button:hover {/*按鈕樣式 */
       background-color: #025aa5;
     }
   }
