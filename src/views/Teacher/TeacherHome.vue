@@ -32,6 +32,8 @@
               <option v-for="semester in semesters" :key="semester" :value="semester">{{ semester }}</option>
             </select>
           </div>
+          <!-- 場地租借按鈕 -->
+          <button @click="openModal" class="rent">租借項目</button>
           <!-- 導出 Excel 按鈕 -->
           <button @click="exportToExcel" class="export-button">導出Excel</button>
         </div>
@@ -62,6 +64,31 @@
           </tr>
         </tbody>
       </table>
+
+      <!-- 租借項目彈跳視窗 -->
+      <div v-if="isModalOpen" class="modal">
+        <div class="modal-content">
+          <span @click="closeModal" class="close">&times;</span>
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>租借項目</th>
+                <th>使用者</th>
+                <th>租借</th>
+                <th>退租</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in rentalItems" :key="item.id">
+                <td>{{ item.name }}</td>
+                <td><input type="text" v-model="item.user"></td>
+                <td><button @click="rentItem(item.id, item.user)">租借</button></td>
+                <td><button @click="returnItem(item.id)">退租</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -83,9 +110,11 @@ export default {
       searchQuery: '', // 儲存搜尋關鍵字
       selected: [], // 儲存選中的學生 ID
       selectedSemester: '', // 儲存選中的學期
-      semesters: ['114-1學年度', '114-2學年度'], // 假設學年度選項
+      semesters: ['114-1學年度'], // 假設學年度選項
       teacherName: '', // 儲存老師姓名
-      clubName: '' // 儲存社團名稱
+      clubName: '', // 儲存社團名稱
+      isModalOpen: false, // 控制彈跳視窗顯示
+      rentalItems: [] // 租借項目列表
     };
   },
 
@@ -129,6 +158,96 @@ export default {
         this.clubName = data.clubName || '';
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
+      }
+    },
+
+    // 獲取租借項目數據
+    async fetchRentalItems() {
+      try {
+        const response = await fetch('http://localhost:8080/Venue/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: '' })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('租借項目 API 返回的資料：', data);
+
+        this.rentalItems = data.map(item => ({
+          id: item.id,
+          name: item.name,
+          user: ''
+        }));
+      } catch (error) {
+        console.error(`無法獲取租借項目數據：${error.message}`);
+      }
+    },
+
+    // 開啟彈跳視窗
+    openModal() {
+      this.isModalOpen = true;
+      this.fetchRentalItems();
+    },
+
+    // 關閉彈跳視窗
+    closeModal() {
+      this.isModalOpen = false;
+    },
+
+    // 租借項目
+    async rentItem(id, user) {
+      if (!user) {
+        alert('請輸入使用者名稱');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8080/Venue/createOrUpdate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id, user })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
+
+        const data = await response.json();
+        alert('租借成功');
+        console.log('租借成功：', data);
+      } catch (error) {
+        console.error(`租借失敗：${error.message}`);
+      }
+    },
+
+    // 退租項目
+    async returnItem(id) {
+      try {
+        const response = await fetch('http://localhost:8080/Venue/createOrUpdate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id, user: '' })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤！狀態碼：${response.status}`);
+        }
+
+        const data = await response.json();
+        alert('退租成功');
+        console.log('退租成功：', data);
+      } catch (error) {
+        console.error(`退租失敗：${error.message}`);
       }
     },
 
@@ -176,7 +295,7 @@ export default {
   // 組件創建時調用，獲取表格數據
   created() {
     this.fetchTableData();
-  },
+  }
 };
 </script>
 
@@ -184,7 +303,7 @@ export default {
 .teacher-home {
   text-align: center;
   font-family: Arial, sans-serif;
-  height: 100vh; 
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -211,7 +330,7 @@ export default {
       .info {
         font-size: 24px;
         font-weight: bold;
-        color: #ffffff; 
+        color: #ffffff;
       }
 
       a {
@@ -231,6 +350,9 @@ export default {
     padding: 20px;
     background-color: #F5F5F5;
     color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .function {
@@ -278,12 +400,26 @@ export default {
         background-color: #45a049;
       }
     }
+
+    .rent {
+      padding: 10px 20px;
+      background-color: #ffa500;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        background-color: #ff8c00;
+      }
+    }
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: rgb(218, 247, 247);
+    background-color: #ffffff; /* 背景顏色設為白色 */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -317,6 +453,74 @@ export default {
     cursor: pointer;
     width: 20px;
     height: 20px;
+  }
+
+  /* 新增的 modal 彈跳視窗樣式 */
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .styled-table th, .styled-table td {
+    padding: 12px;
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .styled-table th {
+    background-color: #6be2fa;
+  }
+
+  .styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .styled-table tbody tr:hover {
+    background-color: #f1f1f1;
   }
 }
 </style>
