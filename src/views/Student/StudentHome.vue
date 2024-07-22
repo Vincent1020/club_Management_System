@@ -157,7 +157,7 @@ export default {
     justify-content: center; /* 設水平居中 */
     align-items: center; /* 垂直居中 */
     gap: 8%; /* 調整元素間距 */
-    background-color: #ececec; 
+    background-color: #e2e2e2; 
     width: 100%;
 
     .option {
