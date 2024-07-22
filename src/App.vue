@@ -13,11 +13,11 @@ let router = useRouter()
 <template>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home&nbsp;&nbsp;&nbsp;</RouterLink>
-        <RouterLink to="/StudentHome">StudentHome學生首頁&nbsp;&nbsp;&nbsp;</RouterLink>
-        <RouterLink to="/adminhomepage">adminHomepage&nbsp;&nbsp;&nbsp;</RouterLink>
-        <RouterLink to="/login">login&nbsp;&nbsp;&nbsp;</RouterLink>
-        <RouterLink to="/teacherHome">teacherHome</RouterLink>
+          <RouterLink to="/">Home&nbsp;&nbsp;&nbsp;</RouterLink>
+          <RouterLink to="/StudentHome">StudentHome學生首頁&nbsp;&nbsp;&nbsp;</RouterLink>
+          <RouterLink to="/adminhomepage">adminHomepage&nbsp;&nbsp;&nbsp;</RouterLink>
+          <RouterLink to="/login">login&nbsp;&nbsp;&nbsp;</RouterLink>
+          <RouterLink to="/teacherHome">teacherHome</RouterLink>
 
       </nav>
     </div>

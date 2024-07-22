@@ -14,6 +14,8 @@
         <router-link class="a" to="/StudentAccountManagement">帳號管理</router-link>
         <!-- 當前頁面指示 -->
         <!-- <span class="current-interface">學生介面</span> -->
+         <!-- 登出連結 -->
+        <router-link to="Login" class="logout"  @click="logout">登出</router-link>
       </nav>
     </header>
 
@@ -69,6 +71,9 @@ export default {
       } catch (error) {
         console.error(`無法獲取數據：${error.message}`);
       }
+    },
+    logout() {
+      sessionStorage.clear();
     }
   },
   created() {
@@ -110,6 +115,12 @@ export default {
         font-weight: bold;
         color: white;
       }
+      .logout{
+  font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+}
+   
 
       .a {
         color: white; /* 連結文字顏色 */
