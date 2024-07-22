@@ -10,15 +10,27 @@
       <nav class="nav">
         <!-- 當前頁面指示 -->
         <span class="current-interface">老師介面-帳號管理</span>
-        <router-link to="Login" class="logout-link">登出</router-link>
       </nav>
     </header>
 
     <!-- 主內容區域 -->
     <main class="main-content">
       <div class="sidebar">
-        <button class="sidebar-button">提交修改</button>
-        <button class="sidebar-button" @click="goToForgotPassword">更新密碼</button>
+        <el-menu
+          default-active="1"
+          class="el-menu-vertical-demo"
+          background-color="#2d2d2d"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+          <el-menu-item index="1" style="font-size: 24px;">
+            <i class="el-icon-edit"></i>
+            <span slot="title">提交修改</span>
+          </el-menu-item>
+          <el-menu-item index="2" @click="goToForgotPassword" style="font-size: 24px;">
+            <i class="el-icon-lock"></i>
+            <span slot="title">更新密碼</span>
+          </el-menu-item>
+        </el-menu>
       </div>
       <div class="form-container">
         <form @submit.prevent="submitForm" class="form">
@@ -30,7 +42,7 @@
             <label for="email">e-mail</label>
             <input id="email" v-model="email" type="email" required>
           </div>
-          <button type="submit" class="confirm-button" @click="submitForm">確認</button>
+          <button type="submit" class="confirm-button">確認</button>
         </form>
       </div>
     </main>
@@ -56,14 +68,14 @@ export default {
     if (account) {
       this.teacher_id = JSON.parse(account); // 將獲取到的 teacher_id 設置到 data 中
     } else {
-      console.error('教師ID未找到，請重新登录'); // 如果未找到 teacher_id，輸出錯誤信息
+      console.error('教師ID未找到，請重登'); // 如果未找到 teacher_id，輸出錯誤信息
     }
   },
   methods: {
     submitForm() {
       // 確保 teacher_id 已從 sessionStorage 獲取到
       if (!this.teacher_id) {
-        alert('教師ID未找到，請重新登录');
+        alert('教師ID未找到，請重登');
         return;
       }
 
@@ -148,12 +160,6 @@ export default {
         color: white;
       }
 
-      .logout-link {
-        font-size: 20px;
-        color: white;
-        text-decoration: none;
-      }
-
       .current-interface::after {
         content: "";
         position: absolute;
@@ -179,61 +185,60 @@ export default {
   .main-content {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #D3D3D3;
+    justify-content: center; /* 主內容居中 */
+    align-items: flex-start; /* 垂直對齊 */
+    background-color: #D3D3D3;/* 灰色背景 */
     width: 100%;
     color: black;
+    padding-top: 2%;
 
     .sidebar {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      margin-right: 20px;
-    }
-
-    .sidebar-button {
-      width: 150px;
-      padding: 15px 30px;
-      background-color: #5cb85c;
+      background-color: #2d2d2d;
+      padding: 10px 60px 10px 60px; // 依序為 上右下左
+    
       color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 20px;
-      text-align: center;
-    }
-
-    .sidebar-button:hover {
-      background-color: #4cae4c;
+      font-size: 24px; /* 字體放大 */
+      height: calc(100vh - 150px);
+      margin-top: 6.4%; /* 頂部沒有距離 */
+      margin-left: 0; /* 左邊沒有距離 */
+      position: fixed; /* 固定位置 */
+      top: 10%; /* 頂部距離 */
+      left: 0; /* 左邊距離 */
     }
 
     .form-container {
       background-color: #F5F5F5;
-      padding: 5%;
+      padding: 5% 10% 10% 10%;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      margin-left: 20%; /* 左邊距離 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 置中內容 */
     }
 
     .form {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      align-items: flex-start;
+      align-items: center; /* 置中內容 */
       font-size: 24px;
-      width: 300px;
+      width: 100%;
     }
 
     .form-group {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       width: 100%;
+      justify-content: center; /* 置中內容 */
+     
 
       label {
         font-weight: bold;
         margin-bottom: 10px;
         white-space: nowrap;
+        width: 100px;
       }
 
       input {
@@ -242,6 +247,9 @@ export default {
         border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 20px;
+        flex: 1;
+    
+        
       }
     }
 
@@ -254,7 +262,7 @@ export default {
       border-radius: 4px;
       cursor: pointer;
       font-size: 20px;
-      margin-top: 20px;
+      margin-top: 40px;
     }
 
     .confirm-button:hover {

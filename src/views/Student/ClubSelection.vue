@@ -23,30 +23,30 @@
         <!-- 第一志願 -->
         <div class="form-group">
           <label for="first-choice">第一志願</label>
-          <select id="first-choice" v-model="choices.firstChoice">
+          <select id="first-choice" v-model="this.choices.firstChoice">
             <option value="">選擇志願一</option>
-            <option v-for="option in clubs" :key="option.club_id" :value="option.club_id">
-              {{ option.club_id }} - {{ option.name }}
+            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+              {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
         </div>
         <!-- 第二志願 -->
         <div class="form-group">
           <label for="second-choice">第二志願</label>
-          <select id="second-choice" v-model="choices.secondChoice">
+          <select id="second-choice" v-model="this.choices.secondChoice">
             <option value="">選擇志願二</option>
-            <option v-for="option in clubs" :key="option.club_id" :value="option.club_id">
-              {{ option.club_id }} - {{ option.name }}
+            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+              {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
         </div>
         <!-- 第三志願 -->
         <div class="form-group">
           <label for="third-choice">第三志願</label>
-          <select id="third-choice" v-model="choices.thirdChoice">
+          <select id="third-choice" v-model="this.choices.thirdChoice">
             <option value="">選擇志願三</option>
-            <option v-for="option in clubs" :key="option.club_id" :value="option.club_id">
-              {{ option.club_id }} - {{ option.name }}
+            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+              {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
         </div>
@@ -55,8 +55,8 @@
           <label for="fourth-choice">第四志願</label>
           <select id="fourth-choice" v-model="choices.fourthChoice">
             <option value="">選擇志願四</option>
-            <option v-for="option in clubs" :key="option.club_id" :value="option.club_id">
-              {{ option.club_id }} - {{ option.name }}
+            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+              {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
         </div>
@@ -65,8 +65,8 @@
           <label for="fifth-choice">第五志願</label>
           <select id="fifth-choice" v-model="choices.fifthChoice">
             <option value="">選擇志願五</option>
-            <option v-for="option in clubs" :key="option.club_id" :value="option.club_id">
-              {{ option.club_id }} - {{ option.name }}
+            <option v-for="option in clubs" :key="option.clubId" :value="option.clubId">
+              {{ option.clubId }} - {{ option.name }}
             </option>
           </select>
         </div>
@@ -85,11 +85,11 @@ export default {
       clubs: [],
       // 用於儲存用戶選擇的社團，初始化為空
       choices: {
-        firstChoice: null,
-        secondChoice: null,
-        thirdChoice: null,
-        fourthChoice: null,
-        fifthChoice: null
+        firstChoice: '',
+        secondChoice: '',
+        thirdChoice: '',
+        fourthChoice: '',
+        fifthChoice: ''
       },
       // 用於儲存學生資訊
       student: {
@@ -113,6 +113,8 @@ export default {
         const data = await response.json();
         // 將獲取到的社團數據賦值給 clubs 變量
         this.clubs = data.clubList || [];
+        console.log(data);
+        console.log(this.clubs);
       } catch (error) {
         console.error('Error fetching clubs:', error);
       }
@@ -153,21 +155,23 @@ export default {
         this.choices.fourthChoice,
         this.choices.fifthChoice
       ];
-      
+
       const student_id = sessionStorage.getItem('account');
       if (!student_id) {
         alert('無法獲取學生ID');
         return;
       }
 
+      let jsonString = JSON.stringify(selectedClubs);
+
       // 組裝提交的數據，帶入student_id、name、email、choice_list
       const payload = {
         student_id: Number(student_id),
         name: this.student.name,
         email: this.student.email,
-        choice_list: selectedClubs
+        choice_list: jsonString
       };
-
+      
       console.log('Payload:', payload); // 打印 payload 檢查數據格式，印出來就是array有問題
 
       // 發送 POST 請求到後端
@@ -178,19 +182,19 @@ export default {
         },
         body: JSON.stringify(payload)
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('網路響應不正常');
-        }
-        return response.json();
-      })
-      .then(data => {
-        alert('提交成功！您的選擇是：' + JSON.stringify(selectedClubs));
-      })
-      .catch(error => {
-        console.error('提交表單時發生錯誤:', error);
-        alert('提交失敗：' + error.message);
-      });
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('網路響應不正常');
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert('提交成功！您的選擇是：' + JSON.stringify(selectedClubs));
+        })
+        .catch(error => {
+          console.error('提交表單時發生錯誤:', error);
+          alert('提交失敗：' + error.message);
+        });
     }
   },
   // 組件創建時調用，獲取社團和學生資訊
@@ -203,20 +207,24 @@ export default {
 
 <style scoped lang="scss">
 .club-selection {
-  text-align: center; /* 文字置中 */
-  font-family: Arial, sans-serif; /* 字體 */
+  text-align: center;
+  /* 文字置中 */
+  font-family: Arial, sans-serif;
+  /* 字體 */
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
 
   .header {
-    background-color: #87CEEB; 
+    background-color: #87CEEB;
     padding: 3%;
     display: flex;
-    justify-content: space-between; /* 平均分配寬度，第一項和最後一項貼齊邊緣*/
-    align-items: center; 
-    color: white; /* 文字顏色 */
+    justify-content: space-between;
+    /* 平均分配寬度，第一項和最後一項貼齊邊緣*/
+    align-items: center;
+    color: white;
+    /* 文字顏色 */
 
     img {
       width: 4vw;
@@ -226,16 +234,18 @@ export default {
     }
 
     .nav {
-      display: flex; 
+      display: flex;
       gap: 20px;
 
       a {
-        color: white; 
-        text-decoration: none; /* 去除下劃線 */
-        font-size: 30px; 
+        color: white;
+        text-decoration: none;
+        /* 去除下劃線 */
+        font-size: 30px;
 
         &:hover {
-          text-decoration: underline; /* 懸停效果 */
+          text-decoration: underline;
+          /* 懸停效果 */
         }
       }
 
@@ -260,15 +270,18 @@ export default {
   }
 
   @keyframes blink {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.5;
     }
   }
 
- /*  -----------以上是藍色導覽列部分，以下是主內容區域-----------------*/
+  /*  -----------以上是藍色導覽列部分，以下是主內容區域-----------------*/
   .main-content {
     flex: 1;
     display: flex;
@@ -295,12 +308,14 @@ export default {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      align-items: center; /* 確保 label 和 select 在同一行 */
+      align-items: center;
+      /* 確保 label 和 select 在同一行 */
 
       label {
         font-weight: bold;
         margin-right: 20px;
-        white-space: nowrap; /* 確保 label 不會換行 */
+        white-space: nowrap;
+        /* 確保 label 不會換行 */
       }
 
       select {
