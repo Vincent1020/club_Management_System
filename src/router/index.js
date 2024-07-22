@@ -40,10 +40,17 @@ const router = createRouter({
       component: () => import('../views/Login/Verify.vue')
     },
     {
-      path: '/TeacherHome',//老師首頁
+      path: '/teacherhome',//老師首頁
       name: 'TeacherHome',
       component: () => import('../views/Teacher/TeacherHome.vue')
     },
+    {
+      path: '/teacherhome/teacherrent',//老師借用
+      name: 'TeacherRent',
+      component: () => import('../views/Teacher//TeacherRent.vue')
+    },
+    
+
     {
       path: '/ClubIntroduction',//社團介紹
       name: 'ClubIntroduction',

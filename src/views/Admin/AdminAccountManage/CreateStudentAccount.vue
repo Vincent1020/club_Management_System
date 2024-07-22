@@ -1,84 +1,89 @@
 <script setup>
 import adminHeader from '@/components/adminHeader.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 
-    let name = ref("")
-    let identity =ref()
-    let pwd = "123"
- let semester = ref("")
-    let email  = ref("")
-    let status = ref("")
+let name = ref("")
+let identity = ref()
+let pwd = "123"
+let semester = ref("")
+let email = ref("")
+let status = ref("")
+let grade = ref("")
+let errmsg = ref("")
+let choice_list = ""
 
-    let errmsg = ref("")
+let accountarr = ref([])
+let teacherAccount = {}
 
-    let accountarr = ref([])
-    let teacherAccount = { }
+let clearForm = () => {
+    name.value = ""
+    semester.value = ""
+    identity.value = ""
+    email.value = ""
+    status.value = ""
+    grade.value = ""
 
-    let clearForm = ()=>{
-        name.value = ""
-        
-        identity.value = ""
-        email.value = ""
-        status.value = ""
-      
-    }
-    function submit(){
-     teacherAccount = {
+}
+function submit() {
+    teacherAccount = {
+        student_id: identity.value,
         name: name.value,
-        semester:semester.value,
+        semester: semester.value,
+        grade: grade.value,
         pwd: pwd,
         email: email.value,
-        status: status.value
+        status: status.value,
+        choice_list: choice_list
     }
 
+console.log(teacherAccount);
 
-
-        if(name.value == "" ){
-            errmsg.value = ("請輸入姓名")
-            return
-        }
-        else if(isNaN(identity.value)){
-            errmsg.value = ("請輸入正確學號")
-            return
-        }
-        else if(!isNaN(name.value )){
-            errmsg.value = ("請輸入文字")
-            return
-        }     
-        else if(email.value == "" || !email.value.includes("@")){
-            errmsg.value = ("請輸入有效的電子信箱")
-            return
-        }
-        else if (status.value == ""){
-            errmsg.value = ("請選擇狀態")
-            return
-        }
-        console.log(teacherAccount.value) 
-        fetch("http://localhost:8080/student/createOrUpdate", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(teacherAccount)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    accountarr.value = data.quizList
-                    console.log(accountarr.value);
-                    errmsg.value = ("新增成功")
-               
-                    clearForm()
-                 
-                })
-                .catch(err => { 
-                    console.log(err) 
-                    errmsg.value = ("新增失敗")
-                })
-
-
+    if (name.value == "") {
+        errmsg.value = ("請輸入姓名")
+        return
     }
+    else if (isNaN(identity.value)) {
+        errmsg.value = ("請輸入正確學號")
+        return
+    }
+    else if (!isNaN(name.value)) {
+        errmsg.value = ("請輸入文字")
+        return
+    }
+    else if (email.value == "" || !email.value.includes("@")) {
+        errmsg.value = ("請輸入有效的電子信箱")
+        return
+    }
+    else if (status.value == "") {
+        errmsg.value = ("請選擇狀態")
+        return
+    }
+    console.log(teacherAccount.value)
+    fetch("http://localhost:8080/student/createOrUpdate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(teacherAccount)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            accountarr.value = data.quizList
+            console.log(accountarr.value);
+            errmsg.value = ("新增成功")
+
+            clearForm()
+
+        })
+        .catch(err => {
+            console.log(err)
+            errmsg.value = ("新增失敗")
+        })
+
+
+}
 </script>
 
 <template>
@@ -101,6 +106,17 @@ import {ref} from 'vue'
                         <h2>姓名</h2>
                         <input type="text" v-model="name" placeholder="請輸入學生姓名">
                     </div>
+                    <div class="semesterGrade">
+                        <div class="semester">
+                        <h2>學年度</h2>
+                        <input type="text" v-model="semester" placeholder="請輸入學年度">
+                    </div>
+                    <div class="grade">
+                        <h2>班級</h2>
+                        <input type="text" v-model="grade" placeholder="請輸入學年度">
+                    </div>
+                    </div>
+               
                     <div class="identity">
                         <h2>學號</h2>
                         <input type="text" v-model="identity" placeholder="請輸入學號">
@@ -115,8 +131,8 @@ import {ref} from 'vue'
                             <option value="">請選擇</option>
                             <option value="入學中">入學中</option>
                             <option value="在學中">在學</option>
-                         </select>
-                         <span>{{ errmsg }}</span>
+                        </select>
+                        <span>{{ errmsg }}</span>
                     </div>
                     <button @click="submit">提交</button>
                 </div>
@@ -132,6 +148,7 @@ import {ref} from 'vue'
 body {
     background-color: #fff;
 }
+
 .breadcrumb {
     width: 30vw;
     position: absolute;
@@ -139,18 +156,20 @@ body {
     left: 15vw;
     top: 5vh;
 
-    ul{
+    ul {
         display: flex;
         list-style: none;
         font-size: 1.1em;
-        a{
+
+        a {
             text-decoration: none;
             color: rgb(51, 68, 161);
         }
     }
-   
+
 
 }
+
 .area {
     width: 84vw;
     height: 100vh;
@@ -158,63 +177,82 @@ body {
     margin-left: 16vw;
     color: black;
 
-    
-        .information {
-            width: 50vw;
-            height: 70vh;
-            margin-top: 7vh;
-            margin-left: 15vw;
-            border-radius: 1em;
-            background-color: rgba(240, 247, 250, 0.863);
-            h2{
-                margin-top: 3vh;
-                margin-bottom: 1vh;
-            }
-            .area2{
-               padding-top: 2vh;
-               padding-left: 5vw;
-               h1{
-                margin-left: 13vw;
-               }
-              
-            }
-        }
 
-        input {
-            font-size: 20px;
-            height: 5vh;
-            width: 30vw;
-            border: 1px solid #585858;
-            border-radius: 0.2em;
+    .information {
+        width: 50vw;
+        height: 80vh;
+        margin-top: 2vh;
+        margin-left: 15vw;
+        border-radius: 1em;
+        background-color: rgba(240, 247, 250, 0.863);
 
-        }
-
-        select {
-                font-size: 1.3em;
-            }
-
-            option {
-                font-size: 0.9em;
-            }
-        button{
-            width: 7vw;
-            height: 4vh; 
+        h2 {
             margin-top: 3vh;
-            margin-left: 33vw;
-            font-size: 1.3em;
-
-            &:hover{
-                cursor: pointer;
-            }
+            margin-bottom: 1vh;
         }
-        .state{
-                span{
-                    font-size: 1.3em;
-                    color: red;
-                    margin-left: 18vw;
-                    
-                }
+
+        .area2 {
+            padding-top: 1vh;
+            padding-left: 5vw;
+
+            h1 {
+                margin-left: 13vw;
             }
-    
+
+        }
+    }
+
+    input {
+        font-size: 20px;
+        height: 5vh;
+        width: 30vw;
+        border: 1px solid #585858;
+        border-radius: 0.2em;
+
+    }
+
+    select {
+        font-size: 1.3em;
+    }
+
+    option {
+        font-size: 0.9em;
+    }
+
+    button {
+        width: 7vw;
+        height: 4vh;
+        margin-top: 3vh;
+        margin-left: 33vw;
+        font-size: 1.3em;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .state {
+        span {
+            font-size: 1.3em;
+            color: red;
+            margin-left: 18vw;
+
+        }
+    }
+    .semesterGrade{
+        display: flex;
+        input {
+        font-size:1.2em;
+        height: 5vh;
+        width: 20vw;
+        }
+        .grade{
+            margin-left: 3vw;
+            input {
+                width: 15vw;
+                }
+        }
+    }
+
 }
 </style>

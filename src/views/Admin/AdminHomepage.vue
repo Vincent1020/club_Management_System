@@ -150,8 +150,7 @@ function addthing() {
                 <div class="borrow">
                     <div v-if="addsc == false" v-for="item in thing" class="card">
                         <h3>{{ item.id }}</h3>
-                        <h3 v-if="item.user.length > 0">使用者：{{ item.user }}</h3>
-                        <!-- <h3 v-if ="item.user.length > 0">使用中</h3> -->
+                        <h3 v-if="item.user.length > 0">使用者：{{ item.user }}</h3>                     
                     </div>
 
                     <div v-else class="addthing">
@@ -162,8 +161,7 @@ function addthing() {
                     </div>
                 </div>
                 <div class="function">
-                    <div class="addcs1">
-                        <!-- <img src="https://cdn-icons-png.flaticon.com/512/9904/9904153.png" alt=""> -->
+                    <div class="addcs1">                      
                         <img class="add" @click="addsc = true" src="https://cdn-icons-png.flaticon.com/512/9572/9572704.png"
                             alt="">
                     </div>
